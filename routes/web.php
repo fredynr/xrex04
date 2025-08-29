@@ -1,0 +1,32 @@
+<?php
+
+use App\Livewire\Settings\Appearance;
+use App\Livewire\Settings\Password;
+use App\Livewire\Settings\Profile;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientEstudioController;
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::get('prueba', function () {
+    return view('layouts/layout-tales');
+});
+
+Route::get('pdfView/{estudioId}', [PatientEstudioController::class, 'pdfView'])->name('pdfView');
+Route::get('downloadPdf/{estudioId}', [PatientEstudioController::class, 'downloadPdf'])->name('downloadPdf');
+
+Route::middleware(['auth'])->group(function () {
+    Route::redirect('settings', 'settings/profile');
+
+    Route::get('settings/profile', Profile::class)->name('settings.profile');
+    Route::get('settings/password', Password::class)->name('settings.password');
+    Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+});
+
+require __DIR__.'/auth.php';
