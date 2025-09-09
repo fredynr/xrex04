@@ -254,7 +254,7 @@
                                     <button wire:click="openDrawer({{ $study->id }})" @click="showDrawer = true"
                                         class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
                                         type="button">
-                                        <img src="{{ asset('images/drawer.svg') }}" alt="">
+                                        <img src="{{ asset('images/drawer.svg') }}" title="Realizar lectura">
                                     </button>
                                 </td>
                             </tr>

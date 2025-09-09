@@ -1,6 +1,6 @@
 <div>
     <div x-data="{ reading: @entangle('reading').live }" class="relative z-10"
-        @voiceTranscribed.window="reading = $event.detail; $nextTick(() => console.log('✅ Valor actualizado:', reading))">
+        @voiceTranscribed.window="reading = $event.detail; $nextTick(() => console.log('✅ Valor actualizado:'))">
         <div>
                 <div class="absolute inset-0 overflow-hidden">
                     <div class="fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -247,7 +247,7 @@
                                                                             </svg>
                                                                         </button>
                                                                         @if ($openChildId === $template->id)
-                                                                            <div wire:click="putTemplate('{{ $template->content }}')"
+                                                                            <div x-on:click="$wire.putTemplate(@js($template->content))"
                                                                                 class="text-stone-50 bg-slate-500 text-xs p-2 cursor-pointer">
                                                                                 <p> {{ $template->content }} </p>
                                                                             </div>
@@ -291,15 +291,30 @@
                                     <div class="mt-1">
                                         <form wire:submit.prevent="updatePatientEstudio">
                                             <div>
-                                                <textarea rows="4" id="transcript" x-model="reading"
+                                                <textarea rows="4" id="transcript" x-bind:value="reading"
                                                     class="p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
                                             </div>
                                             <button type="submit"
-                                                class="w-full cursor-pointer px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar
-                                                Lectura</button>
+                                                class="w-full cursor-pointer px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                Enviar Lectura
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
+                                {{-- <div class="col-span-4 row-span-2 col-start-2 row-start-1">
+                                    <div class="mt-1">
+                                        <form wire:submit.prevent="updatePatientEstudioTxt">
+                                            <div>
+                                                <textarea rows="4" wire:model="readingTxt"
+                                                    class="p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                            </div>
+                                            <button type="submit"
+                                                class="w-full cursor-pointer px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                finalizar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div> --}}
                             </div>
                             {{-- fin formulario --}}
                             {{-- Grabadora de voz --}}

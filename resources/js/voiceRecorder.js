@@ -139,7 +139,7 @@ document.addEventListener('startRecognition', () => {
         recognition.interimResults = true;
         recognition.lang = 'es-CO';
         recognition.start();
-
+        
         recognition.onstart = () => {
             isRecording = true;
             const startButton = document.getElementById('startButton');

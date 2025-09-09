@@ -28,7 +28,8 @@ class DrawerCreateTemplate extends Component
         try {
             Template::create([
                 'title' => $this->title,
-                'content' => $this->content,
+                // 'content' => $this->content,
+                'content'  => nl2br($this->content),
                 'user_id' => Auth::id()
             ]);
             $this->closeDrawer();

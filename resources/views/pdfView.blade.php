@@ -64,6 +64,7 @@
             position: relative;
             height: 25.6cm !important;
             box-shadow: 0px 2px 27px 1px #353535;
+            padding: 1cm;
         }
 
         main {
@@ -351,9 +352,7 @@
             {{ $estudio->study_name }}
         </div>
 
-        @foreach (preg_split('/\r\n|\r|\n/', $estudio->reading) as $linea)
-            <p class="{{ !$desdePdf ? 'description description_html' : 'description' }}">{{ $linea }}</p>
-        @endforeach
+        <div class="description">{!! nl2br(e($estudio->reading)) !!}</div>
 
     </main>
 

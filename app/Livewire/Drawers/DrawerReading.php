@@ -17,6 +17,7 @@ class DrawerReading extends Component
     public $estudioId;
     public $templates;
     public $reading;
+    // public $readingTxt;
     public $oldEstudios;
     public bool $openParent = false;
     public $openChildId = null;
@@ -79,6 +80,17 @@ class DrawerReading extends Component
         ]);
         $this->closeDrawer();
     }
+
+    // public function updatePatientEstudioTxt()
+    // {
+    //     $this->validate();
+    //     PatientEstudio::where('id', $this->estudioId)->update([
+    //         'reading' => $this->readingTxt,
+    //         'study_state' => 'Finalizado',
+    //         'specialist_user_id' => Auth::id()
+    //     ]);
+    //     $this->closeDrawer();
+    // }
 
 
     public function render()
