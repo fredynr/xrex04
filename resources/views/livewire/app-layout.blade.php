@@ -32,6 +32,10 @@
                     @livewire('views.view-approve')
                 @break
 
+                @case('views.view-prueba')
+                    @livewire('views.view-prueba')
+                @break
+
                 @default
                     <div class="p-4 text-gray-500">Vista no encontrada</div>
             @endswitch

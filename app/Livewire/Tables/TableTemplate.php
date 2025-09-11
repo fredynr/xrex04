@@ -52,7 +52,8 @@ class TableTemplate extends Component
         $this->editingId = $templateId;
         $template = Template::find($templateId);
         $this->editingTitle = $template->title;
-        $this->editingContent = $template->content;
+        // $this->editingContent = $template->content;
+        $this->editingContent = str_replace('<br />', "\n", $template->content);
     }
 
     public function cancelEditing()
@@ -67,7 +68,8 @@ class TableTemplate extends Component
         $template = Template::find($templateId);
         $template->update([
             'title' => $this->editingTitle,
-            'content' => $this->editingContent,
+            // 'content' => $this->editingContent,
+            'content' => nl2br($this->editingContent),
         ]);
         $this->editingId = null;
         session()->flash('message', 'Template actualizado correctamente.');

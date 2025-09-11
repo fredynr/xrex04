@@ -11,6 +11,7 @@ class AppLayout extends Component
     public function navigateTo($view)
     {
         $this->currentView = $view;
+        $this->dispatch('resetPagination');
     }
 
     public function render()

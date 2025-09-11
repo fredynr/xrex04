@@ -58,14 +58,13 @@
                                     <button type="submit" wire:loading.disabled
                                         class="w-full mt-3 cursor-pointer px-3 py-2 text-xs font-medium text-center text-blue-700 rounded-lg bg-blue-800/20 hover:bg-blue-800 hover:text-stone-50 outline-1 outline-offset-2 ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         <span wire:loading.remove>Enviar Estudio</span>
-                                        <div wire:loading wire:loading.delay
-                                            class="flex items-center justify-center">
-                                            <svg class="animate-spin h-3 w-3 text-blue-600 fill-blue-800/20" viewBox="0 0 100 100"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none">
+                                        <div wire:loading wire:loading.delay class="flex items-center justify-center">
+                                            <svg class="animate-spin h-3 w-3 text-blue-600 fill-blue-800/20"
+                                                viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
                                                 <circle cx="50" cy="50" r="45" stroke="currentColor"
                                                     stroke-width="10" opacity="0.2" />
-                                                <path d="M50 5a45 45 0 0 1 0 90" stroke="currentColor"
-                                                    stroke-width="10" stroke-linecap="round" />
+                                                <path d="M50 5a45 45 0 0 1 0 90" stroke="currentColor" stroke-width="10"
+                                                    stroke-linecap="round" />
                                             </svg>
                                         </div>
                                     </button>

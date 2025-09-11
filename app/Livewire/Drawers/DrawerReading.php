@@ -17,10 +17,14 @@ class DrawerReading extends Component
     public $estudioId;
     public $templates;
     public $reading;
-    // public $readingTxt;
     public $oldEstudios;
     public bool $openParent = false;
     public $openChildId = null;
+
+    public function mount($estudioId)
+    {
+        $this->estudioId = $estudioId;
+    }
 
     protected $rules = [
         'reading' => 'required'
@@ -29,7 +33,7 @@ class DrawerReading extends Component
     public function closeDrawer()
     {
         $this->reading = null;
-        $this->dispatch('close-drawer');
+        $this->dispatch('close-drawer-reading');
         $this->dispatch('resetRecognition');
     }
 
@@ -49,7 +53,8 @@ class DrawerReading extends Component
 
     public function putTemplate($templateContent)
     {
-        $this->reading = $templateContent;
+        $clean = str_replace(["\r\n", "\r", "\n"], '', $templateContent);
+        $this->reading = str_replace('<br />', "\n", $clean);
         $this->toggleParent();
     }
 
@@ -80,18 +85,6 @@ class DrawerReading extends Component
         ]);
         $this->closeDrawer();
     }
-
-    // public function updatePatientEstudioTxt()
-    // {
-    //     $this->validate();
-    //     PatientEstudio::where('id', $this->estudioId)->update([
-    //         'reading' => $this->readingTxt,
-    //         'study_state' => 'Finalizado',
-    //         'specialist_user_id' => Auth::id()
-    //     ]);
-    //     $this->closeDrawer();
-    // }
-
 
     public function render()
     {

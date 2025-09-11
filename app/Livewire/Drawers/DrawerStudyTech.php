@@ -46,6 +46,7 @@ class DrawerStudyTech extends Component
     }
     public function closeDrawer()
     {
+        // lo escucha TablePendingsToDo
         $this->dispatch('close-drawer-study-tech');
     }
 

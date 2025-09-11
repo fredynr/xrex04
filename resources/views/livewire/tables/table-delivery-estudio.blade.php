@@ -121,7 +121,7 @@
                     <td class="px-2 whitespace-nowrap">
                         {{ $estudio->study_state }}
                     </td>
-                    <td class="flex items-center h-10 px-2 whitespace-nowrap">
+                    <td class="flex items-center h-10 px-2">
                         <a href="{{ route('pdfView', $estudio->id) }}" class="cursor-pointer mr-2" target="_blank"><img
                                 src="{{ asset('images/file-pdf.svg') }}" title="descargar PDF">
                         </a>

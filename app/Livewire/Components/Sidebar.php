@@ -23,26 +23,31 @@ class Sidebar extends Component
             [
                 'label' => 'Módulo, toma de estudios',
                 'navigate'  => 'views.view-technologist',
-                'icon'  => 'images/cardMed.svg',
+                'icon'  => 'images/scan.svg',
             ],
             [
                 'label' => 'Admin, plantillas',
                 'navigate'  => 'tables.table-template',
-                'icon'  => 'images/scan.svg',
+                'icon'  => 'images/template.svg',
             ],
             [
                 'label' => 'Entrega de estudios',
                 'navigate'  => 'tables.table-delivery-estudio',
-                'icon'  => 'images/template.svg',
+                'icon'  => 'images/handPackage.svg',
             ],
             [
                 'label' => 'Módulo, Transcribir',
                 'navigate'  => 'views.view-transcriber',
-                'icon'  => 'images/handPackage.svg',
+                'icon'  => 'images/keyboard.svg',
             ],
             [
                 'label' => 'Aprovar Transcripción',
                 'navigate'  => 'views.view-approve',
+                'icon'  => 'images/cardMed.svg',
+            ],
+            [
+                'label' => 'prueba',
+                'navigate'  => 'views.view-prueba',
                 'icon'  => 'images/keyboard.svg',
             ],
         ];

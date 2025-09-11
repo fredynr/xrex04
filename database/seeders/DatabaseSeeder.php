@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
       ]);
 
 
-      // Patient::factory(35)->create();
+      Patient::factory(35)->create();
 
       //EPS
       DB::table('eps_senders')->insert([
@@ -173,7 +173,7 @@ class DatabaseSeeder extends Seeder
          'departure_place_id' => 2,
          'exam_state' => 'Solicitado'
       ]);
-      // Exam::factory(16)->create();
+      Exam::factory(16)->create();
 
 
 
@@ -212,6 +212,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
 
-      // PatientEstudio::factory(50)->create();
+      PatientEstudio::factory(50)->create();
    }
 }

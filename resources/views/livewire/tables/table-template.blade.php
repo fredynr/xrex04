@@ -121,11 +121,12 @@
                         @if ($editingId === $template->id)
                             <textarea wire:model="editingContent" cols="60" rows="5" class="px-1 text-xs"></textarea>
                         @else
-                            {{ $template->content }}
+                            {{-- {{ $template->content }} --}}
+                            {{ str_replace('<br />', "\n", $template->content) }}
                         @endif
                     </td>
                     <td class="px-5 whitespace-nowrap">{{ $template->created_at }}</td>
-                    <td class="px-5 whitespace-nowrap">
+                    <td class="px-5">
                         @if ($editingId === $template->id)
                             <div class="flex">
                                 <button wire:click="saveUpdate({{ $template->id }})"
