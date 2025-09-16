@@ -46,8 +46,10 @@ return new class extends Migration
             $table->unsignedBigInteger('estudio_parent_id')->nullable();
             $table->foreign('estudio_parent_id')->references('id')->on('patient_estudios')->onDelete('set null');
 
+            $table->dateTime('date_realized')->nullable();
             $table->dateTime('date_audio')->nullable();
             $table->dateTime('date_transcriber')->nullable();
+            $table->dateTime('date_finalized')->nullable();
 
             $table->timestamps();
         });

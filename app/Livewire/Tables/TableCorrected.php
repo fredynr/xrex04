@@ -4,6 +4,7 @@ namespace App\Livewire\Tables;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use App\Models\PatientEstudio;
 
@@ -37,6 +38,7 @@ class TableCorrected extends Component
     {
         $estudios = PatientEstudio::with(['patient', 'exam.departurePlace', 'user'])
             ->where('study_state', 'Corrección')
+            ->where('specialist_user_id', Auth::id())
             ->when($this->search, function ($query) {
                 $query->where(function ($subQuery) {
                     $subQuery->whereHas('patient', function ($q) {

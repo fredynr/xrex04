@@ -3,6 +3,7 @@
 namespace App\Livewire\Views;
 
 use Livewire\Component;
+use App\Traits\AuthorizesRole;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use App\Models\PatientEstudio;
 
 class ViewTranscriber extends Component
 {
+    use AuthorizesRole;
     use WithPagination;
 
     public $showDrawerTranscriber = false;
@@ -33,6 +35,7 @@ class ViewTranscriber extends Component
 
     public function render()
     {
+        $this->authorizeRole(['Transcriptor', 'admin']);
         $estudios = PatientEstudio::where('study_state', 'Audio');
         $totalPendings = PatientEstudio::where('study_state', 'Audio')->count();
         $totalMonthAuth = PatientEstudio::where('transcriber_user_id', Auth::id())->count();

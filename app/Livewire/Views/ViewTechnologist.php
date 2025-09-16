@@ -2,14 +2,16 @@
 
 namespace App\Livewire\Views;
 
+use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
+use App\Traits\AuthorizesRole;
 use Livewire\Component;
 use App\Models\Exam;
 use App\Models\PatientEstudio;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Reactive;
 
 class ViewTechnologist extends Component
 {
+    use AuthorizesRole;
     public $totalExams;
     public $totalDevueltos;
     public $totalPendings;
@@ -24,13 +26,13 @@ class ViewTechnologist extends Component
     }
 
     public $currentTable = "tables.table-pendings-to-do";
-    protected $listeners = ['navigateTable'];
-    public function navigateTable($table)
+    protected $listeners = ['navigateTableTechnologist'];
+    public function navigateTableTechnologist($table)
     {
         $this->currentTable = $table;
     }
 
-    public function updateSearch($value, $tableTarget)
+    public function searchMapTable($value, $tableTarget)
     {
         $eventMap = [
             'tables.table-pendings-to-do' => 'searchUpdatedPendings',
@@ -39,11 +41,13 @@ class ViewTechnologist extends Component
 
         if (isset($eventMap[$tableTarget])) {
             $this->dispatch($eventMap[$tableTarget], value: $value);
+            $this->dispatch('cleanURL');
         }
     }
 
     public function render()
     {
+        $this->authorizeRole(['Tecnólogo', 'admin']);
         $this->totalExams = Exam::where('exam_state', 'Solicitado')->count();
         $this->totalDevueltos = PatientEstudio::where('study_state', 'Devuelto')->count();
         $this->totalPendings = $this->totalExams + $this->totalDevueltos;

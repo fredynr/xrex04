@@ -16,31 +16,41 @@
                         {{ $this->totalPendings }}
                     </span>
                 </div>
-                <button wire:click="$dispatch('navigateTable', ['tables.table-pendings-to-do'])"
-                    class="flex flex-col cursor-pointer">
-                    <div class="flex justify-center">
-                        <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
-                            <img src="{{ asset('images/stacks.svg') }}">
+                <div @class([
+                    'flex flex-col p-2',
+                    'bg-violet-50 rounded-lg border border-gray-300' => $currentTable === 'tables.table-pendings-to-do',
+                ])>
+                    <button wire:click="$dispatch('navigateTableTechnologist', ['tables.table-pendings-to-do']); $dispatch('cleanURL')"
+                        class="flex flex-col cursor-pointer">
+                        <div class="flex justify-center">
+                            <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
+                                <img src="{{ asset('images/stacks.svg') }}">
+                            </span>
+                        </div>
+                        <span class="text-sm">
+                            <span class="text-[9px] text-gray-500 font-medium">SOLICITUDES NUEVAS:</span>
+                            {{ $this->totalExams }}
                         </span>
-                    </div>
-                    <span class="text-sm">
-                        <span class="text-[9px] text-gray-500 font-medium">SOLICITUDES NUEVAS:</span>
-                        {{ $this->totalExams }}
-                    </span>
-                </button>
-                <button wire:click="$dispatch('navigateTable', ['tables.table-estudios-returned'])"
-                    class="flex flex-col cursor-pointer">
-                    <div class="flex justify-center">
-                        <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
-                            <img src="{{ asset('images/undo.svg') }}">
+                    </button>
+                </div>
+                <div @class([
+                    'flex flex-col p-2',
+                    'bg-violet-50 rounded-lg border border-gray-300' => $currentTable === 'tables.table-estudios-returned',
+                ])>
+                    <button wire:click="$dispatch('navigateTableTechnologist', ['tables.table-estudios-returned']); $dispatch('cleanURL')"
+                        class="flex flex-col cursor-pointer">
+                        <div class="flex justify-center">
+                            <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
+                                <img src="{{ asset('images/undo.svg') }}">
+                            </span>
+                        </div>
+                        <span class="text-sm">
+                            <span class="text-[9px] text-gray-500 font-medium">
+                                ESTUDIOS DEVUELTOS:</span>
+                            {{ $this->totalDevueltos }}
                         </span>
-                    </div>
-                    <span class="text-sm">
-                        <span class="text-[9px] text-gray-500 font-medium">ESTUDIOS
-                            DEVUELTOS:</span>
-                        {{ $this->totalDevueltos }}
-                    </span>
-                </button>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="flex items-center min-w-1/2">
@@ -54,7 +64,7 @@
                     </svg>
                 </div>
                 <input type="text"
-                    wire:input.debounce.500ms="updateSearch($event.target.value, '{{ $currentTable }}')" id="search"
+                    wire:input.debounce.500ms="searchMapTable($event.target.value, '{{ $currentTable }}')" id="search"
                     class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Ingresa la busqueda..." />
             </div>

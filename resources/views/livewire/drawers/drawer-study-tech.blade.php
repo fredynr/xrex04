@@ -47,6 +47,20 @@
                                         </select>
                                     </div>
 
+                                    <div class="w-xs">
+                                        <label for="priority" class="block mb-2 text-sm font-medium text-gray-900">
+                                            Asigna el especialista
+                                        </label>
+                                        <select wire:model="especialista" id="priority"
+                                            class="block w-full p-2 text-gray-900 border rounded-lg text-xs focus:ring-blue-500 border-blue-500">
+                                            <option value="">Selecciona un especialista</option>
+                                            @foreach ($especialistas as $especialista)
+                                                <option value="{{ $especialista->id }}">{{ $especialista->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     <div class="border-2 p-4 my-4 rounded-xl">
                                         <label class="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
                                             for="file_input">Sube la imagen de la remisón del paciente</label>

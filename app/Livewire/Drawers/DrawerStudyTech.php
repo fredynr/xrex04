@@ -11,6 +11,7 @@ use Livewire\WithFileUploads;
 use App\Traits\HandlesOrthancStudy;
 use App\Models\PatientEstudio;
 use App\Models\Exam;
+use App\Models\User;
 
 class DrawerStudyTech extends Component
 {
@@ -28,6 +29,7 @@ class DrawerStudyTech extends Component
     public $remision;
     public $studiesToView = [];
     public $estudiosBBDD = [];
+    public $especialista;
 
     protected $rules = [
         'examId' => 'required',
@@ -63,8 +65,10 @@ class DrawerStudyTech extends Component
                 'exam_id' => $this->examId,
                 'patient_id' => $this->patientId,
                 'user_id' => Auth::id(),
+                'specialist_user_id' => $this->especialista,
                 'priority' => $this->priority,
-                'study_name' => $this->studyName
+                'study_name' => $this->studyName,
+                'date_realized' => now(),
             ]);
             if ($this->remision != null) {
                 $extensionFile = $this->remision->getClientOriginalExtension();
@@ -128,6 +132,9 @@ class DrawerStudyTech extends Component
 
     public function render()
     {
-        return view('livewire.drawers.drawer-study-tech');
+        $especialistas = User::where('role', 'Especialista')->get();
+        return view('livewire.drawers.drawer-study-tech', [
+            'especialistas' => $especialistas
+        ]);
     }
 }

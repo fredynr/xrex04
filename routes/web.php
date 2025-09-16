@@ -14,7 +14,7 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('prueba', function () {
+Route::get('xrex', function () {
     return view('layouts/layout-tales');
 });
 

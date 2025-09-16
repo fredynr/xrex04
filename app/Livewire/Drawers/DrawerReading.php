@@ -33,6 +33,7 @@ class DrawerReading extends Component
     public function closeDrawer()
     {
         $this->reading = null;
+        $this->dispatch('reset-header');
         $this->dispatch('close-drawer-reading');
         $this->dispatch('resetRecognition');
     }

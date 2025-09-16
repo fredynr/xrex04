@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="relative mt-6 px-3 sm:px-6">
+                            <div class="mt-6 px-3 sm:px-6">
                                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                                     <li class="py-3 sm:py-4">
                                         <div class="flex items-center">
@@ -48,7 +48,7 @@
                                                 </p>
                                             </div>
                                             <div
-                                                class="flex flex-col items-center text-base font-semibold text-gray-900 dark:text-white">
+                                                class="flex flex-col items-center text-base font-semibold text-gray-900">
                                                 <div class="text-xs">Fecha:</div><span class="text-xs">
                                                     {{ $this->studyFinder->created_at }}</span>
                                             </div>
@@ -198,7 +198,7 @@
 
                                             <ul class="col-span-4 row-span-2 border rounded-md shadow-md">
                                                 <!-- 🔹 Acordeón principal -->
-                                                <h2>
+                                                <div class="h-full">
                                                     <button wire:click="toggleParent"
                                                         class="inline-flex items-center justify-around h-full w-full h-full rounded-lg pr-12 transition-colors bg-white text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none cursor-pointer">
                                                         <div class="flex flex-col w-90">
@@ -217,33 +217,46 @@
                                                                 d="M9 5 5 1 1 5" />
                                                         </svg>
                                                     </button>
-                                                </h2>
+                                                </div>
                                                 @if ($openParent)
-                                                    <div class="text-sm">
-                                                        @foreach ($templates as $template)
-                                                            <div wire:key="tmpl-{{ $template->id }}">
-                                                                <button wire:click="toggleChild({{ $template->id }})"
-                                                                    class="flex justify-start relative text-left w-full p-1 rounded-t-sm text-gray-800 border-b-0 border border-gray-200 focus:bg-blue-50 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3">
-                                                                    <span class="w-5/6"><span class="text-lg">&#8227;
-                                                                        </span>{{ $template->title }}</span>
-                                                                    <svg data-accordion-icon
-                                                                        class="w-3 h-3 rotate-180 shrink-0 absolute right-5"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        fill="none" viewBox="0 0 10 6">
-                                                                        <path stroke="#00ffc2" stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="1"
-                                                                            d="M9 5 5 1 1 5" />
-                                                                    </svg>
+                                                    <div class="absolute z-50 bg-stone-800/70 bottom-0 left-0 w-full h-full text-sm">
+                                                        <div class="bg-gray-100 h-full rounded-t-lg mt-24">
+                                                            <div class="w-full flex justify-center mb-4 p-1 bg-gray-800 rounded-t-lg">
+                                                                <button wire:click="toggleParent" class="cursor-pointer text-white border-bottom-2">
+                                                                    cerrar
                                                                 </button>
-                                                                @if ($openChildId === $template->id)
-                                                                    <div x-on:click="$wire.putTemplate(@js($template->content))"
-                                                                        class="text-stone-50 bg-slate-500 text-xs p-2 cursor-pointer">
-                                                                        <p> {{ preg_replace('/<br\s*\/?>/i', "\n", $template->content) }} </p>
-                                                                    </div>
-                                                                @endif
                                                             </div>
-                                                        @endforeach
+                                                            <div class="w-full flex flex-col items-center justify-center ">
+                                                                @foreach ($templates as $template)
+                                                                    <div wire:key="tmpl-{{ $template->id }}" class="w-9/10 bg-white mb-2 rounded">
+                                                                        <button wire:click="toggleChild({{ $template->id }})"
+                                                                            class="flex justify-start relative text-left w-full p-2 rounded-t-sm bg-white text-gray-800 focus:bg-blue-50 focus:ring-1 focus:ring-gray-300 hover:bg-gray-100">
+                                                                            <span class="flex">
+                                                                                <span class="text-lg">
+                                                                                    <img class="mr-2" src="{{ asset('images/plus.svg') }}" width="18">
+                                                                                </span>
+                                                                                {{ $template->title }}
+                                                                            </span>
+                                                                            <svg data-accordion-icon
+                                                                                class="w-3 h-3 rotate-180 shrink-0 absolute right-5"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="none" viewBox="0 0 10 6">
+                                                                                <path stroke="#00ffc2" stroke-linecap="round"
+                                                                                    stroke-linejoin="round" stroke-width="1"
+                                                                                    d="M9 5 5 1 1 5" />
+                                                                            </svg>
+                                                                        </button>
+                                                                        @if ($openChildId === $template->id)
+                                                                            <div x-on:click="$wire.putTemplate(@js($template->content))"
+                                                                                class="text-stone-50 bg-slate-500 text-xs p-2 cursor-pointer">
+                                                                                <p> {{ preg_replace('/<br\s*\/?>/i', "\n", $template->content) }} </p>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 @endif
                                             </ul>

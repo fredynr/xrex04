@@ -3,66 +3,67 @@
 namespace App\Livewire\Views;
 
 use Livewire\Component;
-use Livewire\Attributes\On;
+use App\Traits\AuthorizesRole;
 use App\Models\PatientEstudio;
-use Livewire\WithPagination;
-
+use Livewire\Attributes\On;
 
 class ViewSpecialist extends Component
 {
-    use WithPagination;
+    use AuthorizesRole;
     public $search = '';
-
-    public bool $openParent = false;
-    public $openChildId = null;
-    public $estudioId = null;
-    public $showFecha;
-    public $showIdentificacion;
-    public $showProcedencia;
-    public $showDrawer = false;
-
-
-    #[On('actualizarTabla', '$refresh')]
-
-    #[On('close-drawer')]
-    public function closeDrawer()
+    public $currentTable = "tables.table-pendings-to-read";
+    protected $listeners = ["navigateTableSpecialist"];
+    public function navigateTableSpecialist($table)
     {
-        $this->showDrawer = false;
-        $this->resetPage();
+        $this->currentTable = $table;
     }
 
-    public function openDrawer($estudioId)
+    #[On('reset-header')]
+    public function resetHeader()
     {
-        $this->estudioId = $estudioId;
+        $this->reset();
+    }
+
+    public function searchMapTable($value, $tableTarget)
+    {
+        $eventMap = [
+            'tables.table-pendings-to-read' => 'searchUpdatedPendingsRead',
+            'tables.table-high-priority' => 'searchUpdatedHighPriority',
+            'tables.table-normal-priority' => 'searchUpdatedNormalPriority',
+            'tables.table-low-priority' => 'searchUpdatedLowPriority',
+            'tables.table-corrected' => 'searchUpdatedCorrected',
+        ];
+
+        if (isset($eventMap[$tableTarget])) {
+            $this->dispatch($eventMap[$tableTarget], value: $value);
+            $this->dispatch('cleanURL');
+        }
     }
 
     public function render()
     {
-        $studies = PatientEstudio::with(['patient', 'exam.departurePlace', 'user'])
-            ->where(function ($query) {
-                $query->where('study_state', 'Realizado')
-                    ->orWhere('study_state', 'Corrección');
-            });
+        $this->authorizeRole(['Especialista', 'admin']);
+        // Agrupamos por estado
+        $estadoCounts = PatientEstudio::whereIn('study_state', ['Realizado', 'Corrección'])
+            ->selectRaw('study_state, COUNT(*) as total')
+            ->groupBy('study_state')
+            ->pluck('total', 'study_state');
 
-        $totalStudies = PatientEstudio::where('study_state', 'Realizado')->count();
-        $counts = PatientEstudio::where('study_state', 'Realizado')
+        // Agrupamos por prioridad solo para los realizados
+        $priorityCounts = PatientEstudio::where('study_state', 'Realizado')
             ->selectRaw('priority, COUNT(*) as total')
             ->groupBy('priority')
             ->pluck('total', 'priority');
-
-        if (strlen($this->search) >= 3) {
-            $studies->whereHas('patient', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('document', 'like', '%' . $this->search . '%');
-            });
-        }
+        $totalRealizado = $estadoCounts['Realizado'] ?? 0;
+        $totalCorreccion = $estadoCounts['Corrección'] ?? 0;
+        $totalEstudios = $totalRealizado + $totalCorreccion;
 
         return view('livewire.views.view-specialist', [
-            'studies' => $studies->paginate(10),
-            'totalStudies' => $totalStudies,
-            'countNormal' => $counts['Normal'] ?? 0,
-            'countBaja' => $counts['Baja'] ?? 0,
-            'countAlta' => $counts['Alta'] ?? 0
+            'totalEstudios' => $totalEstudios,
+            'totalCorrected' => $totalCorreccion,
+            'countNormal' => $priorityCounts['Normal'] ?? 0,
+            'countBaja' => $priorityCounts['Baja'] ?? 0,
+            'countAlta' => $priorityCounts['Alta'] ?? 0,
         ]);
     }
 }

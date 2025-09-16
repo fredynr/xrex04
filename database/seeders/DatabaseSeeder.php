@@ -173,7 +173,7 @@ class DatabaseSeeder extends Seeder
          'departure_place_id' => 2,
          'exam_state' => 'Solicitado'
       ]);
-      Exam::factory(16)->create();
+      Exam::factory(50)->create();
 
 
 

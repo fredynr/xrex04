@@ -4,11 +4,14 @@ namespace App\Livewire\Views;
 
 use Livewire\Component;
 use App\Models\PatientEstudio;
+use Livewire\Attributes\On;
 
 class ViewPrueba extends Component
 {
-
     public $search = '';
+    public $startDate;
+    public $endDate;
+    public $totalEstudios;
     public $currentTable = "tables.table-pendings-to-read";
     protected $listeners = ["navigateTableSpecialist"];
     public function navigateTableSpecialist($table)
@@ -16,7 +19,13 @@ class ViewPrueba extends Component
         $this->currentTable = $table;
     }
 
-    public function updateSearch($value, $tableTarget)
+    #[On('refresh-header')]
+    public function refreshHeader()
+    {
+        $this->reset();
+    }
+
+    public function searchMapTable($value, $tableTarget)
     {
         $eventMap = [
             'tables.table-pendings-to-read' => 'searchUpdatedPendingsRead',
@@ -28,6 +37,7 @@ class ViewPrueba extends Component
 
         if (isset($eventMap[$tableTarget])) {
             $this->dispatch($eventMap[$tableTarget], value: $value);
+            $this->dispatch('cleanURL');
         }
     }
 
@@ -46,15 +56,13 @@ class ViewPrueba extends Component
             ->pluck('total', 'priority');
         $totalRealizado = $estadoCounts['Realizado'] ?? 0;
         $totalCorreccion = $estadoCounts['Corrección'] ?? 0;
-        $totalEstudios = $totalRealizado + $totalCorreccion;
+        $this->totalEstudios = $totalRealizado + $totalCorreccion;
 
         return view('livewire.views.view-prueba', [
-            'totalEstudios' => $totalEstudios,
             'totalCorrected' => $totalCorreccion,
             'countNormal' => $priorityCounts['Normal'] ?? 0,
             'countBaja' => $priorityCounts['Baja'] ?? 0,
             'countAlta' => $priorityCounts['Alta'] ?? 0,
-
         ]);
     }
 }

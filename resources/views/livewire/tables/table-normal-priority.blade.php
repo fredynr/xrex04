@@ -33,6 +33,21 @@
                     </button>
                 </div>
                 <div>
+                    <button @click="$store.columnToggle.toggleColumn('showSpecialist')" id="toggle_specialist"
+                        class="flex items-center space-x-2 cursor-pointer">
+                        <span
+                            x-bind:class="{
+                                'bg-green-600 text-white': $store.columnToggle.columns
+                                    .showSpecialist,
+                                'shadow-stone-400 shadow-xs': !$store.columnToggle.columns.showSpecialist
+                            }"
+                            class="bg-green-200/10 border border-green-600 flex items-center text-xs px-2.5 py-0.5">
+                            <span class="block w-1.5 h-1.5 -ml-0.5 mr-1 bg-green-500 rounded-full"></span>
+                            <span>Especialista Asignado</span>
+                        </span>
+                    </button>
+                </div>
+                <div>
                     <button @click="$store.columnToggle.toggleColumn('showProcedencia')" id="toggle_Procedencia"
                         class="flex items-center space-x-2 cursor-pointer">
                         <span
@@ -77,6 +92,13 @@
                     <th class="px-5 py-3 text-xs text-left uppercase">
                         <span class="flex items-center">
                             Identificación
+                        </span>
+                    </th>
+                </template>
+                <template x-if="$store.columnToggle.columns.showSpecialist">
+                    <th class="px-5 py-3 text-xs text-left uppercase">
+                        <span class="flex items-center">
+                            Especialista Asignado
                         </span>
                     </th>
                 </template>
@@ -133,6 +155,13 @@
                     <template x-if="$store.columnToggle.columns.showIdentificacion">
                         <td class="px-5 whitespace-nowrap">{{ $estudio->patient->document }}</td>
                     </template>
+                    <template x-if="$store.columnToggle.columns.showSpecialist">
+                        @if ($estudio->specialistUser === null)
+                            <td class="px-5 whitespace-nowrap">Sin asignación</td>
+                        @else
+                            <td class="px-5 whitespace-nowrap">{{ $estudio->specialistUser->name }}</td>
+                        @endif
+                    </template>
                     <template x-if="$store.columnToggle.columns.showProcedencia">
                         <td class="px-5 whitespace-nowrap">{{ $estudio->exam->departurePlace->name }}</td>
                     </template>
@@ -150,14 +179,24 @@
                     <td class="max-w-40 px-5 overflow-hidden text-ellipsis whitespace-nowrap truncate">
                         {{ $estudio->study_state }}
                     </td>
-                    <td class="max-w-20 flex px-5">
-                        <button wire:click="openDrawerReading({{ $estudio->id }})"
-                            class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
-                            type="button">
-                            <img src="{{ asset('images/drawer.svg') }}" title="Realizar lectura">
-                        </button>
-                        @if ($showDrawerReading && $estudioId == $estudio->id)
-                            <livewire:Drawers.drawer-reading :estudioId="$estudio->id">
+                    <td class="max-w-24 flex px-5">
+                        @if ($estudio->specialist_user_id === Auth::user()->id)
+                            <button wire:click="openDrawerReading({{ $estudio->id }})"
+                                class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
+                                type="button">
+                                <img class="max-w-[20px] min-w-[20px] min-h-[20px]"
+                                    src="{{ asset('images/drawer.svg') }}" title="Realizar lectura">
+                            </button>
+                            @if ($showDrawerReading && $estudioId == $estudio->id)
+                                <livewire:Drawers.drawer-reading :estudioId="$estudio->id">
+                            @endif
+                        @else
+                            <button wire:click="assignMe({{ $estudio->id }})"
+                                class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
+                                type="button">
+                                <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/get.svg') }}"
+                                    title="Asignarme este estudio">
+                            </button>
                         @endif
                     </td>
                 </tr>
