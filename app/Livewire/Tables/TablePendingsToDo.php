@@ -4,18 +4,21 @@ namespace App\Livewire\Tables;
 
 use Livewire\Component;
 use App\Traits\HandlesOrthancStudy;
+use App\Traits\HandlesOrthancAuth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
 use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\PatientEstudio;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
 
 #[On('actualizarTablaExams')]
 class TablePendingsToDo extends Component
 {
     use WithPagination;
     use HandlesOrthancStudy;
+    use HandlesOrthancAuth;
     public $selectedPatientId;
     public $studiesToView;
     public $studyName;
@@ -81,12 +84,20 @@ class TablePendingsToDo extends Component
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $array);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->orthancAuthHeader());
         $curlResponse = curl_exec($ch);
         if (curl_errno($ch)) {
-            echo curl_error($ch);
-        } else {
-            $curlResponse = json_decode($curlResponse);
+            throw new \Exception("Error de conexión con Orthanc: " . curl_error($ch));
         }
+        $decoded = json_decode($curlResponse, true);
+        Log::info('Respuesta Orthanc:', $decoded);
+
+        if (isset($decoded['Error'])) {
+            throw new \Exception("Orthanc respondió con error: " . $decoded['Error']);
+        }
+
+        $curlResponse = $decoded;
+
         curl_close($ch);
         $this->selectedPatientId = $patient->id;
         $countStudiesBBDD = $patient->patientEstudios()->count();
@@ -96,9 +107,12 @@ class TablePendingsToDo extends Component
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $this->orthancAuthHeader());
                 $response = curl_exec($ch);
                 curl_close($ch);
                 $data = json_decode($response, true);
+
+
                 if (isset($data["MainDicomTags"]["StudyDescription"])) {
                     $study = new \stdClass();
                     $study->id = $data["ID"];
@@ -117,6 +131,10 @@ class TablePendingsToDo extends Component
                 return !in_array($study, $this->studiesPatientBBDD, true);
             });
             $studiesCollection = [];
+            if (!is_array($curlResponse)) {
+                throw new \Exception("La respuesta de Orthanc no es un array válido.");
+            }
+
             foreach ($studiesRaws as $studiesRaw) {
                 // uso el trait HandleOrthancStudy
                 $data = $this->StudyDataFromOrthanc($studiesRaw);
@@ -128,6 +146,7 @@ class TablePendingsToDo extends Component
                     $study->description = $studyDescription;
                     $studiesCollection[] = $study;
                 } else {
+                    dd($data);
                     $this->studyName = $studyDescription;
                 }
             }

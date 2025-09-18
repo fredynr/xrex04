@@ -48,10 +48,10 @@
                                     </div>
 
                                     <div class="w-xs">
-                                        <label for="priority" class="block mb-2 text-sm font-medium text-gray-900">
+                                        <label for="specialist" class="block mb-2 text-sm font-medium text-gray-900">
                                             Asigna el especialista
                                         </label>
-                                        <select wire:model="especialista" id="priority"
+                                        <select wire:model="especialista" id="specialist"
                                             class="block w-full p-2 text-gray-900 border rounded-lg text-xs focus:ring-blue-500 border-blue-500">
                                             <option value="">Selecciona un especialista</option>
                                             @foreach ($especialistas as $especialista)

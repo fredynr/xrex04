@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Traits\HandlesOrthancStudy;
+use App\Traits\HandlesOrthancAuth;
 use App\Models\PatientEstudio;
 use App\Models\Exam;
 use App\Models\User;
@@ -18,6 +19,7 @@ class DrawerStudyTech extends Component
     use WithPagination;
     use WithFileUploads;
     use HandlesOrthancStudy;
+    use HandlesOrthancAuth;
 
     public $studyID;
     public $studyName;
@@ -54,6 +56,7 @@ class DrawerStudyTech extends Component
 
     public function store()
     {
+        // dd($this->all());
         $this->validate();
 
         DB::beginTransaction();
@@ -100,6 +103,7 @@ class DrawerStudyTech extends Component
             }
             curl_close($ch);
             $this->estudiosBBDD = $newStudy->patient->patientEstudios()->pluck('study_id_orthanc')->toArray();
+            $curlResponse = is_array($curlResponse) ? $curlResponse : [];
             $diffEstudios = array_filter($curlResponse, function ($study) {
                 return !in_array($study, $this->estudiosBBDD, true);
             });

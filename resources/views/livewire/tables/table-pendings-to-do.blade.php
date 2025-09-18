@@ -95,7 +95,7 @@
             </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200/70">
-            
+
             @foreach ($exams as $exam)
                 <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
                     wire:key="exam-{{ $exam->id }}">

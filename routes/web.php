@@ -5,6 +5,21 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientEstudioController;
+use App\Http\Controllers\OrthancViewerController;
+
+Route::get('/viewer/{studyId}', [OrthancViewerController::class, 'redirectToViewer'])
+    ->middleware('auth')
+    ->name('viewer.redirect');
+
+Route::get('/viewer/{studyId}', [OrthancViewerController::class, 'redirectToViewer'])
+    ->middleware('auth')
+    ->name('viewer.redirect');
+
+
+
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,4 +44,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

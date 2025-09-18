@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'orthanc' => [
+        'username' => env('ORTHANC_USERNAME'),
+        'password' => env('ORTHANC_PASSWORD'),
+    ],
 
 ];

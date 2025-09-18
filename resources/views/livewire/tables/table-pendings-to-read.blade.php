@@ -186,12 +186,27 @@
                                     title="Asignarme este estudio">
                             </button>
                         @endif
-                        <a href="http://localhost:8042/osimis-viewer/app/index.html?study={{ $estudio->study_id_orthanc }}" target="_blank"
+                        <a href="http://localhost:8042/osimis-viewer/app/index.html?study={{ $estudio->study_id_orthanc }}"
+                            target="_blank"
                             class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
                             type="button">
                             <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/showRad.svg') }}"
                                 title="Ver imagen DICOM">
                         </a>
+                        @if ($estudio->study_id_orthanc)
+                            <a href="{{ route('viewer.redirect', ['studyId' => $estudio->study_id_orthanc]) }}"
+                                target="_blank" class="btn btn-primary">
+                                Ver estudio en visor DICOM
+                            </a>
+                        @else
+                            <span class="text-muted">Estudio no disponible</span>
+                        @endif
+
+
+
+
+
+
                     </td>
                 </tr>
             @endforeach
