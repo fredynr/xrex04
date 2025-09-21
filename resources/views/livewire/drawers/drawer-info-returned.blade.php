@@ -29,13 +29,18 @@
                             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
                                 <li class="py-3 sm:py-4">
                                     <div class="flex items-center">
-                                        <a href="http://localhost:8042/osimis-viewer/app/index.html?study={{ $patientEstudio->study_id_orthanc }}"
-                                            target="_blank"
-                                            class="px-2 hover:bg-gray-100 rounded-md dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            <div class="flex justify-around pt-3 cursor-pointer dark:text-white">
-                                                <img class="w-6 h-6" src="{{ asset('images/hradiology.svg') }}">
-                                            </div>
-                                        </a>
+                                        @if ($patientEstudio->study_id_orthanc)
+                                            <a href="{{ route('viewer.redirect', ['studyId' => $patientEstudio->study_id_orthanc]) }}"
+                                                target="_blank"
+                                                class="px-2 hover:bg-gray-100 rounded-md dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <div class="flex justify-around pt-3 cursor-pointer dark:text-white">
+                                                    <img class="w-6 h-6" src="{{ asset('images/hradiology.svg') }}">
+                                                </div>
+                                            </a>
+                                        @else
+                                            <span class="mt-2" style="color: red; font-size: 1rem;"
+                                                title="Estudio no disponible ☹">✘</span>
+                                        @endif
                                         <div class="flex-1 min-w-0 ms-4">
                                             <p class="text-sm font-medium text-gray-900 dark:text-white">
                                                 ESTUDIO

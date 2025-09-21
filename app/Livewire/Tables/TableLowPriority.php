@@ -45,7 +45,6 @@ class TableLowPriority extends Component
         $estudio->specialist_user_id = Auth::id();
         $estudio->save();
         $this->dispatch('assigned-me-success');
-        $this->resetPage();
     }
 
     protected $listeners = ['searchUpdatedLowPriority' => 'handleSearch'];

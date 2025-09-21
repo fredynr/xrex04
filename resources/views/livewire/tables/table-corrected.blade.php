@@ -174,6 +174,6 @@
         </tbody>
     </table>
     <div class="mt-4 flex justify-center">
-        {{ $estudios->links('livewire::tailwind') }}
+        {{ $estudios->links('vendor.livewire.custom-pagination') }}
     </div>
 </div>

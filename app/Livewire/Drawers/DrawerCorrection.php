@@ -19,16 +19,18 @@ class DrawerCorrection extends Component
     public $examId;
     public $patientId;
     public $patientName;
+    public $specialistUserId;
     public $studiesToView = [];
 
 
-    public function mount($estudioId, $studyID, $studyName, $examId, $patientId, $patientName, $studiesToView){
+    public function mount($estudioId, $studyID, $studyName, $examId, $patientId, $patientName, $studiesToView, $specialistUserId){
         $this->estudioId = $estudioId;
         $this->studyID = $studyID;
         $this->studyName = $studyName;
         $this->examId = $examId;
         $this->patientId = $patientId;
         $this->patientName = $patientName;
+        $this->specialistUserId = $specialistUserId;
         $this->studiesToView = $studiesToView;
     }
 
@@ -53,6 +55,7 @@ class DrawerCorrection extends Component
                 'exam_id' => $this->examId,
                 'patient_id' => $this->patientId,
                 'user_id' => Auth::id(),
+                'specialist_user_id' => $this->specialistUserId,
                 'priority' => $this->priority,
                 'study_name' => $this->studyName,
                 'estudio_parent_id' => $this->estudioId,

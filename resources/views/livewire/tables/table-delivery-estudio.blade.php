@@ -122,15 +122,22 @@
                         {{ $estudio->study_state }}
                     </td>
                     <td class="flex items-center h-10 px-2">
-                        <a href="{{ route('pdfView', $estudio->id) }}" class="cursor-pointer mr-2" target="_blank"><img
-                                src="{{ asset('images/file-pdf.svg') }}" title="descargar PDF">
+                        <a href="{{ route('pdfView', $estudio->id) }}" class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1" target="_blank">
+                            <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/file-pdf.svg') }}"
+                                title="descargar PDF">
                         </a>
-                        <a href="http://localhost:8042/osimis-viewer/app/index.html?study={{ $estudio->study_id_orthanc }}"
-                            class="cursor-pointer" target="_blank">
-                            <img src="{{ asset('images/showRad.svg') }}" alt="">
-                        </a>
-                        <button wire:click="openDrawerSendMail('{{ $estudio->id }}')" class="ml-2 cursor-pointer">
-                            <img src="images/sendMail.svg">
+                        @if ($estudio->study_id_orthanc)
+                            <a href="{{ route('viewer.redirect', ['studyId' => $estudio->study_id_orthanc]) }}"
+                                target="_blank"
+                                class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                                <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/showRad.svg') }}"
+                                    title="Ver imagen DICOM">
+                            </a>
+                        @else
+                            <span class="text-muted">Estudio no disponible</span>
+                        @endif
+                        <button wire:click="openDrawerSendMail('{{ $estudio->id }}')" class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                            <img class="max-w-[20px] min-w-[20px]" src="images/sendMail.svg">
                         </button>
                         @if ($showDrawerSendMail && $estudioId == $estudio->id)
                             <livewire:drawers.drawer-send-mail :patientEmail="$estudio->patient->email" :patientName="$estudio->patient->name" :estudioId="$estudio->id"
@@ -142,6 +149,6 @@
         </tbody>
     </table>
     @if ($estudios)
-        <div class="mt-4 flex justify-center">{{ $estudios->links('livewire::tailwind') }}</div>
+        {{ $estudios->links('vendor.livewire.custom-pagination') }}
     @endif
 </div>

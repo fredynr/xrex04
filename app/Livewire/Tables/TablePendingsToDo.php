@@ -100,6 +100,7 @@ class TablePendingsToDo extends Component
 
         curl_close($ch);
         $this->selectedPatientId = $patient->id;
+        $curlResponse = is_array($curlResponse) ? $curlResponse : [];
         $countStudiesBBDD = $patient->patientEstudios()->count();
         if ($countStudiesBBDD === 0) {
             foreach ($curlResponse as $res) {
@@ -111,8 +112,6 @@ class TablePendingsToDo extends Component
                 $response = curl_exec($ch);
                 curl_close($ch);
                 $data = json_decode($response, true);
-
-
                 if (isset($data["MainDicomTags"]["StudyDescription"])) {
                     $study = new \stdClass();
                     $study->id = $data["ID"];
@@ -134,7 +133,6 @@ class TablePendingsToDo extends Component
             if (!is_array($curlResponse)) {
                 throw new \Exception("La respuesta de Orthanc no es un array válido.");
             }
-
             foreach ($studiesRaws as $studiesRaw) {
                 // uso el trait HandleOrthancStudy
                 $data = $this->StudyDataFromOrthanc($studiesRaw);

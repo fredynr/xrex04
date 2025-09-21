@@ -3,17 +3,17 @@
 namespace App\Livewire\Tables;
 
 use Livewire\Component;
-use Livewire\Attributes\On;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PatientEstudio;
 
 class TableHighPriority extends Component
 {
     use WithPagination;
-    public $search = '';
     public $estudioId;
     public $showDrawerReading = false;
+    public string $search = '';
 
     public function updatedSearch()
     {
@@ -50,7 +50,6 @@ class TableHighPriority extends Component
         $estudio->specialist_user_id = Auth::id();
         $estudio->save();
         $this->dispatch('assigned-me-success');
-        $this->resetPage();
     }
 
     protected $listeners = ['searchUpdatedHighPriority' => 'handleSearch'];
@@ -58,6 +57,7 @@ class TableHighPriority extends Component
     {
         $this->search = $value;
     }
+    
     public function render()
     {
         $estudios = PatientEstudio::with(['patient', 'exam.departurePlace', 'user'])

@@ -41,11 +41,11 @@ class TableNormalPriority extends Component
 
     public function assignMe($estudioId)
     {
+        sleep(4);
         $estudio = PatientEstudio::findOrFail($estudioId);
         $estudio->specialist_user_id = Auth::id();
         $estudio->save();
         $this->dispatch('assigned-me-success');
-        $this->resetPage();
     }
 
     protected $listeners = ['searchUpdatedNormalPriority' => 'handleSearch'];

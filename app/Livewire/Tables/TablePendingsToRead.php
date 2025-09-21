@@ -26,7 +26,6 @@ class TablePendingsToRead extends Component
         $this->resetPage();
     }
 
-
     public function openDrawerReading($estudioId)
     {
         $estudio = PatientEstudio::find($estudioId);
@@ -51,7 +50,6 @@ class TablePendingsToRead extends Component
         $estudio->specialist_user_id = Auth::id();
         $estudio->save();
         $this->dispatch('assigned-me-success');
-        $this->resetPage();
     }
 
     protected $listeners = ['searchUpdatedPendingsRead' => 'handleSearch'];
@@ -59,7 +57,6 @@ class TablePendingsToRead extends Component
     {
         $this->search = $value;
     }
-
 
     public function render()
     {

@@ -182,6 +182,9 @@
                     <td class="max-w-24 flex px-5">
                         @if ($estudio->specialist_user_id === Auth::user()->id)
                             <button wire:click="openDrawerReading({{ $estudio->id }})"
+                                wire:loading.class="opacity-50 cursor-progress"
+                                wire:loading.attr="disabled"
+                                wire:target="assignMe"
                                 class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
                                 type="button">
                                 <img class="max-w-[20px] min-w-[20px] min-h-[20px]"
@@ -192,11 +195,23 @@
                             @endif
                         @else
                             <button wire:click="assignMe({{ $estudio->id }})"
+                                wire:loading.class="opacity-50 cursor-progress"
+                                wire:loading.attr="disabled"
+                                wire:target="assignMe"
                                 class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
                                 type="button">
                                 <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/get.svg') }}"
                                     title="Asignarme este estudio">
                             </button>
+                        @endif
+                         @if ($estudio->study_id_orthanc)
+                            <a href="{{ route('viewer.redirect', ['studyId' => $estudio->study_id_orthanc]) }}"
+                                target="_blank" class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                                <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/showRad.svg') }}"
+                                title="Ver imagen DICOM">
+                            </a>
+                        @else
+                           <span class="mt-2" style="color: red; font-size: 1rem;" title="Estudio no disponible ☹">✘</span>
                         @endif
                     </td>
                 </tr>
@@ -204,6 +219,6 @@
         </tbody>
     </table>
     <div class="mt-4 flex justify-center">
-        {{ $estudios->links('livewire::tailwind') }}
+        {{ $estudios->links('vendor.livewire.custom-pagination') }}
     </div>
 </div>
