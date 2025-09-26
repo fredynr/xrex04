@@ -31,7 +31,7 @@ class Sidebar extends Component
             'label' => 'Módulo, toma de estudios',
             'navigate' => 'views.view-technologist',
             'icon' => 'images/scan.svg',
-            'roles' => ['Tecnólogo', 'admin'],
+            'roles' => ['Especialista', 'Tecnólogo', 'admin'],
         ],
         [
             'label' => 'Admin, plantillas',
@@ -49,19 +49,19 @@ class Sidebar extends Component
             'label' => 'Módulo, Transcribir',
             'navigate' => 'views.view-transcriber',
             'icon' => 'images/keyboard.svg',
-            'roles' => ['transcriber', 'admin'],
+            'roles' => ['Especialista', 'transcriber', 'admin'],
         ],
         [
             'label' => 'Aprovar Transcripción',
             'navigate' => 'views.view-approve',
             'icon' => 'images/cardMed.svg',
-            'roles' => ['admin'], // si decides usarlo luego
+            'roles' => ['Especialista','admin'],
         ],
         [
             'label' => 'prueba',
             'navigate' => 'views.view-prueba',
             'icon' => 'images/keyboard.svg',
-            'roles' => ['admin'], // opcional
+            'roles' => ['Especialista', 'admin'], 
         ],
     ];
 

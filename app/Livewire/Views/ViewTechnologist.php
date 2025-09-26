@@ -47,7 +47,7 @@ class ViewTechnologist extends Component
 
     public function render()
     {
-        $this->authorizeRole(['Tecnólogo', 'admin']);
+        $this->authorizeRole(['Tecnólogo', 'admin', 'Especialista']);
         $this->totalExams = Exam::where('exam_state', 'Solicitado')->count();
         $this->totalDevueltos = PatientEstudio::where('study_state', 'Devuelto')->count();
         $this->totalPendings = $this->totalExams + $this->totalDevueltos;

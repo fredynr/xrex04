@@ -90,18 +90,16 @@ class TablePendingsToDo extends Component
             throw new \Exception("Error de conexión con Orthanc: " . curl_error($ch));
         }
         $decoded = json_decode($curlResponse, true);
+        
         Log::info('Respuesta Orthanc:', $decoded);
-
-        if (isset($decoded['Error'])) {
-            throw new \Exception("Orthanc respondió con error: " . $decoded['Error']);
-        }
-
         $curlResponse = $decoded;
-
         curl_close($ch);
         $this->selectedPatientId = $patient->id;
         $curlResponse = is_array($curlResponse) ? $curlResponse : [];
+
         $countStudiesBBDD = $patient->patientEstudios()->count();
+        // si el conteo de los estudios del paciente en la BBDD es igual a 0 entonces es porque es la primera vez que el paciente ingresa
+        // el tecnólogo tomó los estudios y se guardan en la variable $curlResponse y son iterados ara mostrarlos en la vista
         if ($countStudiesBBDD === 0) {
             foreach ($curlResponse as $res) {
                 $url = "http://localhost:8042/studies/$res";
@@ -123,6 +121,8 @@ class TablePendingsToDo extends Component
                 }
             }
         } else {
+            // si el conteo de los estudios de la BBDD es mayor a 0 entonces toca comparar los estudios de la BBDD con los de Orthanc
+            // para saber cuales son nuevos y mostrarlos en la vista
             // recupera con pluck la columna study_id_orthanc de la tabla patient_estudios
             $this->studiesPatientBBDD = $patient->patientEstudios()->pluck('study_id_orthanc')->toArray();
             //devuelve los que estan en $orthanc y no están en la BBDD
@@ -140,7 +140,7 @@ class TablePendingsToDo extends Component
                 if (isset($data["MainDicomTags"]["StudyDescription"])) {
                     $studyDescription = $this->extractStudyName($data);
                     $study = new \stdClass();
-                    $study->id = $studiesRaw; // O $data["ID"] si es más preciso
+                    $study->id = $studiesRaw; 
                     $study->description = $studyDescription;
                     $studiesCollection[] = $study;
                 } else {

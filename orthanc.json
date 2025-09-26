@@ -1,0 +1,41 @@
+{
+  /**
+   * === CONFIGURACIÓN BÁSICA ===
+   */
+  "Name" : "OrthancServer",
+  "HttpServerEnabled" : true,
+  "HttpPort" : 8042,
+
+  /**
+   * Credenciales para la API REST y Orthanc Explorer
+   */
+  "RegisteredUsers" : {
+    "miusuario" : "miclave"
+  },
+  "AuthenticationEnabled" : true,
+
+  /**
+   * === PLUGINS ===
+   * Asegúrate de poner aquí la ruta exacta al DLL de Worklists
+   */
+  "Plugins" : [
+    "C:/Orthanc/Plugins/ModalityWorklists.dll"
+  ],
+
+  /**
+   * === WORKLISTS (MWL) ===
+   */
+  "Worklists" : {
+    "Enable" : true,
+    "Database" : "./worklists-db"
+  },
+
+  /**
+   * === OTROS AJUSTES ÚTILES ===
+   */
+  "StorageDirectory" : "./OrthancStorage",
+  "IndexDirectory" : "./OrthancIndex",
+  "DicomAet" : "ORTHANC",
+  "DicomPort" : 4242,
+  "LogLevel" : "INFO"
+}

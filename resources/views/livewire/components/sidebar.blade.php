@@ -96,9 +96,9 @@
     </button>
     <header class="min-h-34 p-4 flex justify-between items-center gap-x-2 bg-cyan-700 ">
         <a class="flex-none font-semibold text-xl text-white focus:outline-hidden focus:opacity-80 dark:text-white"
-            href="#" aria-label="Brand"> <img 
-            :src="mover ? '{{ asset('images/xLogo.png') }}' : '{{ asset('images/xrexLogo.png') }}'" 
-            :width="mover ? 30 : 150" />
+            href="#" aria-label="Brand"> <img
+                :src="mover ? '{{ asset('images/xLogo.png') }}' : '{{ asset('images/xrexLogo.png') }}'"
+                :width="mover ? 30 : 150" />
             <h2 x-show="!ocultar">{{ Auth::user()->name }}</h2>
         </a>
     </header>
@@ -117,5 +117,13 @@
                 </button>
             </li>
         @endforeach
+        <li>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="w-full flex text-start items-center my-2 py-1 text-blue-50 px-2.5 text-sm rounded-l-lg cursor-pointer hover:text-cyan-700 hover:bg-sky-100">
+                    Cerrar sesión
+                </button>
+            </form>
+        </li>
     </ul>
 </div>

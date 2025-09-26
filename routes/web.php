@@ -16,11 +16,6 @@ Route::get('/viewer/{studyId}', [OrthancViewerController::class, 'redirectToView
     ->name('viewer.redirect');
 
 
-
-
-
-
-
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -31,7 +26,7 @@ Route::view('dashboard', 'dashboard')
 
 Route::get('xrex', function () {
     return view('layouts/layout-tales');
-});
+})->name('xrex');
 
 Route::get('pdfView/{estudioId}', [PatientEstudioController::class, 'pdfView'])->name('pdfView');
 Route::get('downloadPdf/{estudioId}', [PatientEstudioController::class, 'downloadPdf'])->name('downloadPdf');

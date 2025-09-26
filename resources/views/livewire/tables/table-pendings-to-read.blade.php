@@ -1,10 +1,4 @@
-<div x-data="{
-    columns: JSON.parse(localStorage.getItem('columns')) || {
-        showFecha: true,
-        showIdentificacion: true,
-        showProcedencia: false
-    }
-}" x-init="$watch('columns', value => localStorage.setItem('columns', JSON.stringify(value)))">
+<div>
     <div class="flex justify-between w-full mt-3 py-2 px-4 bg-stone-50">
         <div class="flex items-center">
             <img src="{{ asset('images/calendar.svg') }}" width="24">
@@ -29,6 +23,7 @@
                         </span>
                     </button>
                 </div>
+
                 <div>
                     <button @click="$store.columnToggle.toggleColumn('showIdentificacion')" id="toggle_identificacion"
                         class="flex items-center space-x-2 cursor-pointer">
@@ -43,6 +38,7 @@
                             <span>Identificación</span>
                         </span>
                     </button>
+
                 </div>
                 <div>
                     <button @click="$store.columnToggle.toggleColumn('showSpecialist')" id="toggle_specialist"

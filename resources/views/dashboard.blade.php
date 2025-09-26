@@ -15,4 +15,12 @@
             <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
         </div>
     </div>
+   <a href="{{ route('xrex') }}"
+   class="px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-all"
+   aria-label="Ir a Xrex">
+   Ir a Xrex
+</a>
+
+
+
 </x-layouts.app>

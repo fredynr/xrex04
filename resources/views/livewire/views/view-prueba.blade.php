@@ -3,6 +3,7 @@
         <div class="flex flex-col justify-around px-8 w-full">
             <div class="mb-2 text-gray-500">Estudios pendientes por lectura:</div>
             <div class="flex justify-between w-full">
+                <div><button wire:click="sendWorklistToOrthanc" class="bg-blue-400 rounded-xl text-white cursor-pointer">enviar a orthanc</button></div>
                 <div @class([
                     'flex flex-col p-2',
                     'bg-violet-50 rounded-lg border border-gray-300' =>

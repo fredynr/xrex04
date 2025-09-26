@@ -35,7 +35,7 @@ class ViewTranscriber extends Component
 
     public function render()
     {
-        $this->authorizeRole(['Transcriptor', 'admin']);
+        $this->authorizeRole(['Transcriptor', 'admin', 'Especialista']);
         $estudios = PatientEstudio::where('study_state', 'Audio');
         $totalPendings = PatientEstudio::where('study_state', 'Audio')->count();
         $totalMonthAuth = PatientEstudio::where('transcriber_user_id', Auth::id())->count();
