@@ -5,9 +5,11 @@
             <div class="flex justify-between w-full">
                 <div @class([
                     'flex flex-col p-2',
-                    'bg-violet-50 rounded-lg border border-gray-300' => $currentTable === 'tables.table-pendings-to-read',
+                    'bg-violet-50 rounded-lg border border-gray-300' =>
+                        $currentTable === 'tables.table-pendings-to-read',
                 ])>
-                    <button wire:click="$dispatch('navigateTableSpecialist', ['tables.table-pendings-to-read']); $dispatch('cleanURL')"
+                    <button
+                        wire:click="$dispatch('navigateTableSpecialist', ['tables.table-pendings-to-read']); $dispatch('cleanURL')"
                         class="flex flex-col cursor-pointer">
                         <div class="flex justify-center">
                             <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
@@ -22,9 +24,11 @@
                 </div>
                 <div @class([
                     'flex flex-col p-2',
-                    'bg-violet-50 rounded-lg border border-gray-300' => $currentTable === 'tables.table-high-priority',
+                    'bg-violet-50 rounded-lg border border-gray-300' =>
+                        $currentTable === 'tables.table-high-priority',
                 ])>
-                    <button wire:click="$dispatch('navigateTableSpecialist', ['tables.table-high-priority']); $dispatch('cleanURL')"
+                    <button
+                        wire:click="$dispatch('navigateTableSpecialist', ['tables.table-high-priority']); $dispatch('cleanURL')"
                         class="flex flex-col cursor-pointer">
                         <div class="flex justify-center">
                             <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
@@ -39,9 +43,11 @@
                 </div>
                 <div @class([
                     'flex flex-col p-2',
-                    'bg-violet-50 rounded-lg border border-gray-300' => $currentTable === 'tables.table-normal-priority',
+                    'bg-violet-50 rounded-lg border border-gray-300' =>
+                        $currentTable === 'tables.table-normal-priority',
                 ])>
-                    <button wire:click="$dispatch('navigateTableSpecialist', ['tables.table-normal-priority']); $dispatch('cleanURL')"
+                    <button
+                        wire:click="$dispatch('navigateTableSpecialist', ['tables.table-normal-priority']); $dispatch('cleanURL')"
                         class="flex flex-col cursor-pointer">
                         <div class="flex justify-center">
                             <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
@@ -56,9 +62,11 @@
                 </div>
                 <div @class([
                     'flex flex-col p-2',
-                    'bg-violet-50 rounded-lg border border-gray-300' => $currentTable === 'tables.table-low-priority',
+                    'bg-violet-50 rounded-lg border border-gray-300' =>
+                        $currentTable === 'tables.table-low-priority',
                 ])>
-                    <button wire:click="$dispatch('navigateTableSpecialist', ['tables.table-low-priority']); $dispatch('cleanURL')"
+                    <button
+                        wire:click="$dispatch('navigateTableSpecialist', ['tables.table-low-priority']); $dispatch('cleanURL')"
                         class="flex flex-col cursor-pointer">
                         <div class="flex justify-center">
                             <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
@@ -73,9 +81,11 @@
                 </div>
                 <div @class([
                     'flex flex-col p-2',
-                    'bg-violet-50 rounded-lg border border-gray-300' => $currentTable === 'tables.table-corrected',
+                    'bg-violet-50 rounded-lg border border-gray-300' =>
+                        $currentTable === 'tables.table-corrected',
                 ])>
-                    <button wire:click="$dispatch('navigateTableSpecialist', ['tables.table-corrected']); $dispatch('cleanURL')"
+                    <button
+                        wire:click="$dispatch('navigateTableSpecialist', ['tables.table-corrected']); $dispatch('cleanURL')"
                         class="flex flex-col cursor-pointer">
                         <div class="flex justify-center">
                             <span class="w-10 h-10 rounded-full bg-green-100 flex justify-center p-1">
@@ -106,8 +116,6 @@
                             placeholder="Ingresa la busqueda..." />
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

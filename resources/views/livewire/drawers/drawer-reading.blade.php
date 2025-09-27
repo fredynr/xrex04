@@ -247,7 +247,7 @@
                                                 @if ($openParent)
                                                     <div
                                                         class="absolute z-50 bg-stone-800/70 bottom-0 left-0 w-full h-full text-sm">
-                                                        <div class="bg-gray-100 h-full rounded-t-lg mt-24">
+                                                        <div class="bg-gray-100 h-full rounded-t-lg mt-24 overflow-auto pb-40">
                                                             <div
                                                                 class="w-full flex justify-center mb-4 p-1 bg-gray-800 rounded-t-lg">
                                                                 <button wire:click="toggleParent"

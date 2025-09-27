@@ -38,14 +38,14 @@
         history.replaceState(null, '', cleanURL);
         // Reinicia la paginación en el componente Livewire
         Livewire.dispatch('resetPagination');
-        // if (destino !== 'table-pending-to-read') {
-        //     localStorage.removeItem('columns');
-        //     setTimeout(() => {
-        //         if (Alpine.store('columnToggle')) {
-        //             Alpine.store('columnToggle').columns = {};
-        //         }
-        //     }, 100); 
-        // }
+        if (destino !== 'table-pending-to-read') {
+            localStorage.removeItem('columns');
+            setTimeout(() => {
+                if (Alpine.store('columnToggle')) {
+                    Alpine.store('columnToggle').columns = {};
+                }
+            }, 100); 
+        }
     });
 
     document.addEventListener('cleanURL', () => {
