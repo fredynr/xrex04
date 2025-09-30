@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class AppLayout extends Component
 {
-    public $currentView = 'views.view-specialist';
+    public $currentView = 'views.dashboard';
     protected $listeners = ['navigateTo'];
     public function navigateTo($view)
     {

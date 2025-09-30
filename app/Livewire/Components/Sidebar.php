@@ -15,16 +15,23 @@ class Sidebar extends Component
     public function mount()
     {
         $this->userRole = Auth::user()->role;
-        $this->itemActivo = 'Módulo, lectura de estudios';
+        $this->itemActivo = 'Inicio';
         $this->menuItems = $this->getMenuByRole($this->userRole);
     }
+
     private function getMenuByRole($role)
 {
     $allItems = [
         [
+            'label' => 'Inicio',
+            'navigate' => 'views.dashboard',
+            'icon' => 'images/home.svg',
+            'roles' => ['Especialista', 'admin'],
+        ],
+        [
             'label' => 'Módulo, lectura de estudios',
             'navigate' => 'views.view-specialist',
-            'icon' => 'images/notePerson.svg',
+            'icon' => 'images/radiology.svg',
             'roles' => ['Especialista', 'admin'],
         ],
         [
@@ -54,7 +61,7 @@ class Sidebar extends Component
         [
             'label' => 'Aprovar Transcripción',
             'navigate' => 'views.view-approve',
-            'icon' => 'images/cardMed.svg',
+            'icon' => 'images/approveList.svg',
             'roles' => ['Especialista','admin'],
         ],
         [

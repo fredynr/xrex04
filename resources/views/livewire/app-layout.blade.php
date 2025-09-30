@@ -4,6 +4,10 @@
 
         <div class="flex-1">
             @switch($currentView)
+                @case('views.dashboard')
+                    @livewire('views.dashboard')
+                @break
+
                 @case('views.view-specialist')
                     @livewire('views.view-specialist')
                 @break
@@ -54,6 +58,7 @@
     </div>
 
     <script>
+        
         window.addEventListener('toast', e => {
             console.log('Toast recibido:', e.detail);
         });

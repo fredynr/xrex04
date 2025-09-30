@@ -31,21 +31,11 @@
 </body>
 <script>
     document.addEventListener('navigateTo', () => {
-        const destino = event.detail[0];
-
         // Limpia la URL
         const cleanURL = window.location.origin + window.location.pathname;
         history.replaceState(null, '', cleanURL);
         // Reinicia la paginación en el componente Livewire
         Livewire.dispatch('resetPagination');
-        if (destino !== 'table-pending-to-read') {
-            localStorage.removeItem('columns');
-            setTimeout(() => {
-                if (Alpine.store('columnToggle')) {
-                    Alpine.store('columnToggle').columns = {};
-                }
-            }, 100); 
-        }
     });
 
     document.addEventListener('cleanURL', () => {
@@ -53,21 +43,6 @@
         const cleanURL = window.location.origin + window.location.pathname;
         history.replaceState(null, '', cleanURL);
         Livewire.dispatch('resetPagination');
-    });
-
-    document.addEventListener('alpine:init', () => {
-        Alpine.store('columnToggle', {
-            columns: JSON.parse(localStorage.getItem('columns')) || {
-                showFecha: false,
-                showIdentificacion: false,
-                showSpecialist: false,
-                showProcedencia: false
-            },
-            toggleColumn(columnName) {
-                this.columns[columnName] = !this.columns[columnName];
-                localStorage.setItem('columns', JSON.stringify(this.columns));
-            }
-        });
     });
 </script>
 
