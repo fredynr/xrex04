@@ -13,7 +13,7 @@ class PatientEstudioController extends Controller
     {
         $desdePdf = false;
         $estudio = PatientEstudio::with(['patient', 'specialistUser', 'exam.departurePlace'])
-            ->findOrFail($estudioId);
+        ->findOrFail($estudioId);
         return view('pdfView', [
             'estudio' => $estudio,
             'desdePdf' => $desdePdf

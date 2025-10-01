@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('direction');
             $table->string('phone', 10);
             $table->date('birth');
-            $table->string('email')->unique(); 
+            $table->string('role');
+            $table->string('email')->unique();
+            $table->string('password'); 
             $table->timestamps();
         });
     }

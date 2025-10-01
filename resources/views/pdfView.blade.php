@@ -233,7 +233,7 @@
 <body class="{{ !$desdePdf ? 'body-class' : '' }}">
     <div id="html_footer">
         <div class="bold">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/signatures/' . Auth::id() . '.png'))) }}"
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/signatures/'. $estudio->specialistUser->id .'.png'))) }}"
                 style="display: block; margin: 0; padding: 0;">
             <div style="margin:8px 0;">{{ $estudio->specialistUser->name }}</div>
             <div>Tarjeta Nro. #########</div>
@@ -249,7 +249,7 @@
         @if (!$desdePdf)
             <div class="html_footer">
                 <div class="bold">
-                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/signatures/' . Auth::id() . '.png'))) }}"
+                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/signatures/' . $estudio->specialistUser->id . '.png'))) }}"
                         style="display: block; margin: 0; padding: 0;">
                     <div style="margin:8px 0;">{{ $estudio->specialistUser->name }}</div>
                     <div>Tarjeta Nro. #########</div>

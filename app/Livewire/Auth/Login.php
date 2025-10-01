@@ -29,10 +29,25 @@ class Login extends Component
     public function login(): void
     {
         $this->validate();
-
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+        $credentials = ['email' => $this->email, 'password' => $this->password];
+
+        $loggedIn = false;
+
+        // Intentar con el guard 'web' (users)
+        if (Auth::guard('web')->attempt($credentials, $this->remember)) {
+            $loggedIn = true;
+            Auth::setDefaultDriver('web');
+        }
+
+        // Intentar con el guard 'patient' (patients)
+        elseif (Auth::guard('patient')->attempt($credentials, $this->remember)) {
+            $loggedIn = true;
+            Auth::setDefaultDriver('patient');
+        }
+
+        if (! $loggedIn) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -41,9 +56,16 @@ class Login extends Component
         }
 
         RateLimiter::clear($this->throttleKey());
-        Session::regenerate();
+        
 
-        $this->redirectIntended('/xrex', navigate: true);
+        $user = Auth::user();
+
+        if ($user instanceof \App\Models\Patient) {
+            $this->redirectIntended('/patient-dashboard', navigate: true);
+        } else {
+            $this->redirectIntended('/xrex', navigate: true);
+        }
+        Session::regenerate();
     }
 
     /**
@@ -72,6 +94,6 @@ class Login extends Component
      */
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
+        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     }
 }
