@@ -53,9 +53,9 @@ class PatientEstudio extends Model
         return $this->belongsTo(User::class, 'specialist_user_id');
     }
 
-    //Relacion uno a uno digitaizer_user_id con user
-    public function digitaizerUser(){
-        return $this->belongsTo(User::class, 'digitaizer_user_id');
+    //Relacion uno a uno transcriberUser con user
+    public function transcriberUser(){
+        return $this->belongsTo(User::class, 'transcriber_user_id');
     }
 
     //Relación uno a uno con eps_sender

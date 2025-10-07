@@ -1,4 +1,4 @@
-<div class="w-[calc(100vw-300px)] px-4">
+<div class="px-4">
     <div class="flex bg-stone-50 rounded-sm shadow-md px-4 py-2 mb-4">
         <div class="flex flex-col justify-around px-8 w-full">
             <div class="mb-2">
@@ -82,11 +82,6 @@
             <thead class="bg-stone-50">
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
-                        ID
-                    </span>
-                </th>
-                <th class="px-5 py-3 text-xs text-left uppercase">
-                    <span class="flex items-center">
                         TÍTULO
                     </span>
                 </th>
@@ -109,7 +104,6 @@
         <tbody class="divide-y divide-neutral-200/70">
             @foreach ($templates as $template)
                 <tr wire:key="{{ $template->id }}" class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200">
-                    <td class="px-4 text-sm font-medium">{{ $template->id }}</td>
                     <td class="px-4 text-sm font-medium max-w-80">
                         @if ($editingId === $template->id)
                             <textarea wire:model="editingTitle" cols="40" rows="3" class="px-1"></textarea>

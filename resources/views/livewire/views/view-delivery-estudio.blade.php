@@ -1,8 +1,7 @@
-<div class="w-[calc(100vw-300px)] px-4">
+<div class="px-4">
     <div class="flex bg-stone-50 rounded-sm shadow-md px-4 py-2">
         <div class="px-8 w-full">
             <div class="mb-2 text-gray-500">Módulo de entrega de estudios:</div>
-
             <div class="justify-between w-full">
                 <div class="ml-2 text-xs text-gray-500">Acciones que puedes realizar:</div>
                 <div class="flex items-center border-1 w-fit ml-4">
@@ -25,8 +24,6 @@
                         </span>
                     </div>
                 </div>
-
-
             </div>
         </div>
         <div class="flex items-center min-w-1/2">
@@ -45,15 +42,9 @@
             </div>
         </div>
     </div>
-
     <table class="min-w-full divide-y shadow-md divide-neutral-200/70">
         <thead class="bg-stone-50">
             <tr class="text-neutral-800">
-                <th class="px-5 py-3 text-xs text-left uppercase">
-                    <span class="flex items-center">
-                        ID
-                    </span>
-                </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Paciente
@@ -100,9 +91,6 @@
         <tbody class="divide-y divide-neutral-200/70">
             @foreach ($estudios as $estudio)
                 <tr class="text-neutral-600 text-xs bg-neutral-50 h-10 hover:bg-slate-200">
-                    <td class="px-2 font-medium whitespace-nowrap">
-                        {{ $estudio->id }}
-                    </td>
                     <td class="px-2 text-sm font-medium whitespace-nowrap">
                         {{ $estudio->patient->name }}
                     </td>
@@ -122,7 +110,9 @@
                         {{ $estudio->study_state }}
                     </td>
                     <td class="flex items-center h-10 px-2">
-                        <a href="{{ route('pdfView', $estudio->id) }}" class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1" target="_blank">
+                        <a href="{{ route('pdfView', $estudio->id) }}"
+                            class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1"
+                            target="_blank">
                             <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/file-pdf.svg') }}"
                                 title="descargar PDF">
                         </a>
@@ -136,7 +126,8 @@
                         @else
                             <span class="text-muted">Estudio no disponible</span>
                         @endif
-                        <button wire:click="openDrawerSendMail('{{ $estudio->id }}')" class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                        <button wire:click="openDrawerSendMail('{{ $estudio->id }}')"
+                            class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
                             <img class="max-w-[20px] min-w-[20px]" src="images/sendMail.svg">
                         </button>
                         @if ($showDrawerSendMail && $estudioId == $estudio->id)
@@ -152,3 +143,4 @@
         {{ $estudios->links('vendor.livewire.custom-pagination') }}
     @endif
 </div>
+

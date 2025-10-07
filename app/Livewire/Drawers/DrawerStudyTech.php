@@ -11,6 +11,7 @@ use Livewire\WithFileUploads;
 use App\Traits\HandlesOrthancStudy;
 use App\Traits\HandlesOrthancAuth;
 use App\Models\PatientEstudio;
+use App\Models\Patient;
 use App\Models\Exam;
 use App\Models\User;
 
@@ -35,7 +36,8 @@ class DrawerStudyTech extends Component
 
     protected $rules = [
         'examId' => 'required',
-        'priority' => 'required'
+        'priority' => 'required',
+        'remision' => 'nullable|file|mimes:jpg|max:2048'
     ];
 
 
@@ -126,19 +128,30 @@ class DrawerStudyTech extends Component
             DB::commit(); // Confirmar la transacción si todo sale bien
             
             $this->closeDrawer();
-            session()->flash('message', 'El estudio fue enviado al especialista. Gracias :)');
+            $this->dispatch(
+                'notification-classic',
+                mensaje:'El estudio:<b>'.' '. $newStudy->study_name .' '.'</b>fue enviado al especialista. Gracias',
+                tipo:'success'
+            );
         } catch (\Exception $e) {
             DB::rollBack(); // Revertir la transacción en caso de error
             Log::error('Error al crear paciente y examen: ' . $e->getMessage());
-            session()->flash('error', 'No se pudo enviar el estudio. Por favor, inténtelo de nuevo o contacte al soporte si el problema persiste.');
+            $this->dispatch(
+                'notification-classic',
+                mensaje:'<b>error</b>'.' '.'No se pudo enviar el estudio. Por favor, inténtelo de nuevo o contacte al soporte si el problema persiste.',
+                tipo: 'error'
+            );
         };
+        $this->skipRender();
     }
 
     public function render()
     {
         $especialistas = User::where('role', 'Especialista')->get();
+        $patient = Patient::find($this->patientId);
         return view('livewire.drawers.drawer-study-tech', [
-            'especialistas' => $especialistas
+            'especialistas' => $especialistas,
+            'patient' => $patient
         ]);
     }
 }

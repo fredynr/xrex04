@@ -211,6 +211,19 @@ class DatabaseSeeder extends Seeder
          'password' => Hash::make('Pp123456'),
       ]);
 
+      DB::table('patients')->insert([
+         'name' => 'PACIENTE SIN ESTUDIOS',
+         'sexo' => 'M',
+         'document' => '123456789',
+         'type_document' => 'CC',
+         'direction' => 'este paciente tiene un examen pero no tiene estudios',
+         'phone' => '3001234567',
+         'birth' => '2000-01-01',
+         'role' => 'Paciente',
+         'email' => 'nulo@mail.com',
+         'password' => Hash::make('Pp123456'),
+      ]);
+
 
       // Patient::factory(35)->create();
 
@@ -348,6 +361,15 @@ class DatabaseSeeder extends Seeder
       DB::table('exams')->insert([
          'remision' => 'RMDOE0013',
          'patient_id' => 13,
+         'eps_sender_id' => 2,
+         'user_id' => 1,
+         'departure_place_id' => 2,
+         'exam_state' => 'Solicitado'
+      ]);
+
+      DB::table('exams')->insert([
+         'remision' => 'RMDOE0014',
+         'patient_id' => 14,
          'eps_sender_id' => 2,
          'user_id' => 1,
          'departure_place_id' => 2,

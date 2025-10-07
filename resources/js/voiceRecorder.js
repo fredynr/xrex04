@@ -110,7 +110,6 @@ export default function voiceRecorder() {
                 this.currentStream = null;
                 this.audioUrl = '';
                 Livewire.dispatch('close-drawer-reading');
-                Livewire.dispatch('reset-header');
                 alert('🎉 Audio guardado exitosamente');
             };
             reader.readAsDataURL(this.currentBlob); // Convierte el blob a base64

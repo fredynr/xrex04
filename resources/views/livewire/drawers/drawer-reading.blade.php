@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="mt-6 px-3 sm:px-6">
-                                <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                <ul role="list" class="divide-y divide-gray-200">
                                     <li class="py-3 sm:py-4">
                                         <div class="flex items-center">
                                             @if ($this->studyFinder->study_id_orthanc)

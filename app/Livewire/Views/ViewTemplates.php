@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Livewire\Tables;
+namespace App\Livewire\Views;
 
+use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
 use App\Models\Template;
-use Livewire\Component;
 
-class TableTemplate extends Component
+class ViewTemplates extends Component
 {
     use WithPagination;
 
@@ -25,7 +25,6 @@ class TableTemplate extends Component
         'editingTitle' => 'required|string|max:255',
         'editingContent' => 'required|string',
     ];
-
 
     public function openDrawerCreateTemplate()
     {
@@ -76,20 +75,19 @@ class TableTemplate extends Component
     }
 
 
-
     public function render()
     {
-        $templates = Template::where('user_id', Auth::id())->paginate(10);
-        if (strlen($this->search) >= 3) {
-            $templates = Template::where('user_id', Auth::id())
-                ->where(function ($query) {
-                    $query->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('content', 'like', '%' . $this->search . '%');
-                })
-                ->paginate(10);
+        $query = Template::where('user_id', Auth::id());
+
+        if (strlen(trim($this->search)) >= 3) {
+            $query->where(function ($subQuery) {
+                $subQuery->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('content', 'like', '%' . $this->search . '%');
+            });
         }
-        return view('livewire.tables.table-template', [
-            'templates' => $templates
-        ]);
+
+        $templates = $query->paginate(10);
+
+        return view('livewire.views.view-templates', compact('templates'));
     }
 }

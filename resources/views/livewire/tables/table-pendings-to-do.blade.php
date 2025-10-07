@@ -1,105 +1,53 @@
 <div>
-    <table class="min-w-full divide-y divide-neutral-200/70">
+    <table class="min-w-full divide-y shadow-md divide-neutral-200/70">
         <thead>
             <tr class="text-neutral-800">
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
-                        EXAM ID
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
-                    </span>
-                </th>
-                <th class="px-5 py-3 text-xs text-left uppercase">
-                    <span class="flex items-center">
                         Nombre
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Fecha de solicitud
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Edad
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Identificación
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Procedencia
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         email
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Teléfono
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Acción
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
             </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200/70">
-
             @foreach ($exams as $exam)
                 <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
                     wire:key="exam-{{ $exam->id }}">
-                    <td class="px-2 font-medium whitespace-nowrap">{{ $exam->patient->id }}</td>
                     <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $exam->patient->name }}</td>
                     <td class="px-2 whitespace-nowrap">{{ $exam->created_at }}</td>
                     <td class="px-2 whitespace-nowrap">{{ $exam->patient->age }} años</td>
@@ -107,16 +55,16 @@
                     <td class="px-2 whitespace-nowrap">{{ $exam->departurePlace->name }}</td>
                     <td class="px-2 whitespace-nowrap">{{ $exam->patient->email }}</td>
                     <td class="px-2 whitespace-nowrap">{{ $exam->patient->phone }}</td>
-                    <td class="flex px-5 py-1 text-sm">
+                    <td class="flex">
                         <div>
                             <button wire:click="openDrawerUpdatePatient({{ $exam->patient->id }})"
-                                class="cursor-pointer mr-2">
-                                <img src="{{ asset('images/edit.svg') }}">
+                                class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                                <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/edit.svg') }}"
+                                    title="Editar datos del paciente">
                                 <span wire:loading wire:loading.flex wire:target="openDrawerUpdatePatient"
-                                    class="fixed items-center justify-center top-0 left-0 w-full h-full z-[1000] bg-stone-50 opacity-10">
-                                    <img src="{{ asset('images/spinner.gif') }}">
+                                    class="fixed items-center justify-center top-0 left-0 w-full h-full z-[1000] bg-gray-400/5 backdrop-filter backdrop-blur-[1px] bg-opacity-5">
+                                    <img src="{{ asset('images/infinite-spinner.svg') }}" width="100">
                                 </span>
-
                             </button>
                             @if ($showDrawerUpdatePatient && $selectedPatientId === $exam->patient->id)
                                 <div>
@@ -125,56 +73,68 @@
                                 </div>
                             @endif
                         </div>
-
                         <div class="relative">
                             <button wire:click="getOrthancStudies({{ $exam->patient->id }}, {{ $exam->id }})"
-                                wire:loading.attr="disabled" class="cursor-pointer disabled:cursor-not-allowed"
-                                type="button">
-                                <img wire:loading.remove src="{{ asset('images/boxArrow.svg') }}">
-                                <span wire:loading wire:loading.delay>
-                                    <img src="{{ asset('images/spinner.gif') }}" class="w-6">
-                                </span>
+                                wire:loading.class="opacity-50 cursor-progress" wire:loading.attr="disabled"
+                                class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1"
+                                type="button" title="Obtener exámenes del paciente">
+                                <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/boxArrow.svg') }}">
                             </button>
                             @if ($selectedPatientId === $exam->patient->id && !empty($studiesToView) && $examId === $exam->id)
-                                <ul class="absolute top-2 -left-50 border-1 rounded-sm shadow-md bg-stone-50 z-999">
-                                    <button wire:click="closeDrawerStudyTech">
+                                <div
+                                    class="fixed items-center justify-center top-0 left-0 w-full h-full z-1 bg-stone-400/40 backdrop-filter backdrop-blur-[1px] bg-opacity-10">
+                                </div>
+                                <ul class="absolute top-5 -left-58 border-1 rounded-sm shadow-md bg-stone-50 z-999">
+                                    <svg style="position: absolute; top: -17px; right:-17px; transform: rotate(45deg)"
+                                        xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960"
+                                        width="40px" fill="#0ea5e9">
+                                        <path d="m280-400 200-200.67L680-400H280Z" />
+                                    </svg>
+                                    </svg>
+
+                                    <button class="w-full rounded-sm" wire:click="closeDrawerStudyTech">
                                         <span
-                                            class="inline-block bg-slate-500 rounded-full w-5 h-5 -ml-1 -mt-1 text-slate-50 cursor-pointer"
+                                            class="text-xs font-thin inline-block bg-slate-500 w-full h-5 text-slate-50 cursor-pointer hover:text-sky-300"
                                             wire:loading.remove>
-                                            X
+                                            cerrar
                                         </span>
                                         <span wire:loading>
-                                            <svg class="animate-spin h-6 w-6 text-blue-600" viewBox="0 0 100 100"
+                                            <svg class="animate-spin h-4 w-4 text-blue-600" viewBox="0 0 100 100"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none">
-                                                <circle cx="50" cy="50" r="45" stroke="currentColor"
+                                                <circle cx="50" cy="50" r="30" stroke="currentColor"
                                                     stroke-width="10" opacity="0.2" />
-                                                <path d="M50 5a45 45 0 0 1 0 90" stroke="currentColor"
+                                                <path d="M50 20 A30 30 0 0 1 80 50" stroke="currentColor"
                                                     stroke-width="10" stroke-linecap="round" />
                                             </svg>
                                         </span>
                                     </button>
-                                    @foreach ($studiesToView as $study)
-                                        <li class="flex items-center h-10 p-1 hover:bg-gray-100 whitespace-nowrap">
-                                            <button wire:click="openDrawerStudyTech('{{ $study->id }}')"
-                                                class="flex items-center whitespace-nowrap cursor-pointer ml-1">
-                                                <img src="{{ asset('images/drawer.svg') }}"
-                                                    title="{{ $study->description }}">
-                                                <span class="text-left ml-2 w-[200px] truncate">
-                                                    {{ $study->description }}
-                                                </span>
-                                                <span wire:loading wire:loading.flex wire:target="openDrawerStudyTech"
-                                                    class="fixed items-center justify-center top-0 left-0 w-full h-full z-[1000] bg-stone-50 opacity-50">
-                                                    <img src="{{ asset('images/spinner.gif') }}">
-                                                </span>
-                                            </button>
-                                        </li>
-                                        @if ($showDrawerStudyTech && $selectedStudyId === $study->id)
-                                            <div>
-                                                <livewire:drawers.drawer-study-tech :studyId="$study->id" :examId="$exam->id"
-                                                    :patientId="$exam->patient->id" wire:key="studydrawer-{{ $study->id }}" />
-                                            </div>
-                                        @endif
-                                    @endforeach
+                                    <div class="relative z-2">
+                                        @foreach ($studiesToView as $study)
+                                            <li class="flex items-center h-10 p-1 hover:bg-gray-100 whitespace-nowrap">
+                                                <button wire:click="openDrawerStudyTech('{{ $study->id }}')"
+                                                    class="flex items-center whitespace-nowrap cursor-pointer ml-1">
+                                                    <img src="{{ asset('images/drawer.svg') }}"
+                                                        title="{{ $study->description }}">
+                                                    <span class="text-left ml-2 w-[200px] truncate">
+                                                        {{ $study->description }}
+                                                    </span>
+                                                    <span wire:loading wire:loading.flex
+                                                        wire:target="openDrawerStudyTech"
+                                                        class="fixed items-center justify-center top-0 left-0 w-full h-full z-[1000] bg-gray-400/5 backdrop-filter backdrop-blur-[1px] bg-opacity-5">
+                                                        <img src="{{ asset('images/infinite-spinner.svg') }}"
+                                                            width="100">
+                                                    </span>
+                                                </button>
+                                            </li>
+                                            @if ($showDrawerStudyTech && $selectedStudyId === $study->id)
+                                                <div>
+                                                    <livewire:drawers.drawer-study-tech :studyId="$study->id"
+                                                        :examId="$exam->id" :patientId="$exam->patient->id"
+                                                        wire:key="studydrawer-{{ $study->id }}" />
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 </ul>
                             @endif
                         </div>

@@ -34,7 +34,6 @@ class DrawerReading extends Component
     {
         $this->dispatch('close-drawer-reading');
         $this->reading = null;
-        $this->dispatch('reset-header');
         $this->dispatch('resetRecognition');
     }
 
@@ -74,6 +73,7 @@ class DrawerReading extends Component
             $study->save();
             $this->closeDrawer();
         }
+        $this->skipRender();
     }
 
     public function updatePatientEstudio()
@@ -84,6 +84,7 @@ class DrawerReading extends Component
             'study_state' => 'Finalizado',
             'specialist_user_id' => Auth::id()
         ]);
+        $this->skipRender();
         $this->closeDrawer();
     }
 

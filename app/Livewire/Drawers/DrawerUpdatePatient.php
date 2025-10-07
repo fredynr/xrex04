@@ -48,6 +48,11 @@ class DrawerUpdatePatient extends Component
         ]);
         $this->dispatch('actualizarTablaExams');
         $this->dispatch('close-drawer-update-patient');
+        $this->dispatch(
+            'notification-classic',
+            mensaje: 'Los datos del paciente:<b> '.' '.$this->patientName.' '.'</b>han sido actualizados',
+            tipo: 'success'
+        );
     }
 
 

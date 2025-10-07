@@ -10,14 +10,6 @@
         [x-cloak] {
             display: none;
         }
-
-        .nav-left img {
-            filter: invert(100%);
-        }
-
-        .nav-left>li:hover img {
-            filter: none;
-        }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @assets
@@ -28,6 +20,7 @@
     <div>
         @livewire('app-layout')
     </div>
+    <x-alert-classic />
 </body>
 <script>
     document.addEventListener('navigateTo', () => {

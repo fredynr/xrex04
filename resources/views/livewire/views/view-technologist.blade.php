@@ -1,6 +1,6 @@
 <div x-data="{
     showDrawerStudyTech: @entangle('showDrawerStudyTech'),
-}">
+}" class="px-4">
     <div class="flex bg-stone-50 rounded-sm shadow-md px-4 py-2">
         <div class="flex flex-col justify-around px-8 w-full">
             <div class="mb-2 text-gray-500">Solicitudes pendientes por realizar:</div>

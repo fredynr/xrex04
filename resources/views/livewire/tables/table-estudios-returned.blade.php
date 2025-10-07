@@ -1,121 +1,82 @@
 <div>
-    <table class="min-w-full divide-y divide-neutral-200/70">
+    <table class="min-w-full divide-y shadow-md divide-neutral-200/70">
         <thead>
             <tr class="text-neutral-800">
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
-                        STUDY ID
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
-                    </span>
-                </th>
-                <th class="px-5 py-3 text-xs text-left uppercase">
-                    <span class="flex items-center">
                         Nombre
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Edad
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Identificación
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Especialista
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Estado
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Fecha de devolución
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Acción
-                        <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                        </svg>
                     </span>
                 </th>
             </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200/70">
             @foreach ($estudiosReturned as $estudio)
-                <tr class="text-neutral-600 bg-neutral-50" wire:key="estudio-{{ $estudio->id }}">
-                    <td class="px-5 py-1 text-sm font-medium whitespace-nowrap">{{ $estudio->id }}</td>
-                    <td class="px-5 py-1 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }}</td>
-                    <td class="px-5 py-1 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->age }}</td>
-                    <td class="px-5 py-1 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->document }}
+                <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
+                    wire:key="estudio-{{ $estudio->id }}">
+                    <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }}</td>
+                    <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->patient->age }}</td>
+                    <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->patient->document }}
                     </td>
-                    <td class="px-5 py-1 text-sm font-medium whitespace-nowrap">
+                    <td class="px-2 text-sm whitespace-nowrap">
                         {{ $estudio->specialistUser->name ?? 'Sin asignar' }}</td>
-                    <td class="px-5 py-1 text-sm font-medium whitespace-nowrap">{{ $estudio->study_state }}</td>
-                    <td class="px-5 py-1 text-sm font-medium whitespace-nowrap">{{ $estudio->updated_at }}</td>
-                    <td class="flex px-5 py-1 text-sm">
+                    <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->study_state }}</td>
+                    <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->updated_at }}</td>
+                    <td class="flex relative">
                         <div>
                             <button wire:click="openDrawerInfoReturned({{ $estudio->id }})"
-                                class="cursor-pointer"><img src="{{ asset('images/infoSquad.svg') }}" alt="">
-                            </button>
-                            @if ($showDrawerInfoReturned && $studyID === $estudio->id)
-                                <livewire:drawers.drawer-info-returned :estudioId="$estudio->id"
-                                    wire:key="drawer-info-{{ $estudio->id }}" />
-                            @endif
-                        </div>
-                        <div class="relative">
-                            <button wire:click="getOrthancStudies({{ $estudio->patient->id }})"
-                                wire:loading.attr="disabled" class="cursor-pointer disabled:cursor-not-allowed"
-                                type="button">
-                                <img wire:loading.remove src="{{ asset('images/boxArrow.svg') }}">
-                                <span wire:loading wire:loading.delay>
-                                    <img src="{{ asset('images/spinner.gif') }}" class="w-6">
+                                class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                                <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/infoSquad.svg') }}"
+                                    title="Ver detalles de devolución">
+                                <span wire:loading wire:loading.flex wire:target="openDrawerInfoReturned"
+                                    class="fixed items-center justify-center top-0 left-0 w-full h-full z-[1000] bg-gray-400/5 backdrop-filter backdrop-blur-[1px] bg-opacity-5">
+                                    <img src="{{ asset('images/infinite-spinner.svg') }}" width="100">
                                 </span>
                             </button>
-                            @if ($selectedPatientId === $estudio->patient->id)
+                            @if ($showDrawerInfoReturned && $studyID === $estudio->id)
+                                <div class="relative z-11">
+                                    <livewire:drawers.drawer-info-returned :estudioId="$estudio->id"
+                                        wire:key="drawer-info-{{ $estudio->id }}" />
+                                </div>
+                            @endif
+                        </div>
+                        <div>
+                            <button wire:click="getOrthancStudies({{ $estudio->patient->id }})"
+                                wire:loading.class="opacity-50 cursor-progress" wire:loading.attr="disabled"
+                                class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1"
+                                type="button" title="Obtener el nuevo estudio">
+                                <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/boxArrow.svg') }}">
+                            </button>
+                            @if ($selectedPatientId === $estudio->patient->id && !empty($studiesToView))
                                 <ul class="absolute top-2 -left-50 border-1 rounded-sm shadow-md bg-stone-50 z-999">
                                     <button wire:click="closeDrawerInfoReturned">
                                         <span
@@ -149,7 +110,7 @@
                                             </button>
                                         </li>
                                         @if ($showDrawerCorrection && $studyID === $study->id)
-                                            <div>
+                                            <div class="relative z-10">
                                                 <livewire:drawers.drawer-correction :estudioId="$estudio->id" :studyID="$study->id"
                                                     :studyName="$study->description" :examId="$estudio->exam_id" :patientId="$estudio->patient->id"
                                                     :patientName="$estudio->patient->name" :studiesToView="$studiesToView" :specialistUserId="$estudio->specialist_user_id"

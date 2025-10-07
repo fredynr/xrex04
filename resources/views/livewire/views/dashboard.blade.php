@@ -15,7 +15,7 @@
                     </svg>
                     Modulo, lectura de estudios |
                 </button>
-                <button wire:click="$dispatch('navigateTo', ['tables.table-template'])" class="flex items-center cursor-pointer mr-4">
+                <button wire:click="$dispatch('navigateTo', ['views.view-templates'])" class="flex items-center cursor-pointer mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px"
                         fill="#ffffff">
                         <path

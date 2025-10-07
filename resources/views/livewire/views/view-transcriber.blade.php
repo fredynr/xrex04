@@ -1,4 +1,4 @@
-<div class="w-[calc(100vw-300px)] px-4">
+<div class="px-4">
     @if (session()->has('message'))
         <div x-data="{ showAlert: true }" x-show="showAlert" x-ignore
             class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded shadow-lg">
@@ -86,24 +86,18 @@
                 <table class="min-w-full divide-y shadow-md divide-neutral-200/70">
                     <thead class="bg-stone-50">
                         <tr class="text-neutral-800">
-                            <th class="px-5 py-3 text-xs text-left uppercase">
-                                <span class="flex items-center">
-                                    ID
+                            <th class="px-2 py-3 text-xs text-left uppercase">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960"
+                                        width="22px" fill="#00000">
+                                        <path
+                                            d="M200-200v-560 560Zm24.62 40q-27.62 0-46.12-18.5Q160-197 160-224.62v-510.76q0-27.62 18.5-46.12Q197-800 224.62-800h510.76q27.62 0 46.12 18.5Q800-763 800-735.38v312.46q-9.77-2.39-19.77-3.58T760-427.69v-307.69q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h307.69q0 10.23 1.19 20.23t3.58 19.77H224.62ZM760-68.46 732.46-96l82.23-84H620v-40h194.69l-82.23-84L760-331.54 891.54-200 760-68.46ZM460-300h40v-160h160v-40H500v-160h-40v160H300v40h160v160Z" />
+                                    </svg>
                                 </span>
                             </th>
                             <th class="px-5 py-3 text-xs text-left uppercase">
                                 <span class="flex items-center">
                                     Paciente
-                                    {{-- <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4" />
-                                </svg> --}}
-                                </span>
-                            </th>
-                            <th class="px-5 py-3 text-xs text-left uppercase">
-                                <span class="flex items-center">
-                                    Fecha
                                 </span>
                             </th>
                             <th class="px-5 py-3 text-xs text-left uppercase">
@@ -114,18 +108,6 @@
                             <th class="px-5 py-3 text-xs text-left uppercase">
                                 <span class="flex items-center">
                                     Identificación
-                                </span>
-                            </th>
-                            <th class="px-5 py-3 text-xs text-left uppercase">
-                                <span class="flex items-center">
-                                    Procedencia
-
-                                </span>
-                            </th>
-                            <th class="px-5 py-3 text-xs text-left uppercase">
-                                <span class="flex items-center">
-                                    Prioridad
-
                                 </span>
                             </th>
                             <th class="max-w-30 px-5 py-3 text-xs text-left uppercase">
@@ -147,42 +129,96 @@
                     </thead>
                     <tbody class="divide-y divide-neutral-200/70">
                         @foreach ($estudios as $estudio)
-                            <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
+                            <tr x-data="{ open: false }" x-init="$watch('open', value => {
+                                if (value) {
+                                    $el.nextElementSibling.style.display = 'contents';
+                                    $el.nextElementSibling.classList.add('table-row');
+                                } else {
+                                    $el.nextElementSibling.style.display = 'none';
+                                }
+                            });"
+                                class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
                                 wire:key="estudio-{{ $estudio->id }}">
-                                <td class="px-2 font-medium whitespace-nowrap">
-                                    {{ $estudio->id }}</td>
+                                <td class="px-2 font-medium">
+                                    <button @click=" open = !open " class="cursor-pointer">
+                                        <template x-if="!open">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="20px"
+                                                viewBox="0 -960 960 960" width="20px" fill="#0369a1">
+                                                <path
+                                                    d="M460-300h40v-160h160v-40H500v-160h-40v160H300v40h160v160ZM224.62-160q-27.62 0-46.12-18.5Q160-197 160-224.62v-510.76q0-27.62 18.5-46.12Q197-800 224.62-800h510.76q27.62 0 46.12 18.5Q800-763 800-735.38v510.76q0 27.62-18.5 46.12Q763-160 735.38-160H224.62Zm0-40h510.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-510.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM200-760v560-560Z" />
+                                            </svg>
+                                        </template>
+                                        <template x-if="open">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="20px"
+                                                viewBox="0 -960 960 960" width="20px" fill="#00000">
+                                                <path
+                                                    d="M356-464h248v-32H356v32ZM240.62-184q-24.32 0-40.47-16.15T184-240.62v-478.76q0-24.32 16.15-40.47T240.62-776h478.76q24.32 0 40.47 16.15T776-719.38v478.76q0 24.32-16.15 40.47T719.38-184H240.62Zm0-32h478.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-478.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H240.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v478.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM216-744v528-528Z" />
+                                            </svg>
+                                        </template>
+                                    </button>
                                 <td class="px-5 text-sm font-medium whitespace-nowrap">
                                     {{ $estudio->patient->name }}</td>
-                                <td class="px-5 whitespace-nowrap">
-                                    {{ $estudio->date_audio->translatedFormat('l d \d\e F Y h:i A') }}
-                                </td>
                                 <td class="px-5 whitespace-nowrap">{{ $estudio->patient->age }} años</td>
                                 <td class="px-5 whitespace-nowrap">{{ $estudio->patient->document }}</td>
-                                <td class="px-5 whitespace-nowrap">
-                                    {{ $estudio->exam->departurePlace->name }}</td>
-                                <td
-                                    class="px-5 whitespace-nowrap
-                                {{ $estudio->priority === 'Normal' ? 'text-blue-500' : '' }}
-                                {{ $estudio->priority === 'Baja' ? 'text-green-500' : '' }}
-                                {{ $estudio->priority === 'Alta' ? 'text-red-500' : '' }}">
-                                    <span class="rounded-2xl bg-gray-100 px-3 py2">{{ $estudio->priority }}</span>
-                                </td>
                                 <td class="max-w-40 px-5 overflow-hidden text-ellipsis whitespace-nowrap truncate"
                                     title="{{ $estudio->study_name }}">
                                     {{ $estudio->study_name }}
                                 </td>
 
-                                <td class="max-w-20 flex px-5 whitespace-nowrap">
-                                    <button wire:click="openDrawerTranscriber({{ $estudio->id }})"
-                                        class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
-                                        type="button" title="Abrir la utilidad de transcribir el estudio">
-                                        <img src="{{ asset('images/drawer.svg') }}" alt="">
-                                    </button>
-                                    <div>
-                                        @if ($showDrawerTranscriber && $estudioId == $estudio->id)
-                                            <livewire:drawers.drawer-transcriber :estudio="$estudio"
-                                                wire:key="transcriber-{{ $estudio->id }}" />
-                                        @endif
+                                <td class="max-w-20 flex px-5">
+                                    @if ($estudio->transcriber_user_id === Auth::id())
+                                        <button wire:click="openDrawerTranscriber({{ $estudio->id }})"
+                                            class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[2px] m-1"
+                                            type="button" title="Abrir la utilidad de transcribir el estudio">
+                                            <img class="max-w-[20px] min-w-[20px]"
+                                                src="{{ asset('images/drawer.svg') }}">
+                                        </button>
+                                        <div>
+                                            @if ($showDrawerTranscriber && $estudioId == $estudio->id)
+                                                <livewire:drawers.drawer-transcriber :estudio="$estudio"
+                                                    wire:key="transcriber-{{ $estudio->id }}" />
+                                            @endif
+                                        </div>
+                                    @else
+                                        <button wire:click="assignMe({{ $estudio->id }})"
+                                            wire:loading.class="opacity-50 cursor-progress"
+                                            wire:loading.attr="disabled" wire:target="assignMe"
+                                            class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1"
+                                            type="button">
+                                            <img class="max-w-[20px] min-w-[20px]"
+                                                src="{{ asset('images/get.svg') }}" title="Asignarme este estudio">
+                                        </button>
+                                    @endif
+                                    <a href="{{ route('viewer.redirect', ['studyId' => $estudio->study_id_orthanc]) }}"
+                                        target="_blank"
+                                        class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                                        <img class="max-w-[20px] min-w-[20px]"
+                                            src="{{ asset('images/showRad.svg') }}" title="Ver imagen DICOM">
+                                    </a>
+                                </td>
+                            </tr>
+                            {{-- columnas ocultas --}}
+                            <tr wire:key="hidde-{{ $estudio->id }}" style="display: none;">
+                                <td colspan="6" class="bg-neutral-100 px-4 pb-4 border-x border-b border-sky-600">
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div>
+                                            <strong class="text-sm text-gray-600">Procedencia:</strong><br>
+                                            <span
+                                                class="text-xs text-gray-500">{{ $estudio->exam->departurePlace->name }}</span>
+                                        </div>
+                                        <div>
+                                            <strong class="text-sm text-gray-600">Prioridad:</strong><br>
+                                            <span
+                                                class="rounded-2xl px-3 py2 text-xs
+                                            {{ $estudio->priority === 'Normal' ? 'text-blue-500 bg-blue-100' : '' }}
+                                            {{ $estudio->priority === 'Baja' ? 'text-green-500 bg-green-100' : '' }}
+                                            {{ $estudio->priority === 'Alta' ? 'text-red-500 bg-red-100' : '' }}">{{ $estudio->priority }}</span>
+                                        </div>
+                                        <div>
+                                            <strong class="text-sm text-gray-600">Fecha del audio:</strong><br>
+                                            <span
+                                                class="text-xs text-gray-500">{{ $estudio->date_audio->translatedFormat('l d \d\e F Y h:i A') }}</span>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

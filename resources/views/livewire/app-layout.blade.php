@@ -1,8 +1,14 @@
 <div>
     <div class="flex h-screen">
-        @livewire('components.sidebar')
-
-        <div class="flex-1">
+        <div x-data="{ mover: false}" 
+        class="bg-cyan-700 h-100dvh relative">
+            <button @click="mover = !mover"
+                class="rounded-full bg-cyan-500 absolute top-4 -right-3 cursor-pointer">
+                <img src="{{ asset('images/doubleChevron.svg') }}">
+            </button>
+            @livewire('components.sidebar')
+        </div>
+        <div class="flex-1 min-w-0">
             @switch($currentView)
                 @case('views.dashboard')
                     @livewire('views.dashboard')
@@ -12,20 +18,24 @@
                     @livewire('views.view-specialist')
                 @break
 
+                @case('views.view-get-into')
+                    @livewire('views.view-get-into')
+                @break
+
                 @case('views.view-technologist')
                     @livewire('views.view-technologist')
                 @break
 
                 @case('tables.table-estudios-returned')
-                    @livewire('tables.table-estudios-returnes')
+                    @livewire('tables.table-estudios-returned')
                 @break
 
-                @case('tables.table-template')
-                    @livewire('tables.table-template')
+                @case('views.view-templates')
+                    @livewire('views.view-templates')
                 @break
 
-                @case('tables.table-delivery-estudio')
-                    @livewire('tables.table-delivery-estudio')
+                @case('views.view-delivery-estudio')
+                    @livewire('views.view-delivery-estudio')
                 @break
 
                 @case('views.view-transcriber')
@@ -45,7 +55,6 @@
             @endswitch
         </div>
     </div>
-
     <div x-data="toastComponent()" x-init="init()" x-show="visible"
         x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2"
         x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-300"
@@ -58,7 +67,6 @@
     </div>
 
     <script>
-        
         window.addEventListener('toast', e => {
             console.log('Toast recibido:', e.detail);
         });
