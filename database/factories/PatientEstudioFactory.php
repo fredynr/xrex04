@@ -8,6 +8,8 @@ use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\EpsSender;
 use App\Models\User;
+use Carbon\Carbon;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PatientEstudio>
@@ -21,6 +23,37 @@ class PatientEstudioFactory extends Factory
      */
     public function definition(): array
     {
+        // Fecha entre el 1 y el 8 del mes actual
+        $date_realized = Carbon::create(
+            now()->year,
+            now()->month,
+            rand(1, 8),
+            rand(0, 23),
+            rand(0, 59),
+            rand(0, 59)
+        );
+
+        // Fecha entre el 9 y el 15 del mes actual
+        $date_transcriber = Carbon::create(
+            now()->year,
+            now()->month,
+            rand(9, 15),
+            rand(0, 23),
+            rand(0, 59),
+            rand(0, 59)
+        );
+
+        // Fecha entre el 16 y el 30 del mes actual
+        $date_finalized = Carbon::create(
+            now()->year,
+            now()->month,
+            rand(16, 30),
+            rand(0, 23),
+            rand(0, 59),
+            rand(0, 59)
+        );
+
+
         $faker = FakerFactory::create();
         return [
             'study_name' => $faker->randomElement([
@@ -113,9 +146,15 @@ class PatientEstudioFactory extends Factory
                 'Paciente refiere nódulo palpable en cuadrante superior externo.',
                 'Estudio de control post-biopsia realizado según protocolo.'
             ]),
-            'study_state' => 'Realizado',
+            'reading' => $faker->paragraph(),
+            'specialist_user_id' => User::where('role', 'Especialista')->inRandomOrder()->first()->id,
+            'transcriber_user_id' => User::where('role', 'Transcriptor')->inRandomOrder()->first()->id,
+            'study_state' => 'Finalizado',
             'exam_id' => Exam::inRandomOrder()->first()->id,
             'patient_id' => Patient::inRandomOrder()->first()->id,
+            'date_realized' => $date_realized,
+            'date_transcriber' => $date_transcriber,
+            'date_finalized' => $date_finalized,
             'user_id' => User::inRandomOrder()->first()->id,
             'priority' => $faker->randomElement(['Baja', 'Normal', 'Alta']),
             'created_at' => now(),

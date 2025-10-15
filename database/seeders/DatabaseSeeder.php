@@ -375,7 +375,7 @@ class DatabaseSeeder extends Seeder
          'departure_place_id' => 2,
          'exam_state' => 'Solicitado'
       ]);
-      // Exam::factory(50)->create();
+      Exam::factory(500)->create();
 
 
       //1 ANA DIVA
@@ -547,6 +547,6 @@ class DatabaseSeeder extends Seeder
       //    'priority' => 'Alta',
       //    'created_at' => now()
       // ]);
-      // PatientEstudio::factory(50)->create();
+      PatientEstudio::factory(1000)->create();
    }
 }

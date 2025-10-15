@@ -58,4 +58,15 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    //relacion uno a muchos con PatientEstudio con specialist_user_id
+    public function patientEstudios()
+    {
+        return $this->hasMany(PatientEstudio::class, 'specialist_user_id');
+    }
+
+    public function transcriberEstudios()
+    {
+        return $this->hasMany(PatientEstudio::class, 'transcriber_user_id');
+    }
 }

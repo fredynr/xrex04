@@ -14,6 +14,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @assets
     @yield('head')
+
 </head>
 
 <body class="bg-stone-100">
@@ -21,22 +22,24 @@
         @livewire('app-layout')
     </div>
     <x-alert-classic />
+     
+    <script>
+        document.addEventListener('navigateTo', () => {
+            // Limpia la URL
+            const cleanURL = window.location.origin + window.location.pathname;
+            history.replaceState(null, '', cleanURL);
+            // Reinicia la paginación en el componente Livewire
+            Livewire.dispatch('resetPagination');
+        });
+    
+        document.addEventListener('cleanURL', () => {
+            // Limpia la URL
+            const cleanURL = window.location.origin + window.location.pathname;
+            history.replaceState(null, '', cleanURL);
+            Livewire.dispatch('resetPagination');
+        });
+    
+    </script>
 </body>
-<script>
-    document.addEventListener('navigateTo', () => {
-        // Limpia la URL
-        const cleanURL = window.location.origin + window.location.pathname;
-        history.replaceState(null, '', cleanURL);
-        // Reinicia la paginación en el componente Livewire
-        Livewire.dispatch('resetPagination');
-    });
-
-    document.addEventListener('cleanURL', () => {
-        // Limpia la URL
-        const cleanURL = window.location.origin + window.location.pathname;
-        history.replaceState(null, '', cleanURL);
-        Livewire.dispatch('resetPagination');
-    });
-</script>
 
 </html>

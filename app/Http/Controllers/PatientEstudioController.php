@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PatientEstudio;
 
+use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+
 
 class PatientEstudioController extends Controller
 {
@@ -36,4 +38,6 @@ class PatientEstudioController extends Controller
 
         return $pdf->stream('studio_' . $estudioId . '.pdf');
     }
+
+   
 }

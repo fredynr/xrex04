@@ -46,6 +46,10 @@
                     @livewire('views.view-approve')
                 @break
 
+                @case('views.view-reports')
+                    @livewire('views.view-reports')
+                @break
+
                 @case('views.view-prueba')
                     @livewire('views.view-prueba')
                 @break

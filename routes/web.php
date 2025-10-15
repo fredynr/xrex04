@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientEstudioController;
 use App\Http\Controllers\OrthancViewerController;
 
+use App\Http\Controllers\ReportesController;
+Route::get('/reporte-estudios', [ReportesController::class, 'index']);
+
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');

@@ -12,7 +12,7 @@ use App\Models\Exam;
 use App\Models\Template;
 use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder
+class DatabaseSeederSpecialist extends Seeder
 {
    /**
     * Seed the application's database.
