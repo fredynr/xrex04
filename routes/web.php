@@ -8,7 +8,7 @@ use App\Http\Controllers\PatientEstudioController;
 use App\Http\Controllers\OrthancViewerController;
 
 use App\Http\Controllers\ReportesController;
-Route::get('/reporte-estudios', [ReportesController::class, 'index']);
+Route::get('/dashboard-reports', [ReportesController::class, 'index'])->name('dashboard-reports');
 
 
 Route::get('/', function () {

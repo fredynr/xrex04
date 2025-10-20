@@ -56,12 +56,15 @@ class Login extends Component
         }
 
         RateLimiter::clear($this->throttleKey());
-        
+
 
         $user = Auth::user();
 
         if ($user instanceof \App\Models\Patient) {
             $this->redirectIntended('/patient-dashboard', navigate: true);
+        } elseif ($user->role === 'Administrativo') {
+            $this->redirectIntended('/dashboard-reports', navigate: true);
+
         } else {
             $this->redirectIntended('/xrex', navigate: true);
         }

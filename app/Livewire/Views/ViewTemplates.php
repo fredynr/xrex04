@@ -4,6 +4,7 @@ namespace App\Livewire\Views;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\AuthorizesRole;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
 use App\Models\Template;
@@ -11,6 +12,7 @@ use App\Models\Template;
 class ViewTemplates extends Component
 {
     use WithPagination;
+    use AuthorizesRole;
 
     public $editingTitle;
     public $editingContent;
@@ -77,6 +79,7 @@ class ViewTemplates extends Component
 
     public function render()
     {
+        $this->authorizeRole(['Especialista', 'admin']);
         $query = Template::where('user_id', Auth::id());
 
         if (strlen(trim($this->search)) >= 3) {

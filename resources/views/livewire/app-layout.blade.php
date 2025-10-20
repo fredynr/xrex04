@@ -46,8 +46,8 @@
                     @livewire('views.view-approve')
                 @break
 
-                @case('views.view-reports')
-                    @livewire('views.view-reports')
+                @case('views.view-generate-reports')
+                    @livewire('views.view-generate-reports')
                 @break
 
                 @case('views.view-prueba')

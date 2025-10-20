@@ -10,6 +10,17 @@
         </div>
     </header>
     <ul class="nav-left h-full pt-4 transition-all duration-1000" :class="mover ? 'w-full' : 'w-64'">
+        <li
+            class="w-full flex text-start items-center my-2 py-1 text-blue-50 px-2.5 text-sm rounded-l-lg cursor-pointer hover:text-white hover:bg-cyan-600">
+            @auth
+                @if (Auth::user()->role === 'Administrativo')
+                <span class="min-w-[26px]"><img src="{{ asset('images/barChart.svg') }}"></span>
+                    <a href="{{ route('dashboard-reports') }}" class="nav-link-style-tailwind-o-la-que-uses">
+                        Dashboard
+                    </a>
+                @endif
+            @endauth
+        </li>
         @foreach ($menuItems as $menuItem)
             <li>
                 <button

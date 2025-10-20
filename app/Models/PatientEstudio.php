@@ -58,11 +58,6 @@ class PatientEstudio extends Model
         return $this->belongsTo(User::class, 'transcriber_user_id');
     }
 
-    //Relación uno a uno con eps_sender
-    public function epsSender(){
-        return $this->belongsTo(EpsSender::class, 'eps_sender_id');
-    }
-
     // Relacion de autoreferencia para estudios devueltos
     // Estudio anterior (si fue devuelto)
     public function parentEstudio()

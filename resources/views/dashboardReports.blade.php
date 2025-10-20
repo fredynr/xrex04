@@ -1,9 +1,15 @@
-@extends('layouts.layout-reportes')
+@extends('layouts.layout-dashboard-reports')
 <div class="p-8">
     <div class="w-full flex flex-wrap justify-center gap-8">
         <div class="text-white relative w-2/10 p-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500">
             <h2 class="font-bold text-2xl">Bienvenido, {{ \Illuminate\Support\Str::before(Auth::user()->name, ' ') }}</h2>
             <p>Aquí podrás ver estadísticas y generar reportes</p>
+            <div>
+                <div>
+                    <span>Vamos a:</span>
+                    <a href="{{ route('xrex') }}" class="block mt-2 p-2 rounded-xl border-1 text-center hover:bg-white hover:text-stone-600">Generar reportes</a>
+                </div>
+            </div>
             <img src="{{ asset('images/cartoon.svg') }}" class="absolute bottom-0 right-0">
         </div>
         <div class="w-5/10 p-4 bg-white rounded shadow">
@@ -79,30 +85,28 @@
     </div>
 
     @push('scripts')
-        <script>
-            const etiquetas = @json($data['labels']);
-            const datosTrancripciones = @json($data['valores']);
-            const etiquetasEps = @json($dataEps['labels']);
-            const datosEps = @json($dataEps['valores']);
-            const coloresBarras = [
-                'rgba(255, 99, 132, 0.6)', // Color para la Barra 1 (Rojo)
-                'rgba(54, 162, 235, 0.6)', // Color para la Barra 2 (Azul)
-                'rgba(255, 206, 86, 0.6)', // Color para la Barra 3 (Amarillo)
-                'rgba(75, 192, 192, 0.6)', // Color para la Barra 4 (Verde)
-                'rgba(153, 102, 255, 0.6)', // Color para la Barra 5 (Morado)
-                'rgba(255, 159, 64, 0.6)', // Color para la Barra 6 (Naranja)
-                'rgba(52, 235, 213, 0.6)', // Color para la Barra 7 (azul cielo)
-                'rgba(235, 52, 208, 0.6)', // Color para la Barra 8 (vilota)
-                'rgba(125, 235, 52, 0.6)', // Color para la Barra 9 (verde oliva)
-                'rgba(245, 245, 0, 0.6)', // Color para la Barra 10 (amarillo chillón)
-                'rgba(0, 245, 180, 0, 0.6)', // Color para la Barra 10 (verde raro)
-                'rgba(0, 155, 245, 0, 0.6)', // Color para la Barra 11 (azul clarito)
-                'rgba(245, 102, 0, 0, 0.6)', // Color para la Barra 11 (naranja ladrillo)
-                // ... ¡Añade más colores si tu mes tiene más de 6 días con registros!
-            ];
-            document.addEventListener('DOMContentLoaded', function() {
-                const ctx = document.getElementById('estudiosTranscritos');
-                new Chart(ctx, {
+    <script>
+        const etiquetas = @json($data['labels']);
+        const datosTrancripciones = @json($data['valores']);
+        const etiquetasEps = @json($dataEps['labels']);
+        const datosEps = @json($dataEps['valores']);
+        
+        const coloresBarras = [
+            'rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 
+            'rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)', 
+            'rgba(52, 235, 213, 0.6)', 'rgba(235, 52, 208, 0.6)', 'rgba(125, 235, 52, 0.6)', 
+            'rgba(245, 245, 0, 0.6)', 'rgba(0, 245, 180, 0, 0.6)', 'rgba(0, 155, 245, 0, 0.6)', 
+            'rgba(245, 102, 0, 0, 0.6)', 
+        ];
+
+        function inicializarGraficas() {
+            const ctx = document.getElementById('estudiosTranscritos');
+            if (ctx) { 
+                if (window.chartTranscritos instanceof Chart) {
+                    window.chartTranscritos.destroy();
+                }
+
+                window.chartTranscritos = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: etiquetas,
@@ -115,41 +119,46 @@
                         }]
                     },
                     options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    generateLabels: function(chart) {
-                                        const dataset = chart.data.datasets[0];
-                                        return [{
-                                            text: dataset.label,
-                                            fillStyle: 'rgb(4, 181, 159)',
-                                            strokeStyle: 'rgb(4, 181, 159)',
-                                            lineWidth: 1
-                                        }];
-                                    }
-                                }
-                            }
-                        }
+                        scales: { y: { beginAtZero: true } },
                     }
                 });
+            }
 
-                const ctxEps = document.getElementById('estudiosEps');
-                new Chart(ctxEps, {
+
+            const ctxEps = document.getElementById('estudiosEps');
+            if (ctxEps) { 
+                if (window.chartEps instanceof Chart) {
+                    window.chartEps.destroy();
+                }
+                
+                window.chartEps = new Chart(ctxEps, {
                     type: 'pie',
                     data: {
                         labels: etiquetasEps,
                         datasets: [{
                             label: 'Estudios por EPS',
                             data: datosEps,
+                            backgroundColor: coloresBarras, 
                         }]
                     }
-                })
-            });
-        </script>
-    @endpush
+                });
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // --- 3. Event Listeners de Livewire ---
+        // ------------------------------------------------------------------
+
+        // 1. Carga Tradicional: Inicializa al cargar la página por primera vez
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarGraficas();
+        });
+
+        // 2. ⚡️ Livewire Navigation (Redirección SPA): Inicializa tras una navegación 'navigate: true' ⚡️
+        document.addEventListener('livewire:navigated', function() {
+            inicializarGraficas();
+        });
+        
+    </script>
+@endpush
 </div>

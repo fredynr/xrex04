@@ -79,6 +79,6 @@ class ReportesController extends Controller
             ->orderByDesc('cantidad_estudios')
             ->get();
 
-        return view('reportes', compact('data', 'dataEps', 'estudiosXspecialist', 'estudiosXtranscriptor'));
+        return view('dashboardReports', compact('data', 'dataEps', 'estudiosXspecialist', 'estudiosXtranscriptor'));
     }
 }

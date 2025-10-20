@@ -5,6 +5,7 @@ namespace App\Livewire\Views;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
+use App\Traits\AuthorizesRole;
 use Exception;
 use App\Models\PatientEstudio;
 
@@ -12,15 +13,14 @@ use App\Models\PatientEstudio;
 class ViewApprove extends Component
 {
     use WithPagination;
+    use AuthorizesRole;
     public $search = "";
     public $estudioId;
     public $singleEstudio;
     public $open = false;
 
 
-    protected $rules = [
-        
-    ];
+    protected $rules = [];
 
     public function activeEdit($estudioId)
     {
@@ -44,13 +44,14 @@ class ViewApprove extends Component
         ]);
         $this->dispatch(
             'notification-classic',
-            mensaje: 'El estudio, del paciente'.' ' . $estudio->patient->name .' ' . 'quedó aprobado',
+            mensaje: 'El estudio, del paciente' . ' ' . $estudio->patient->name . ' ' . 'quedó aprobado',
             tipo: 'success'
         );
     }
 
     public function saveAndApprove($estudioId)
     {
+        $this->authorizeRole(['Especialista', 'admin']);
         try {
             $estudio = PatientEstudio::findOrFail($estudioId);
             $estudio->update([
@@ -79,6 +80,7 @@ class ViewApprove extends Component
 
     public function render()
     {
+        $this->authorizeRole(['Especialista', 'admin']);
         $query = PatientEstudio::with(['transcriberUser', 'specialistUser', 'patient'])
             ->where('study_state', 'Digitado')
             ->where('specialist_user_id', Auth::id());
