@@ -54,40 +54,50 @@
     <div>
         @foreach ($estudios as $estudio)
             <div class="flex flex-wrap bg-white shadow-sm m-8 p-4">
-                <div class="w-full md:w-1/4 m-1 p-2 rounded-lg border-2 bg-emerald-50">
-                    <h2 class="text-stone-600">Estudio realizado:</h2>
-                    <p class="text-sm text-stone-500">{{ $estudio->study_name }}</p>
-                </div>
-                <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
-                    <a href="{{ route('viewer.redirect', ['studyId' => $estudio->study_id_orthanc]) }}" target="_blank"
-                        class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
-                        <img src="{{ asset('images/radiology.svg') }}">
-                        <span class="border-b-2 border-blue-700 text-blue-700">Ver imagen</span>
-                    </a>
-                </div>
-                <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
-                    <a href="{{ route('pdfView', $estudio->id) }}"
-                        class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1"
-                        target="_blank">
-                        <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/file-pdf.svg') }}"
-                            title="descargar PDF">
-                        <span class="border-b-2 border-blue-700 text-blue-700">Descargar PDF</span>
-                    </a>
-                </div>
-                <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
-                    <h2 class="text-stone-600">Fecha de toma del estudio</h2>
-                    <p class="text-sm text-stone-500">
-                        @if ($estudio->date_realized)
-                            {{ $estudio->date_realized }}
-                        @else
-                            00-00-0000
+                @if ($estudio->study_state === 'Finalizado')
+                    <div class="w-full md:w-1/4 m-1 p-2 rounded-lg border-2 bg-emerald-50">
+                        <h2 class="text-stone-600">Estudio realizado:</h2>
+                        <p class="text-sm text-stone-500">{{ $estudio->study_name }}</p>
+                    </div>
+                    <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
+                        <a href="{{ route('viewer.redirect', ['studyId' => $estudio->study_id_orthanc]) }}"
+                            target="_blank"
+                            class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1">
+                            <img src="{{ asset('images/radiology.svg') }}">
+                            <span class="border-b-2 border-blue-700 text-blue-700">Ver imagen</span>
+                        </a>
+                    </div>
+                    <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
+                        <a href="{{ route('pdfView', $estudio->id) }}"
+                            class="cursor-pointer block border border-transparent hover:border-gray-400 focus:outline-none rounded-lg p-[3px] m-1"
+                            target="_blank">
+                            <img class="max-w-[20px] min-w-[20px]" src="{{ asset('images/file-pdf.svg') }}"
+                                title="descargar PDF">
+                            <span class="border-b-2 border-blue-700 text-blue-700">Descargar PDF</span>
+                        </a>
+                    </div>
+                    <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
+                        <h2 class="text-stone-600">Fecha de toma del estudio</h2>
+                        <p class="text-sm text-stone-500">
+                            @if ($estudio->date_realized)
+                                {{ $estudio->date_realized }}
+                            @else
+                                00-00-0000
+                            @endif
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
+                        <h2 class="text-stone-600">Especialista</h2>
+                        @if ($estudio->specialistUser?->name)
+                            <p class="text-sm text-stone-500">Doctor: {{ $estudio->specialistUser->name }}</p>
                         @endif
-                    </p>
-                </div>
-                <div class="w-full md:w-1/6 m-1 p-2 rounded-lg border-2 bg-emerald-50">
-                    <h2 class="text-stone-600">Especialista</h2>
-                    <p class="text-sm text-stone-500">Doctor: {{ $estudio->specialistUser->name }}</p>
-                </div>
+                    </div>
+                @else
+                    <div class="min-w-full md:w-1/4 m-1 p-2 rounded-lg border-2 bg-stone-100">
+                        <h2 class="text-stone-600">Aún no tenemos resultados para el estudio:</h2>
+                        <p class="text-sm text-stone-500">{{ $estudio->study_name }}</p>
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>

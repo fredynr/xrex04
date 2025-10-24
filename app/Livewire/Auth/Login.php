@@ -61,12 +61,11 @@ class Login extends Component
         $user = Auth::user();
 
         if ($user instanceof \App\Models\Patient) {
-            $this->redirectIntended('/patient-dashboard', navigate: true);
+            $this->redirect(route('patient.dashboard'), navigate: true);
         } elseif ($user->role === 'Administrativo') {
-            $this->redirectIntended('/dashboard-reports', navigate: true);
-
+            $this->redirect('/dashboard-reports', navigate: true);
         } else {
-            $this->redirectIntended('/xrex', navigate: true);
+            $this->redirect('/xrex', navigate: true);
         }
         Session::regenerate();
     }

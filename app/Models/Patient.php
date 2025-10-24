@@ -12,7 +12,7 @@ class Patient extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\PatientFactory> */
     use HasFactory;
-
+    
     protected $fillable = [
         'name',
         'sexo',
@@ -22,6 +22,7 @@ class Patient extends Authenticatable
         'phone',
         'birth',
         'email',
+        'role',
         'password'
     ];
     protected $hidden = ['password'];

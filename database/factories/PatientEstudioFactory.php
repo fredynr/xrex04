@@ -146,6 +146,7 @@ class PatientEstudioFactory extends Factory
                 'Paciente refiere nódulo palpable en cuadrante superior externo.',
                 'Estudio de control post-biopsia realizado según protocolo.'
             ]),
+            'study_id_orthanc' => 'xxx123456xxxx',
             'reading' => $faker->paragraph(),
             'specialist_user_id' => User::where('role', 'Especialista')->inRandomOrder()->first()->id,
             'transcriber_user_id' => User::where('role', 'Transcriptor')->inRandomOrder()->first()->id,
@@ -156,6 +157,7 @@ class PatientEstudioFactory extends Factory
             'date_transcriber' => $date_transcriber,
             'date_finalized' => $date_finalized,
             'user_id' => User::inRandomOrder()->first()->id,
+            'specialist_user_id' => User::inRandomOrder()->first()->id,
             'priority' => $faker->randomElement(['Baja', 'Normal', 'Alta']),
             'created_at' => now(),
             'updated_at' => now(),

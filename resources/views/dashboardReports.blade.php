@@ -7,7 +7,7 @@
             <div>
                 <div>
                     <span>Vamos a:</span>
-                    <a href="{{ route('xrex') }}" class="block mt-2 p-2 rounded-xl border-1 text-center hover:bg-white hover:text-stone-600">Generar reportes</a>
+                    <a href="{{ route('xrex') }}" class="block mt-2 p-2 rounded-xl border-1 text-center hover:bg-white hover:text-stone-600 z-1">Generar reportes</a>
                 </div>
             </div>
             <img src="{{ asset('images/cartoon.svg') }}" class="absolute bottom-0 right-0">
