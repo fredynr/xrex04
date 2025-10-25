@@ -10,11 +10,11 @@
             <td>
                 <h2 style="color: #333;">Resultados DICOM</h2>
                 <p style="font-size: 16px; color: #555;">
-                    {{ $bodyText }}
+                    {!! $bodyText !!}
                 </p>
                 <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
                 <p style="font-size: 14px; color: #777;">
-                    Los previews DICOM han sido generados y se adjuntan a este correo.
+                    Gracias por confiar en nosotros
                 </p>
                 <p style="font-size: 14px; color: #777;">
                     Gracias,<br>

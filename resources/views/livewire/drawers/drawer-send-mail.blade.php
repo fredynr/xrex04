@@ -32,11 +32,21 @@
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Destinatario</label>
                                         <input wire:model.defer="patientEmail" type="text" id="email"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Título de tu nueva plantilla" required />
+                                            required />
                                     </div>
-                                    <button type="submit"
+                                    <button type="submit" wire:loading.remove
                                         class="w-full mt-3 cursor-pointer px-3 py-2 text-xs font-medium text-center text-blue-700 rounded-lg bg-blue-800/20 hover:bg-blue-800 hover:text-stone-50 outline-1 outline-offset-2 ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         Enviar Correo
+                                    </button>
+                                    <button wire:loading wire:target="enviarMail"
+                                        class="w-full px-3 py-2 ring-sky-600 ring-offset-sky-700 rounded-lg bg-blue-800/10 outline-1 outline-offset-2">
+                                        <svg class="animate-spin h-6 w-6 text-blue-600 w-6 h-6 block mx-auto"
+                                            viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                            <circle cx="50" cy="50" r="45" stroke="currentColor"
+                                                stroke-width="10" opacity="0.2" />
+                                            <path d="M50 5a45 45 0 0 1 0 90" stroke="currentColor" stroke-width="10"
+                                                stroke-linecap="round" />
+                                        </svg>
                                     </button>
                                 </form>
 

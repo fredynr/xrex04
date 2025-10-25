@@ -131,8 +131,8 @@
                             <img class="max-w-[20px] min-w-[20px]" src="images/sendMail.svg">
                         </button>
                         @if ($showDrawerSendMail && $estudioId == $estudio->id)
-                            <livewire:drawers.drawer-send-mail :patientEmail="$estudio->patient->email" :patientName="$estudio->patient->name" :estudioId="$estudio->id"
-                                :studyID="$estudio->study_id_orthanc" />
+                            <livewire:drawers.drawer-send-mail :patientEmail="$estudio->patient->email" :estudioId="$estudio->id"
+                                :studyID="$estudio->study_id_orthanc" :patient_id="$estudio->patient->id" />
                         @endif
                     </td>
                 </tr>

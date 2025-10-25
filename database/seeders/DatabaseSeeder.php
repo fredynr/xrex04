@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
          'created_at' => now()
       ]);
       // pacientes
+      //1
       DB::table('patients')->insert([
          'name' => 'ANA DIVA SALAZAR',
          'sexo' => 'F',
@@ -78,6 +79,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'anadiva@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //2
       DB::table('patients')->insert([
          'name' => 'ANTONIO LUIS QUINTRO',
          'sexo' => 'M',
@@ -90,6 +92,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'antonio@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //3
       DB::table('patients')->insert([
          'name' => 'Edwar Javier Calderon',
          'sexo' => 'M',
@@ -102,6 +105,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'edwar@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //4
       DB::table('patients')->insert([
          'name' => 'CRISTIAN ALBERTO SOLANO',
          'sexo' => 'M',
@@ -114,7 +118,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'cristian@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
-      
+      //5
       DB::table('patients')->insert([
          'name' => 'Doe Augusta',
          'sexo' => 'F',
@@ -127,7 +131,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'doe@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
-      
+      //6
       DB::table('patients')->insert([
          'name' => 'ELIXANDER GONZALEZ CARRASCAL',
          'sexo' => 'M',
@@ -140,6 +144,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'elixander@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //7
       DB::table('patients')->insert([
          'name' => 'JANETH CECILIA',
          'sexo' => 'F',
@@ -152,6 +157,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'janeth@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //8
       DB::table('patients')->insert([
          'name' => 'JERONIMO GALVIS',
          'sexo' => 'M',
@@ -164,6 +170,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'jeronimo@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //9
       DB::table('patients')->insert([
          'name' => 'JUAN SEBASTIAN GARCIA',
          'sexo' => 'M',
@@ -176,6 +183,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'jsebastian@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //10
       DB::table('patients')->insert([
          'name' => 'KIARA SARAY DIAZ',
          'sexo' => 'F',
@@ -188,6 +196,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'kiara@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
+      //11
       DB::table('patients')->insert([
          'name' => 'MATIAS JAIME MORALES',
          'sexo' => 'M',
@@ -200,7 +209,7 @@ class DatabaseSeeder extends Seeder
          'email' => 'matias@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
-      
+      //12
       DB::table('patients')->insert([
          'name' => 'TORCOROMA SANTOS',
          'sexo' => 'F',
@@ -213,31 +222,32 @@ class DatabaseSeeder extends Seeder
          'email' => 'torcoroma@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
-      DB::table('patients')->insert([
-         'name' => 'DAVID TORRES',
-         'sexo' => 'M',
-         'document' => '1034285266',
-         'type_document' => 'CC',
-         'direction' => 'patio bonito 888 #87-77',
-         'phone' => '3009876543',
-         'birth' => '2000-01-01',
-         'role' => 'Paciente',
-         'email' => 'david@mail.com',
-         'password' => Hash::make('Xx123456'),
-      ]);
-
-      DB::table('patients')->insert([
-         'name' => 'PACIENTE SIN ESTUDIOS',
-         'sexo' => 'M',
-         'document' => '123456789',
-         'type_document' => 'CC',
-         'direction' => 'este paciente tiene un examen pero no tiene estudios',
-         'phone' => '3001234567',
-         'birth' => '2000-01-01',
-         'role' => 'Paciente',
-         'email' => 'nulo@mail.com',
-         'password' => Hash::make('Xx123456'),
-      ]);
+      //13
+      // DB::table('patients')->insert([
+      //    'name' => 'DAVID TORRES',
+      //    'sexo' => 'M',
+      //    'document' => '1034285266',
+      //    'type_document' => 'CC',
+      //    'direction' => 'patio bonito 888 #87-77',
+      //    'phone' => '3009876543',
+      //    'birth' => '2000-01-01',
+      //    'role' => 'Paciente',
+      //    'email' => 'david@mail.com',
+      //    'password' => Hash::make('Xx123456'),
+      // ]);
+      //14
+      // DB::table('patients')->insert([
+      //    'name' => 'PACIENTE SIN ESTUDIOS',
+      //    'sexo' => 'M',
+      //    'document' => '123456789',
+      //    'type_document' => 'CC',
+      //    'direction' => 'este paciente tiene un examen pero no tiene estudios',
+      //    'phone' => '3001234567',
+      //    'birth' => '2000-01-01',
+      //    'role' => 'Paciente',
+      //    'email' => 'nulo@mail.com',
+      //    'password' => Hash::make('Xx123456'),
+      // ]);
 
 
       // Patient::factory(35)->create();
@@ -373,23 +383,23 @@ class DatabaseSeeder extends Seeder
          'departure_place_id' => 2,
          'exam_state' => 'Realizado'
       ]);
-      DB::table('exams')->insert([
-         'remision' => 'RMDOE0013',
-         'patient_id' => 13,
-         'eps_sender_id' => 2,
-         'user_id' => 1,
-         'departure_place_id' => 2,
-         'exam_state' => 'Realizado'
-      ]);
+      // DB::table('exams')->insert([
+      //    'remision' => 'RMDOE0013',
+      //    'patient_id' => 13,
+      //    'eps_sender_id' => 2,
+      //    'user_id' => 1,
+      //    'departure_place_id' => 2,
+      //    'exam_state' => 'Realizado'
+      // ]);
 
-      DB::table('exams')->insert([
-         'remision' => 'RMDOE0014',
-         'patient_id' => 14,
-         'eps_sender_id' => 2,
-         'user_id' => 1,
-         'departure_place_id' => 2,
-         'exam_state' => 'Realizado'
-      ]);
+      // DB::table('exams')->insert([
+      //    'remision' => 'RMDOE0014',
+      //    'patient_id' => 14,
+      //    'eps_sender_id' => 2,
+      //    'user_id' => 1,
+      //    'departure_place_id' => 2,
+      //    'exam_state' => 'Realizado'
+      // ]);
       // Exam::factory(500)->create();
 
 
@@ -552,17 +562,17 @@ class DatabaseSeeder extends Seeder
          'created_at' => now()
       ]);
       // //13 DAVID TORRES
-      DB::table('patient_estudios')->insert([
-         'study_name' => 'UNKNOWN',
-         'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
-         'study_id_orthanc' => '85516dea-f7759362-7f201f9a-b42fdc2c-fa46894d',
-         'study_state' => 'Realizado',
-         'exam_id' => 13,
-         'patient_id' => 13,
-         'user_id' => 2,
-         'priority' => 'Alta',
-         'created_at' => now()
-      ]);
+      // DB::table('patient_estudios')->insert([
+      //    'study_name' => 'UNKNOWN',
+      //    'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
+      //    'study_id_orthanc' => '85516dea-f7759362-7f201f9a-b42fdc2c-fa46894d',
+      //    'study_state' => 'Realizado',
+      //    'exam_id' => 13,
+      //    'patient_id' => 13,
+      //    'user_id' => 2,
+      //    'priority' => 'Alta',
+      //    'created_at' => now()
+      // ]);
       PatientEstudio::factory(1000)->create();
    }
 }

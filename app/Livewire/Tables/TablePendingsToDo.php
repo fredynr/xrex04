@@ -110,6 +110,7 @@ class TablePendingsToDo extends Component
                 $response = curl_exec($ch);
                 curl_close($ch);
                 $data = json_decode($response, true);
+                
                 if (isset($data["MainDicomTags"]["StudyDescription"])) {
                     $study = new \stdClass();
                     $study->id = $data["ID"];
@@ -117,7 +118,11 @@ class TablePendingsToDo extends Component
                     $studiesCollection[] = $study;
                     $this->studiesToView = $studiesCollection;
                 } else {
-                    $this->studyName = "El Nuevo DICOM no tiene nombre de estudio";
+                    $study = new \stdClass();
+                    $study->id = $data["ID"];
+                    $study->description = "El Nuevo DICOM no tiene nombre de estudio";
+                    $studiesCollection[] = $study;
+                    $this->studiesToView = $studiesCollection;
                 }
             }
         } else {
@@ -144,7 +149,7 @@ class TablePendingsToDo extends Component
                     $study->description = $studyDescription;
                     $studiesCollection[] = $study;
                 } else {
-                    dd($data);
+                    // dd($data);
                     $this->studyName = $studyDescription;
                 }
             }
