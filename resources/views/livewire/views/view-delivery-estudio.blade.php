@@ -92,7 +92,7 @@
             @foreach ($estudios as $estudio)
                 <tr class="text-neutral-600 text-xs bg-neutral-50 h-10 hover:bg-slate-200">
                     <td class="px-2 text-sm font-medium whitespace-nowrap">
-                        {{ $estudio->patient->name }}
+                        {{ $estudio->patient->name }} {{ $estudio->patient->name }}
                     </td>
                     <td class="px-2 whitespace-nowrap">
                         {{ $estudio->created_at->format('d/m/Y H:i') }}

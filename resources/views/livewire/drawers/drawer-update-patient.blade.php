@@ -19,7 +19,7 @@
                                             EDITAR DATOS DEL PACIENTE
                                         </h2>
                                         <div class="text-sm text-gray-500 dark:text-gray-400">
-                                            {{ $patientName }}
+                                            {{ $patientName }} {{ $patient->first_surname }}
                                         </div>
                                     </div>
                                 </div>
@@ -28,25 +28,55 @@
                                 <div class="flex flex-col items-center justify-center w-full">
                                     <form wire:submit.prevent="updatePatient" class="w-80 text-gray-900">
                                         <label for="patient-name"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                                        <input type="text" wire:model.defer="patientName" id="patient-name"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2">
+                                            class="block mb-1 text-sm text-gray-900 dark:text-white">Primer
+                                            Nombre</label>
+                                        <input type="text"
+                                            oninput="this.value = this.value.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z]/g, '');"
+                                            wire:model.defer="patientName" id="patient-name"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mb-2">
+                                        <label for="patient-middlename"
+                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Segundo
+                                            Nombre</label>
+                                        <input type="text"
+                                            oninput="this.value = this.value.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z]/g, '');"
+                                            wire:model.defer="patientMiddlename" id="patient-middlename"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mb-2">
+                                        <label for="patient-surname"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Primer
+                                            Apellido</label>
+                                        <input type="text"
+                                            oninput="this.value = this.value.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z]/g, '');"
+                                            wire:model.defer="patientSurname" id="patient-surname"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mb-2">
+                                        <label for="patient-lastname"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Segundo
+                                            Apellido</label>
+                                        <input type="text"
+                                            oninput="this.value = this.value.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z]/g, '');"
+                                            wire:model.defer="patientLastname" id="patient-lastname"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mb-2">
+
                                         <label for="patient-direction"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dirección</label>
                                         <input type="text" wire:model.defer="patientDirection" id="patient-direction"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2">
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mb-2">
                                         <label for="patient-email"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                         <input type="email" wire:model.defer="patientEmail" id="patient-email"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2">
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mb-2">
+                                        @error('patientEmail')
+                                            <p class="mt-2 text-xs text-red-600">
+                                                {{ $message }} </p>
+                                        @enderror
                                         <label for="patient-phone"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Teléfono</label>
                                         <input type="text" wire:model.defer="patientPhone" id="patient-phone"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2">
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 mb-2">
                                         <label for="patient-birth"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha
+                                            class="block mb-2 text-xs font-medium text-gray-900 dark:text-white">Fecha
                                             de nacimiento</label>
-                                        <input type="date" wire:model.defer="patientBirth" id="patient-birth">
+                                        <input type="date" wire:model.defer="patientBirth" id="patient-birth"
+                                            class="border-1 p-2">
                                         <button type="submit"
                                             class="w-full mt-3 cursor-pointer px-3 py-2 text-xs font-medium text-center text-blue-700 rounded-lg bg-blue-800/20 hover:bg-blue-800 hover:text-stone-50 outline-1 outline-offset-2 ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Guardar Cambios

@@ -86,7 +86,7 @@
                     <tr wire:key="visible-{{ $estudio->id }}"
                         class="w-full text-green-600 text-xs bg-slate-300 h-10 hover:bg-slate-200">
                         <td class="pl-2">
-                            <b class="text-stone-600">{{ $estudio->patient->name }}</b>
+                            <b class="text-stone-600">{{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}</b>
                         </td>
                         <td class="px-2 whitespace-nowrap">
                             {{ $estudio->created_at->format('d/m/Y H:i') }}

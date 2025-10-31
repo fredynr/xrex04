@@ -79,7 +79,7 @@
                                         {{ $estudio->specialistUser->name ?? 'N/A' }}
                                     </td>
                                     <td class="w-[20%] px-6 py-4 whitespace-nowrap">
-                                        {{ $estudio->patient->name ?? 'N/A' }}
+                                        {{ $estudio->patient->name ?? 'N/A' }} {{ $estudio->patient->first_surname ?? 'N/A' }}
                                     </td>
                                     <td class="px-6 py-4 w-[40%] truncate overflow-hidden whitespace-nowrap"
                                         title="{{ $estudio->study_name }}">

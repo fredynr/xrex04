@@ -43,7 +43,7 @@
             @foreach ($estudiosReturned as $estudio)
                 <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
                     wire:key="estudio-{{ $estudio->id }}">
-                    <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }}</td>
+                    <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }} {{ $exam->patient->first_surname }}</td>
                     <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->patient->age }}</td>
                     <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->patient->document }}
                     </td>

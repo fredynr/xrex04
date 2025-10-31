@@ -23,7 +23,7 @@
                                         NOMBRE DEL PACIENTE
                                     </h2>
                                     <div class="flex text-sm text-gray-500">
-                                        <span class="ml-1">{{ $patient->name }}</span>
+                                        <span class="ml-1">{{ $patient->name }} {{ $patient->first_surname }}</span>
                                     </div>
                                 </div>
                             </div>

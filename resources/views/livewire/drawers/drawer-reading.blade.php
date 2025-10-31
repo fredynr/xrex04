@@ -21,7 +21,7 @@
                                         src="{{ asset('images/patient.svg') }}">
                                     <div class="font-medium dark:text-white">
                                         <h2 class="text-lg uppercase font-semibold text-gray-900">
-                                            {{ $this->studyFinder->patient->name }}
+                                            {{ $this->studyFinder->patient->name }} {{ $this->studyFinder->patient->first_surname }}
                                         </h2>
                                         <div class="text-sm text-gray-500 dark:text-gray-400">
                                             EDAD {{ $this->studyFinder->patient->age }} AÑOS

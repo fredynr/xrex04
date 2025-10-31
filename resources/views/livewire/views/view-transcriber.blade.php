@@ -157,7 +157,7 @@
                                         </template>
                                     </button>
                                 <td class="px-5 text-sm font-medium whitespace-nowrap">
-                                    {{ $estudio->patient->name }}</td>
+                                    {{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}</td>
                                 <td class="px-5 whitespace-nowrap">{{ $estudio->patient->age }} años</td>
                                 <td class="px-5 whitespace-nowrap">{{ $estudio->patient->document }}</td>
                                 <td class="max-w-40 px-5 overflow-hidden text-ellipsis whitespace-nowrap truncate"

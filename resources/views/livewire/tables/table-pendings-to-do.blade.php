@@ -48,7 +48,7 @@
             @foreach ($exams as $exam)
                 <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
                     wire:key="exam-{{ $exam->id }}">
-                    <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $exam->patient->name }}</td>
+                    <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $exam->patient->name }} {{ $exam->patient->first_surname }}</td>
                     <td class="px-2 whitespace-nowrap">{{ $exam->created_at }}</td>
                     <td class="px-2 whitespace-nowrap">{{ $exam->patient->age }} años</td>
                     <td class="px-2 whitespace-nowrap">{{ $exam->patient->document }}</td>
@@ -89,7 +89,6 @@
                                         xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960"
                                         width="40px" fill="#0ea5e9">
                                         <path d="m280-400 200-200.67L680-400H280Z" />
-                                    </svg>
                                     </svg>
 
                                     <button class="w-full rounded-sm" wire:click="closeDrawerStudyTech">

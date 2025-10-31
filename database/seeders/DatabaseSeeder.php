@@ -68,157 +68,165 @@ class DatabaseSeeder extends Seeder
       // pacientes
       //1
       DB::table('patients')->insert([
-         'name' => 'ANA DIVA SALAZAR',
+         'name' => 'ANA',
+         'middle_name' => 'DIVA',
+         'first_surname' => 'SALAZAR',
          'sexo' => 'F',
          'document' => '37321957',
          'type_document' => 'CC',
          'direction' => 'Carrera 202 #49-50',
          'phone' => '3009876543',
          'birth' => '1966-03-09',
-         'role' => 'Paciente',
          'email' => 'anadiva@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //2
       DB::table('patients')->insert([
-         'name' => 'ANTONIO LUIS QUINTRO',
+         'name' => 'ANTONIO',
+         'middle_name' => 'LUIS',
+         'first_surname' => 'QUINTRO',
          'sexo' => 'M',
          'document' => '5453475',
          'type_document' => 'CC',
          'direction' => 'Carrera 202 #49-50',
          'phone' => '3009876543',
          'birth' => '1978-11-09',
-         'role' => 'Paciente',
          'email' => 'antonio@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //3
       DB::table('patients')->insert([
-         'name' => 'Edwar Javier Calderon',
+         'name' => 'EDWAR',
+         'middle_name' => 'JAVIER',
+         'first_surname' => 'CALDERON',
          'sexo' => 'M',
          'document' => '123496739',
          'type_document' => 'CC',
          'direction' => 'Carrera 202 #49-50',
          'phone' => '3009876543',
          'birth' => '1995-04-06',
-         'role' => 'Paciente',
          'email' => 'edwar@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //4
       DB::table('patients')->insert([
-         'name' => 'CRISTIAN ALBERTO SOLANO',
+         'name' => 'CRISTIAN',
+         'middle_name' => 'ALBERTO',
+         'first_surname' => 'SOLANO',
          'sexo' => 'M',
          'document' => '1091664795',
          'type_document' => 'CC',
          'direction' => 'Carrera 202 #49-50',
          'phone' => '3009876543',
          'birth' => '1990-08-04',
-         'role' => 'Paciente',
          'email' => 'cristian@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //5
       DB::table('patients')->insert([
-         'name' => 'Doe Augusta',
+         'name' => 'DOE',
+         'first_surname' => 'AUGUSTA', 
          'sexo' => 'F',
          'document' => '85123652',
          'type_document' => 'CC',
          'direction' => 'Calle 1 # 2-3',
          'phone' => '3001234567',
          'birth' => '1990-01-01',
-         'role' => 'Paciente',
          'email' => 'doe@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //6
       DB::table('patients')->insert([
-         'name' => 'ELIXANDER GONZALEZ CARRASCAL',
+         'name' => 'ELIXANDER',
+         'first_surname' => 'GONZALEZ',
+         'secund_lastname' => 'CARRASCAL',
          'sexo' => 'M',
          'document' => '88285222',
          'type_document' => 'CC',
          'direction' => 'Carrera 202 #49-50',
          'phone' => '3009876543',
          'birth' => '1978-11-09',
-         'role' => 'Paciente',
          'email' => 'elixander@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //7
       DB::table('patients')->insert([
-         'name' => 'JANETH CECILIA',
+         'name' => 'JANETH',
+         'first_surname' => 'CECILIA',
          'sexo' => 'F',
          'document' => '37366751',
          'type_document' => 'CC',
          'direction' => 'CLLE 10 #89-50',
          'phone' => '3009876543',
          'birth' => '1990-08-04',
-         'role' => 'Paciente',
          'email' => 'janeth@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //8
       DB::table('patients')->insert([
-         'name' => 'JERONIMO GALVIS',
+         'name' => 'JERONIMO',
+         'first_surname' => 'GALVIS',
          'sexo' => 'M',
          'document' => '1092184006',
          'type_document' => 'CC',
          'direction' => 'Transversal 02 #4-60',
          'phone' => '3009876543',
          'birth' => '2012-08-19',
-         'role' => 'Paciente',
          'email' => 'jeronimo@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //9
       DB::table('patients')->insert([
-         'name' => 'JUAN SEBASTIAN GARCIA',
+         'name' => 'JUAN',
+         'middle_name' => 'SEBASTIAN',
+         'first_surname' => 'GARCIA',
          'sexo' => 'M',
          'document' => '1092185274',
          'type_document' => 'CC',
          'direction' => 'Barrio alto 56bis #00-50',
          'phone' => '3009876543',
          'birth' => '2013-12-14',
-         'role' => 'Paciente',
          'email' => 'jsebastian@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //10
       DB::table('patients')->insert([
-         'name' => 'KIARA SARAY DIAZ',
+         'name' => 'KIARA',
+         'middle_name' => 'SARAY',
+         'first_surname' => 'DIAZ',
          'sexo' => 'F',
          'document' => '18904108',
          'type_document' => 'CC',
          'direction' => 'CALLE LA PERSEBERANCIA 82 #99-54',
          'phone' => '3009876543',
          'birth' => '2016-02-10',
-         'role' => 'Paciente',
          'email' => 'kiara@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //11
       DB::table('patients')->insert([
-         'name' => 'MATIAS JAIME MORALES',
+         'name' => 'MATIAS',
+         'middle_name' => 'JAIME',
+         'first_surname' => 'MORALES',
          'sexo' => 'M',
          'document' => '1091670642',
          'type_document' => 'CC',
          'direction' => 'Barrio el peñol 98 #55-59',
          'phone' => '3009876543',
          'birth' => '2011-12-16',
-         'role' => 'Paciente',
          'email' => 'matias@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
       //12
       DB::table('patients')->insert([
-         'name' => 'TORCOROMA SANTOS',
+         'name' => 'TORCOROMA',
+         'first_surname' => 'SANTOS',
          'sexo' => 'F',
          'document' => '37325081',
          'type_document' => 'CC',
          'direction' => 'Carrera 202 #49-50',
          'phone' => '3009876543',
          'birth' => '1972-08-15',
-         'role' => 'Paciente',
          'email' => 'torcoroma@mail.com',
          'password' => Hash::make('Xx123456'),
       ]);
@@ -573,6 +581,6 @@ class DatabaseSeeder extends Seeder
       //    'priority' => 'Alta',
       //    'created_at' => now()
       // ]);
-      PatientEstudio::factory(1000)->create();
+      // PatientEstudio::factory(1000)->create();
    }
 }

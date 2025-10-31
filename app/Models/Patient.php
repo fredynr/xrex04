@@ -15,6 +15,9 @@ class Patient extends Authenticatable
     
     protected $fillable = [
         'name',
+        'middle_name',
+        'first_surname',
+        'secund_lastname',
         'sexo',
         'document',
         'type_document',
@@ -22,7 +25,6 @@ class Patient extends Authenticatable
         'phone',
         'birth',
         'email',
-        'role',
         'password'
     ];
     protected $hidden = ['password'];

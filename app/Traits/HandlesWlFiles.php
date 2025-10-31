@@ -32,7 +32,7 @@ trait HandlesWlFiles
         $orthancPath = 'C:\\OrthancWorklist\\' . basename($wlPath);
         rename($wlPath, $orthancPath);
 
-        session()->flash('success', 'Worklist generado y enviado a Orthanc con exito');
-        $this->reset();
+        session()->flash('success', 'Genial: se ha agregado una nueva solicitud a la lista de trabajo');
+        $this->reset('search');
     }
 }

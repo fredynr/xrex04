@@ -304,7 +304,7 @@
                                 </div>
                                 <div class="right-head">
                                     <div class="right-head-head">
-                                        <h2>{{ $estudio->patient->name }}</h2>
+                                        <h2>{{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}</h2>
                                         <span>Documento {{ $estudio->patient->type_document }} :
                                             {{ $estudio->patient->document }}</span>
                                     </div>

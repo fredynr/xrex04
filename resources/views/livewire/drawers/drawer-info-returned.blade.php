@@ -21,7 +21,7 @@
                                         </h2>
                                         <div class="text-sm text-gray-500 dark:text-gray-400">
                                             <span class="font-semibold">Paciente:</span>
-                                            {{ $patientEstudio->patient->name }}
+                                            {{ $patientEstudio->patient->name }} {{ $patientEstudio->first_surname }}
                                         </div>
                                     </div>
                                 </div>

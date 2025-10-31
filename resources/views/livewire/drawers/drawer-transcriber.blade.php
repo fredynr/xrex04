@@ -28,7 +28,7 @@
                                 Nombre del paciente
                             </h2>
                             <div class="text-base">
-                                {{ $estudio->patient->name }}
+                                {{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}
                             </div>
                         </div>
                         <div class="relative mt-6 px-1 w-full">

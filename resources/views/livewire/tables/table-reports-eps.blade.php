@@ -79,8 +79,8 @@
                                 {{ $estudio->exam->remision }}
                             </td>
                             <td class="w-[25%] py-2 px-5 text-sm truncate overflow-hidden whitespace-nowrap"
-                                title="{{ $estudio->patient->name }}">
-                                {{ $estudio->patient->name }}
+                                title="{{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}">
+                                {{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}
                             </td>
                             <td class="w-[10%] px-5 text-sm truncate overflow-hidden whitespace-nowrap"
                                 title="{{ $estudio->date_realized }}">

@@ -58,7 +58,6 @@ class DrawerStudyTech extends Component
 
     public function store()
     {
-        // dd($this->all());
         $this->validate();
 
         DB::beginTransaction();

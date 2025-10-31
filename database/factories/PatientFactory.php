@@ -18,6 +18,7 @@ class PatientFactory extends Factory
     {
         return [
             'name'  => fake()->name(),
+            'first_surname' => fake()->lastName(),
             'sexo' => $this->faker->randomElement(['M','F']),
             'document'  => $this->faker->numberBetween($min = 79000000, $max = 79111111),
             'type_document' => $this->faker->randomElement(['cc','ti','te']),

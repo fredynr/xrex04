@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('middle_name')->nullable();
+            $table->string('first_surname');
+            $table->string('secund_lastname')->nullable();
             $table->string('sexo');
             $table->string('document', 12)->unique();
             $table->char('type_document', 2)->default('CC');
             $table->string('direction');
             $table->string('phone', 10);
             $table->date('birth');
-            $table->string('role');
             $table->string('email')->unique();
             $table->string('password'); 
             $table->timestamps();

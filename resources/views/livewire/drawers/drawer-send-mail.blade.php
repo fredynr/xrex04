@@ -19,7 +19,7 @@
                                         ESTUDIO DEL PACIENTE:
                                     </h2>
                                     <div class="text-sm text-gray-500 dark:text-gray-400">
-                                        <span class="font-semibold">{{ $patientName }}</span>
+                                        <span class="font-semibold">{{ $patientName }} {{ $patientSurname }}</span>
                                     </div>
                                 </div>
                             </div>

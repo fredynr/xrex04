@@ -3,13 +3,16 @@
 namespace App\Livewire\Drawers;
 
 use Livewire\Component;
-use Livewire\Attributes\On;
+use Illuminate\Validation\Rule;
 use App\Models\Patient;
 
 class DrawerUpdatePatient extends Component
 {
     public $patient;
     public $patientName;
+    public $patientMiddlename;
+    public $patientSurname;
+    public $patientLastname;
     public $patientDirection;
     public $patientEmail;
     public $patientPhone;
@@ -18,7 +21,11 @@ class DrawerUpdatePatient extends Component
     public function mount($patientId)
     {
         $this->patient = Patient::findOrFail($patientId);
+
         $this->patientName = $this->patient->name;
+        $this->patientMiddlename = $this->patient->middle_name;
+        $this->patientSurname = $this->patient->first_surname;
+        $this->patientLastname = $this->patient->secund_lastname;
         $this->patientDirection = $this->patient->direction;
         $this->patientEmail = $this->patient->email;
         $this->patientPhone = $this->patient->phone;
@@ -34,13 +41,22 @@ class DrawerUpdatePatient extends Component
     {
         $validated = $this->validate([
             'patientName' => 'required|string|max:255',
+            'patientSurname' => 'required|string|max:255',
             'patientDirection' => 'nullable|string|max:255',
-            'patientEmail' => 'nullable|email|max:255',
+            // 'patientEmail' => 'nullable|email|max:255',
             'patientPhone' => 'nullable|string|max:20',
             'patientBirth' => 'nullable|date',
+            'patientEmail' => [
+                'required',
+                'email',
+                Rule::unique('patients', 'email')->ignore($this->patient->id),
+            ],
         ]);
         $this->patient->update([
             'name' => $validated['patientName'],
+            'middle_name' => $this->patientMiddlename,
+            'first_surname' => $validated['patientSurname'],
+            'secund_lastname' => $this->patientLastname,
             'direction' => $validated['patientDirection'],
             'email' => $validated['patientEmail'],
             'phone' => $validated['patientPhone'],

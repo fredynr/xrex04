@@ -232,7 +232,7 @@ $watch('showProcedencia', value => localStorage.setItem('showProcedenciaState', 
                 @foreach ($estudios as $estudio)
                     <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
                         wire:key="study-{{ $estudio->id }}">
-                        <td class="px-5 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }}</td>
+                        <td class="px-5 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}</td>
                         <td x-show="showFecha" class="px-5 whitespace-nowrap">
                             {{ $estudio->created_at->translatedFormat('l d \d\e F Y') }}
                         </td>

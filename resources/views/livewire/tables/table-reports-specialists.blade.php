@@ -81,7 +81,7 @@
                                         {{ \Carbon\Carbon::parse($estudio->date_finalized)->format('d/m/Y') }}
                                     </td>
                                     <td class="w-[20%] px-6 py-4 whitespace-nowrap truncate overflow-hidden whitespace-nowrap" title="{{ $estudio->patient->name }}">
-                                        {{ $estudio->patient->name ?? 'N/A' }}
+                                        {{ $estudio->patient->name ?? 'N/A' }} {{ $estudio->patient->first_surname ?? 'N/A' }}
                                     </td>
                                     <td class="px-6 py-4 w-[30%] truncate overflow-hidden whitespace-nowrap"
                                         title="{{ $estudio->study_name }}">

@@ -15,6 +15,7 @@ class DrawerSendMail extends Component
 {
     public $patientEmail;
     public $patientName;
+    public $patientSurname;
     public $estudioId;
     public $studyID;
     public $patientDocument;
@@ -26,6 +27,7 @@ class DrawerSendMail extends Component
         $this->patientEmailUser = $patient->email;
         $this->patientEmail = $patientEmail;
         $this->patientName = $patient->name;
+        $this->patientSurname = $patient->first_surname;
         $this->estudioId = $estudioId;
         $this->studyID = $studyID;
         $this->patientDocument = $patient->document;

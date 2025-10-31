@@ -12,9 +12,10 @@ trait HandlesWlText
         return "{$root}.{$timestamp}.{$random}";
     }
 
-    public function generateWlText(string $aet, $patientID, $patientName, $scheduledDate, $scheduledTime, $procedure)
+    public function generateWlText(string $aet, $patientID, $patientName, $scheduledDate, $scheduledTime, $procedure, string $accessionNumber)
     {
         $uid = $this->generateDicomUid();
+        $studyInstanceUID = $this->generateDicomUid();
         $spsId = 'SPS_' . $patientID;
         $procedureId = 'PROC_' . $patientID;
         $wlText = <<<EOT
@@ -22,6 +23,9 @@ trait HandlesWlText
 (0008,0018) UI [{$uid}]
 (0010,0010) PN [{$patientName}]
 (0010,0020) LO [{$patientID}]
+(0008,0050) SH [{$accessionNumber}]
+(0020,000D) UI [{$studyInstanceUID}]
+(0008,1030) LO [{$procedure}]
 (0040,0100) SQ
 (fffe,e000) na
 (0008,0060) CS [CT]
@@ -32,6 +36,7 @@ trait HandlesWlText
 (0040,0009) SH [{$spsId}]
 (0040,1001) SH [{$procedureId}]
 (0040,1002) LO [{$procedure}]
+(0032,1060) SH [{$accessionNumber}]
 (0040,1003) SH [Routine]
 (fffe,e00d) na
 (fffe,e0dd) na
