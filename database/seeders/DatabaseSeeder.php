@@ -410,14 +410,64 @@ class DatabaseSeeder extends Seeder
       // ]);
       // Exam::factory(500)->create();
 
+      // 1
+      DB::table('list_estudios')->insert([
+         'name' => 'DESCONOCIDO',
+      ]);
+      // 2
+      DB::table('list_estudios')->insert([
+         'name' => 'LOW_EXM, RODILLA',
+      ]);
+      // 3
+      DB::table('list_estudios')->insert([
+         'name' => 'EXTREMIDADES SUPERIORES,EXTREMIDADES INFERIORES'
+      ]);
+      // 4
+      DB::table('list_estudios')->insert([
+         'name' => 'CHEST, TORAX FRN PA',
+      ]);
+      // 5
+      DB::table('list_estudios')->insert([
+         'name' => 'REQ/PAPERWORK',
+      ]);
+      // 6
+      DB::table('list_estudios')->insert([
+         'name' => 'MR Abdomen with Gadolinium',
+      ]);
+      // 7
+      DB::table('list_estudios')->insert([
+         'name' => 'PELVIS, COL.LUMBAR',
+      ]);
+      // 8
+      DB::table('list_estudios')->insert([
+         'name' => 'UP_EXM, MANO',
+      ]);
+      // 9
+      DB::table('list_estudios')->insert([
+         'name' => 'CHEST, CLAVICULA',
+      ]);
+      // 10
+      DB::table('list_estudios')->insert([
+         'name' => 'HEAD, CRANEO,LAT',
+      ]);
+      // 11
+      DB::table('list_estudios')->insert([
+         'name' => 'CUP_EXM, CODO, FRN',
+      ]);
+      // 12
+      DB::table('list_estudios')->insert([
+         'name' => 'PELVIS, COL.LUMBAR',
+      ]);
+
 
       //1 ANA DIVA
       DB::table('patient_estudios')->insert([
-         'study_name' => null,
+         'study_name' => 'UNKNOWN BD',
          'tech_description' => null,
          'study_id_orthanc' => null,
          'study_state' => 'Solicitado',
          'exam_id' => 1,
+         'list_estudio_id' => 1,
          'patient_id' => 1,
          'user_id' => 2,
          'priority' => 'Normal',
@@ -425,11 +475,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // //2 ANTONIO LUIS QUINTRO
       DB::table('patient_estudios')->insert([
-         'study_name' => null,
+         'study_name' => 'LOW_EXM, RODILLA BD',
          'tech_description' => null,
          'study_id_orthanc' => null,
          'study_state' => 'Solicitado',
          'exam_id' => 2,
+         'list_estudio_id' => 2,
          'patient_id' => 2,
          'user_id' => 2,
          'priority' => 'Alta',
@@ -437,11 +488,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // //3 EDWAR JAVIER CALDERON
       DB::table('patient_estudios')->insert([
-         'study_name' => null,
+         'study_name' => 'EXTREMIDADES SUPERIORES,EXTREMIDADES INFERIORES BD',
          'tech_description' => null,
          'study_id_orthanc' => null,
          'study_state' => 'Solicitado',
          'exam_id' => 3,
+         'list_estudio_id' => 3,
          'patient_id' => 3,
          'user_id' => 2,
          'priority' => 'Normal',
@@ -449,11 +501,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // //4 CRISTIAN ALBERTO SOLANO
       DB::table('patient_estudios')->insert([
-         'study_name' => null,
+         'study_name' => 'CHEST, TORAX FRN PA BD',
          'tech_description' => null,
          'study_id_orthanc' => null,
          'study_state' => 'Solicitado',
          'exam_id' => 4,
+         'list_estudio_id' => 4,
          'patient_id' => 4,
          'user_id' => 2,
          'priority' => 'Normal',
@@ -461,11 +514,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // //5 DOE
       DB::table('patient_estudios')->insert([
-         'study_name' => null,
+         'study_name' => 'REQ/PAPERWORK BD',
          'tech_description' => null,
          'study_id_orthanc' => null,
          'study_state' => 'Solicitado',
          'exam_id' => 5,
+         'list_estudio_id' => 5,
          'patient_id' => 5,
          'user_id' => 2,
          'priority' => 'Normal',
@@ -473,11 +527,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // // 5 DOE
       DB::table('patient_estudios')->insert([
-         'study_name' => null,
+         'study_name' => 'MR Abdomen with Gadolinium BD',
          'tech_description' => null,
          'study_id_orthanc' => null,
          'study_state' => 'Solicitado',
          'exam_id' => 5,
+         'list_estudio_id' => 6,
          'patient_id' => 5,
          'user_id' => 2,
          'priority' => 'Normal',
@@ -487,11 +542,12 @@ class DatabaseSeeder extends Seeder
       //desde aquí para el especialista
       // // 6 ELIXANDER GONZALEZ CARRASCAL
       DB::table('patient_estudios')->insert([
-         'study_name' => 'PELVIS, COL.LUMBAR',
+         'study_name' => 'PELVIS, COL.LUMBAR BD',
          'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
          'study_id_orthanc' => '70e6be7f-0a3781ec-59d1bfd9-1b32fc31-7598d857',
          'study_state' => 'Realizado',
          'exam_id' => 6,
+         'list_estudio_id' => 7,
          'patient_id' => 6,
          'user_id' => 2,
          'priority' => 'Alta',
@@ -499,11 +555,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // // 7 JANETH CECILIA
       DB::table('patient_estudios')->insert([
-         'study_name' => 'UNKNOWN',
+         'study_name' => 'UNKNOWN BD',
          'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
          'study_id_orthanc' => '4fdfa9a2-2304a3ff-886914ea-fa465acf-00e5abea',
          'study_state' => 'Realizado',
          'exam_id' => 7,
+         'list_estudio_id' => 1,
          'patient_id' => 7,
          'user_id' => 2,
          'priority' => 'Alta',
@@ -511,11 +568,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // // 8 JERONIMO GALVIS
       DB::table('patient_estudios')->insert([
-         'study_name' => 'UP_EXM, MANO',
+         'study_name' => 'UP_EXM, MANO BD',
          'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
          'study_id_orthanc' => 'd0c79d2b-c84f54da-a7753954-ab2d2586-52bd73bc',
          'study_state' => 'Realizado',
          'exam_id' => 8,
+         'list_estudio_id' => 8,
          'patient_id' => 8,
          'user_id' => 2,
          'priority' => 'Baja',
@@ -528,6 +586,7 @@ class DatabaseSeeder extends Seeder
          'study_id_orthanc' => '6ecfab12-82c7e46c-1b4d31d0-ac65e078-e78045b1',
          'study_state' => 'Realizado',
          'exam_id' => 9,
+         'list_estudio_id' => 9,
          'patient_id' => 9,
          'user_id' => 2,
          'priority' => 'Alta',
@@ -535,11 +594,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // // 10 KIARA SARAY DIAZ
       DB::table('patient_estudios')->insert([
-         'study_name' => 'HEAD, CRANEO,LAT',
+         'study_name' => 'HEAD, CRANEO,LAT BD',
          'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
          'study_id_orthanc' => 'c5b9cdc3-1795d2f2-1df51083-4b1c7113-23bae46d',
          'study_state' => 'Realizado',
          'exam_id' => 10,
+         'list_estudio_id' => 10,
          'patient_id' => 10,
          'user_id' => 2,
          'priority' => 'Alta',
@@ -547,11 +607,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // //11 MATIAS JAIME MORALES
       DB::table('patient_estudios')->insert([
-         'study_name' => 'UP_EXM, CODO, FRN',
+         'study_name' => 'UP_EXM, CODO, FRN BD',
          'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
          'study_id_orthanc' => '08ea8510-4034bc84-a088350e-3bec6e03-ff9b7766',
          'study_state' => 'Realizado',
          'exam_id' => 11,
+         'list_estudio_id' => 11,
          'patient_id' => 11,
          'user_id' => 2,
          'priority' => 'Alta',
@@ -559,11 +620,12 @@ class DatabaseSeeder extends Seeder
       ]);
       // //12 TORCOROMA SANTOS
       DB::table('patient_estudios')->insert([
-         'study_name' => 'PELVIS, COL.LUMBAR',
+         'study_name' => 'PELVIS, COL.LUMBAR BD',
          'tech_description' => 'Se observa alineación ósea conservada sin desplazamientos anómalos. La estructura cortical mantiene su integridad sin evidencia de fracturas. Espacios articulares de apariencia normal, sin signos de estrechamiento o alteraciones degenerativas. No se identifican cuerpos extraños ni calcificaciones patológicas. Tejidos blandos sin anomalías visibles',
          'study_id_orthanc' => 'f9464959-ba00192f-289c26ed-d9d77596-68936617',
          'study_state' => 'Realizado',
          'exam_id' => 12,
+         'list_estudio_id' => 12,
          'patient_id' => 12,
          'user_id' => 2,
          'priority' => 'Alta',

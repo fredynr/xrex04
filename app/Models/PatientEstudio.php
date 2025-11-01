@@ -19,11 +19,13 @@ class PatientEstudio extends Model
         'study_name',
         'tech_description',
         'study_id_orthanc',
+        'accession_number',
         'reading',
         'study_state',
         'priority',
         'reason_for_return',
         'exam_id',
+        'list_estudio_id',
         'patient_id',
         'user_id',
         'specialist_user_id',
@@ -46,6 +48,11 @@ class PatientEstudio extends Model
     //Relación uno a uno con User
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Relación uno a uno con ListEstudio
+    public function listEstudio(){
+        return $this->belongsTo(ListEstudio::class, 'list_estudio_id');
     }
 
     //Relación uno a uno specialist_user_id con user

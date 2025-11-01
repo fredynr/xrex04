@@ -66,12 +66,8 @@ class DrawerStudyTech extends Component
                 'tech_description' => $this->techDescription,
                 'study_id_orthanc' => $this->orthancID,
                 'study_state' => 'Realizado',
-                'exam_id' => $this->examId,
-                'patient_id' => $this->patientId,
-                'user_id' => Auth::id(),
                 'specialist_user_id' => $this->especialista,
                 'priority' => $this->priority,
-                'study_name' => $this->studyName,
                 'date_realized' => now(),
             ]);
             if ($this->remision != null) {

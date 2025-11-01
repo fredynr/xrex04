@@ -17,10 +17,15 @@ return new class extends Migration
             $table->string('image_referral')->nullable();
             $table->text('tech_description')->nullable();
             $table->string('study_id_orthanc')->nullable();
+            $table->string('accession_number')->nullable();
             $table->text('reading')->nullable();
             $table->string('study_state')->nullable();
             $table->string('priority', 20)->nullable();
             $table->text('reason_for_return')->nullable();
+
+            $table->unsignedBigInteger('list_estudio_id');
+            $table->index('list_estudio_id');
+            $table->foreign('list_estudio_id')->references('id')->on('list_estudios');
 
             $table->unsignedBigInteger('exam_id');
             $table->index('exam_id');

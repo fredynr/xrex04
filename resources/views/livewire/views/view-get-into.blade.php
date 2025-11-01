@@ -33,10 +33,18 @@
                             <div class="mb-5">
                                 <label for="procedure" class="block mb-2 text-sm font-medium text-gray-900">
                                     * Nombre del estudio</label>
-                                <input type="text" wire:model="procedure" placeholder="Nombre del estudio"
+                                    <select id="procedure" wire:model="procedure"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required>
+                                    <option value="" disabled selected>--Selecciona--</option>
+                                    @foreach ($listEstudios as $listEstudio)
+                                        <option value="{{ $listEstudio->id }}">{{ $listEstudio->name }}</option>
+                                    @endforeach
+                                    </select>
+                                {{-- <input type="text" wire:model="procedure" placeholder="Nombre del estudio"
                                     id="procedure"
                                     class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
-                                    autocomplete="off" required>
+                                    autocomplete="off" required> --}}
                             </div>
                             <div class="relative min-w-[430px] border-1 p-4">
                                 <div class="relative w-1/4 -top-7 bg-stone-50 text-center">
@@ -89,7 +97,6 @@
                                         autocomplete="off">
                                 </div>
                             </div>
-                            {{-- fin de campos necesarios para worklist --}}
                         </div>
                         <div>
                             <div class="mb-5">
@@ -99,7 +106,7 @@
                                 <select id="type_document" wire:model="type_document"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
-                                    <option selected>Seleccione</option>
+                                    <option value="" disabled selected>--Selecciona--</option>
                                     <option value="CC">Cédula</option>
                                     <option value="TI">Tarjeta de identidad</option>
                                     <option value="TE">Tarjeta de extranjería</option>
@@ -112,7 +119,7 @@
                                 <select id="sexo" wire:model="sexo"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
-                                    <option selected>Seleccione</option>
+                                    <option value="" disabled selected>Seleccione</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Femenino</option>
                                 </select>
@@ -170,7 +177,7 @@
                                 <select id="eps_sender_id" wire:model="eps_sender_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
-                                    <option selected>Seleccione EPS</option>
+                                    <option value="" disabled selected>--Seleccione EPS--</option>
                                     @foreach ($epsSenders as $epsSender)
                                         <option value="{{ $epsSender->id }}">{{ $epsSender->name }}</option>
                                     @endforeach
@@ -183,9 +190,10 @@
                                 <select id="departure_place_id" wire:model="departure_place_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
-                                    <option selected>Procedencia</option>
+                                    <option value="" disabled selected>--Procedencia--</option>
                                     @foreach ($departure_places as $departure_place)
-                                        <option value="{{ $departure_place->id }}">{{ $departure_place->name }}
+                                        <option value="{{ $departure_place->id }}">
+                                            {{ $departure_place->name }}
                                         </option>
                                     @endforeach
                                 </select>

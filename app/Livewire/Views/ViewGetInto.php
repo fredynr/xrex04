@@ -15,7 +15,9 @@ use App\Traits\HandlesWlText;
 use App\Traits\HandlesWlFiles;
 use App\Models\Patient;
 use App\Models\Exam;
+use App\Models\PatientEstudio;
 use App\Models\EpsSender;
+use App\Models\ListEstudio;
 use App\Models\DeparturePlace;
 
 class ViewGetInto extends Component
@@ -24,6 +26,14 @@ class ViewGetInto extends Component
     use HandlesWlFiles;
     use HandlesOrthancStudy;
     use HandlesOrthancAuth;
+
+    public function getAccessionNumberProperty()
+    {
+        return date('YmdHis') . rand(100, 999);
+    }
+
+    // si el accessionNumber se va proporcionar por el formulario se debe eliminar la funcion getAccessionNumberProperty() y quitar la referencia en el mount()
+    public $accessionNumber;
     public $eat = 'MODALITY_AET';
     public string $patient_name = '';
     public string $patient_middle_name = '';
@@ -31,12 +41,13 @@ class ViewGetInto extends Component
     public string $patient_secund_lastname = '';
     public string $patient_id = ''; //ducumento
     public string $procedure = '';
+    public ListEstudio $estudioList;
     public string $scheduled_date = '';
     public string $scheduled_time = '';
 
     public string $remision = '';
-    public $eps_sender_id;
-    public $departure_place_id;
+    public $eps_sender_id = '';
+    public $departure_place_id = '';
 
     public string $sexo = '';
     public string $type_document = '';
@@ -64,6 +75,7 @@ class ViewGetInto extends Component
     {
         $this->scheduled_date = Carbon::now()->format('Ymd');
         $this->scheduled_time = Carbon::now()->format('His');
+        $this->accessionNumber = $this->getAccessionNumberProperty();
     }
 
     public function resetear()
@@ -92,7 +104,7 @@ class ViewGetInto extends Component
             'patient_name' => 'required|string',
             'patient_first_surname' => 'required|string',
             'patient_id' => 'required|string',
-            'procedure' => 'required|string',
+            'procedure' => 'required',
             'scheduled_date' => 'required|date',
             'scheduled_time' => 'required',
             'email' => [
@@ -102,6 +114,7 @@ class ViewGetInto extends Component
             ],
         ]);
         try {
+            $this->estudioList = ListEstudio::find($this->procedure);
             $patient = Patient::create([
                 'name' => $this->patient_name,
                 'middle_name' => $this->patient_middle_name,
@@ -124,18 +137,26 @@ class ViewGetInto extends Component
                 'departure_place_id' => $this->departure_place_id,
                 'exam_state' => 'Solicitado'
             ]);
+            $estudio = PatientEstudio::create([
+                'study_name' => $this->estudioList->name,
+                'accession_number' => $this->accessionNumber,
+                'study_state' => 'Solicitado',
+                'list_estudio_id' => $this->estudioList->id,
+                'exam_id' => $exam->id,
+                'patient_id' => $patient->id,
+                'user_id' => Auth::id(),
+            ]);
 
             $this->examId = $exam->id;
             $this->patientId = $patient->id;
-
             $givenName = trim($this->patient_name . '^' . $this->patient_middle_name, '^');
             $familyName = trim($this->patient_first_surname . '^' . $this->patient_secund_lastname, '^');
             $dicomPatientName = $familyName . '^' . $givenName;
             $finalDicomName = preg_replace('/(\^+)/', '^', $dicomPatientName);
             $finalDicomName = trim($finalDicomName, '^');
-            $accessionNumber = $patient->document . date('YmdHis');
 
-            $wlText = $this->generateWlText($this->eat, $patient->document, $finalDicomName, $this->scheduled_date, $this->scheduled_time, $this->procedure, $accessionNumber);
+
+            $wlText = $this->generateWlText($this->eat, $patient->document, $finalDicomName, $this->scheduled_date, $this->scheduled_time, $this->estudioList->name, $this->accessionNumber);
             $this->generateAndMoveWorklist($patient->document, $wlText);
         } catch (\Exception $e) {
             Log::error("Error al guardar paciente: " . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
@@ -145,13 +166,12 @@ class ViewGetInto extends Component
     }
 
     // crea nuevo worklist para ser asignado a examen existente, al escoger el estudio en la tabla
-    public function generateWorklistOldExam( $examId )
+    public function generateWorklistOldExam($examId)
     {
         $this->examId = $examId;
-        $accessionNumber = $this->patientData->document . date('YmdHis');
         $this->patient_name = $this->patientData->name;
         $this->patient_id = $this->patientData->document;
-        $wlText = $this->generateWlText($this->eat, $this->patient_id, $this->patient_name, $this->scheduled_date, $this->scheduled_time, $this->procedure, $accessionNumber);
+        $wlText = $this->generateWlText($this->eat, $this->patient_id, $this->patient_name, $this->scheduled_date, $this->scheduled_time, $this->estudioList->name, $this->accessionNumber);
         $this->generateAndMoveWorklist($this->patient_id, $wlText);
         $this->showBoxOldExam = true;
     }
@@ -170,12 +190,10 @@ class ViewGetInto extends Component
                 'departure_place_id' => $this->departure_place_id,
                 'exam_state' => 'Solicitado'
             ]);
-            $accessionNumber = $this->patientData->document . date('YmdHis');
-            $wlText = $this->generateWlText($this->eat, $this->patient_id, $this->patient_name, $this->scheduled_date, $this->scheduled_time, $this->procedure, $accessionNumber);
+            $wlText = $this->generateWlText($this->eat, $this->patient_id, $this->patient_name, $this->scheduled_date, $this->scheduled_time, $this->estudioList->name, $this->accessionNumber);
             $this->generateAndMoveWorklist($this->patientData->document, $wlText);
             $this->examId = $exam->id;
             $this->showBoxOldPatient = true;
-            
         } catch (\Exception $e) {
             Log::error("Error en generateWlOldPatient: " . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             session()->flash('error', 'Ocurrió un error al intentar guardar el registro. Inténtalo de nuevo.');
@@ -312,7 +330,8 @@ class ViewGetInto extends Component
     public function render()
     {
         $epsSenders = EpsSender::all();
+        $listEstudios = ListEstudio::all();
         $departure_places = DeparturePlace::all();
-        return view('livewire.views.view-get-into', compact('epsSenders', 'departure_places'));
+        return view('livewire.views.view-get-into', compact('epsSenders', 'departure_places', 'listEstudios'));
     }
 }
