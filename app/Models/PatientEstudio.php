@@ -15,25 +15,7 @@ class PatientEstudio extends Model
 ];
 
 
-    protected $fillable = [
-        'study_name',
-        'tech_description',
-        'study_id_orthanc',
-        'accession_number',
-        'reading',
-        'study_state',
-        'priority',
-        'reason_for_return',
-        'exam_id',
-        'list_estudio_id',
-        'patient_id',
-        'user_id',
-        'specialist_user_id',
-        'transcriber_user_id',
-        'study_parent_id',
-        'date_audio',
-        'date_transcriber'
-    ];
+    protected $guarded = [];
 
     //Relación uno a uno con Exam
     public function exam(){

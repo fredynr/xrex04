@@ -1,9 +1,7 @@
 <div>
     <div class="flex h-screen">
-        <div x-data="{ mover: false}" 
-        class="bg-cyan-700 h-100dvh relative">
-            <button @click="mover = !mover"
-                class="rounded-full bg-cyan-500 absolute top-4 -right-3 cursor-pointer">
+        <div x-data="{ mover: false }" class="bg-cyan-700 h-100dvh relative">
+            <button @click="mover = !mover" class="rounded-full bg-cyan-500 absolute top-4 -right-3 cursor-pointer">
                 <img src="{{ asset('images/doubleChevron.svg') }}">
             </button>
             @livewire('components.sidebar')
@@ -52,6 +50,10 @@
 
                 @case('views.view-prueba')
                     @livewire('views.view-prueba')
+                @break
+
+                @case('views.view-all-estudios')
+                    @livewire('views.view-all-estudios')
                 @break
 
                 @default

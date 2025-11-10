@@ -70,3 +70,6 @@ ORTHANC_PASSWORD="S3gur1dad180#"
 
 DICOM_VIEWER=osimis
 VIEWER_BASE_URL=http://147.93.47.51:8042/osimis-viewer/app/index.html
+
+RIS_AET_EAT="MODALITY_AET"
+RIS_DCMTK_DUMP2DCM_PATH="/usr/bin/dump2dcm"

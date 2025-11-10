@@ -4,7 +4,7 @@
             <tr class="text-neutral-800">
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
-                        Nombre
+                        Paciente
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
@@ -15,6 +15,11 @@
                 <th class="px-5 py-3 text-xs text-left uppercase">
                     <span class="flex items-center">
                         Identificación
+                    </span>
+                </th>
+                <th class="px-5 py-3 text-xs text-left uppercase">
+                    <span class="flex items-center">
+                        Estudio
                     </span>
                 </th>
                 <th class="px-5 py-3 text-xs text-left uppercase">
@@ -43,10 +48,11 @@
             @foreach ($estudiosReturned as $estudio)
                 <tr class="text-neutral-600 text-xs bg-neutral-50 hover:bg-slate-200"
                     wire:key="estudio-{{ $estudio->id }}">
-                    <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }} {{ $exam->patient->first_surname }}</td>
+                    <td class="px-2 text-sm font-medium whitespace-nowrap">{{ $estudio->patient->name }} {{ $estudio->patient->first_surname }}</td>
                     <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->patient->age }}</td>
                     <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->patient->document }}
                     </td>
+                    <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->study_name }}</td>
                     <td class="px-2 text-sm whitespace-nowrap">
                         {{ $estudio->specialistUser->name ?? 'Sin asignar' }}</td>
                     <td class="px-2 text-sm whitespace-nowrap">{{ $estudio->study_state }}</td>

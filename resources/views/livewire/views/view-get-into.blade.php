@@ -33,14 +33,14 @@
                             <div class="mb-5">
                                 <label for="procedure" class="block mb-2 text-sm font-medium text-gray-900">
                                     * Nombre del estudio</label>
-                                    <select id="procedure" wire:model="procedure"
+                                <select id="procedure" wire:model="procedure"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
                                     <option value="" disabled selected>--Selecciona--</option>
                                     @foreach ($listEstudios as $listEstudio)
                                         <option value="{{ $listEstudio->id }}">{{ $listEstudio->name }}</option>
                                     @endforeach
-                                    </select>
+                                </select>
                                 {{-- <input type="text" wire:model="procedure" placeholder="Nombre del estudio"
                                     id="procedure"
                                     class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
@@ -134,7 +134,8 @@
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">
                                     * email
                                 </label>
-                                <input type="email" wire:model="email" placeholder="correo electrónico" id="email"
+                                <input type="email" wire:model="email" placeholder="correo electrónico"
+                                    id="email"
                                     class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
                                     autocomplete="off" required>
                                 @error('email')
@@ -203,12 +204,14 @@
 
                     <button type="submit"
                         class="w-full mt-3 cursor-pointer px-3 py-2 text-xs font-medium text-center text-blue-700 rounded-lg bg-blue-800/20 hover:bg-blue-800 hover:text-stone-50 outline-1 outline-offset-2 ring-blue-300">
-                        Hacer ingreso con documento #:<span class="text-green-600 underline">{{ $search }}</span>
+                        Hacer ingreso con documento #:<span
+                            class="text-green-600 underline">{{ $search }}</span>
                     </button>
                 </form>
             </div>
             @endif
 
+            {{-- este if queda aquí para que se muestre el mensaje si no hay nada en el cuadro de busqueda --}}
             @if (strlen($search) === 0 && !$examId && !$showBoxOldExam)
                 <div class="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
                     <div class="text-gray-500 text-lg mb-2">
@@ -219,13 +222,15 @@
                 </div>
             @endif
 
+            {{-- si el usuario seleccionó un paciente en el cuadro de busqueda le muestra los exámenes para que puede crear nuevo estudio o nuevo exam --}}
             @if ($patientData && !$showBoxOldExam && !$showBoxOldPatient && !$showBoxOldExam)
                 <div class="flex justify-around flex-wrap">
                     <div>
+                        {{-- el box de la info del paciente con el boton de drawerUpdatePatient --}}
                         <div
                             class="relative flex w-full p-4 max-w-lg flex-col rounded-lg bg-white shadow-sm border border-slate-200 my-6">
                             <div class="flex items-center gap-4 text-slate-800">
-                                <img src="{{ asset('images/patient.svg') }}" alt="Tania Andrew"
+                                <img src="{{ asset('images/patient.svg') }}"
                                     class="relative inline-block h-[58px] w-[58px] !rounded-full  object-cover object-center" />
                                 <div class="flex w-full flex-col">
                                     <div class="flex items-center justify-between">
@@ -261,6 +266,7 @@
                             @endif
 
                         </div>
+                        {{-- los boxes de los exam que le pertenecen a este paciente --}}
                         <div>
                             @foreach ($patientData->exams as $exam)
                                 <div class="mb-2 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
@@ -278,21 +284,34 @@
                                         </h5>
                                     </div>
                                     <ul class="h-[100px] mb-3 font-normal text-gray-500 overflow-y-auto">
-                                        <div class="text-xs text-stone-400">Estudios enviados al doctor</div>
+                                        <div class="text-xs text-stone-400">Otros estudios</div>
                                         @foreach ($exam->patientEstudios as $patientEstudio)
-                                            <li class="text-sm">{{ $patientEstudio->study_name }}</li>
+                                            <li class="flex p-1 text-xs hover:bg-teal-50">
+                                                <div class="w-90 truncate overflow-hidden whitespace-nowrap">{{ $patientEstudio->listEstudio->name }}</div>
+                                                <div title="{{ $patientEstudio->date_realized ?? 'No se ha realizdo' }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#04b59f"><path d="M212.31-100Q182-100 161-121q-21-21-21-51.31v-535.38Q140-738 161-759q21-21 51.31-21h55.38v-84.61h61.54V-780h303.08v-84.61h60V-780h55.38Q778-780 799-759q21 21 21 51.31v535.38Q820-142 799-121q-21 21-51.31 21H212.31Zm0-60h535.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-375.38H200v375.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM200-607.69h560v-100q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v100Zm0 0V-720v112.31Zm280 210.77q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm-160 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm320 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35ZM480-240q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q494.69-240 480-240Zm-160 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q334.69-240 320-240Zm320 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q654.69-240 640-240Z"/></svg>
+                                                </div>
+                                            </li>
                                         @endforeach
                                     </ul>
                                     <div>
                                         <form wire:submit.prevent="generateWorklistOldExam({{ $exam->id }})">
                                             <div class="mb-1">
-                                                <label for="procedure"
-                                                    class="block text-sm font-medium text-gray-900">
-                                                    Agregar nuevo estudio a esta remisión</label>
-                                                <input type="text" wire:model="procedure"
-                                                    placeholder="Ingresa el nombre del estudio" id="procedure"
-                                                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
-                                                    autocomplete="off" required>
+                                                <div class="mb-5">
+                                                    <label for="procedure"
+                                                        class="block mb-2 text-sm font-medium text-gray-900">
+                                                        * Nombre del estudio</label>
+                                                    <select id="procedure" wire:model="procedure"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        required>
+                                                        <option value="" disabled selected>--Selecciona--
+                                                        </option>
+                                                        @foreach ($listEstudios as $listEstudio)
+                                                            <option value="{{ $listEstudio->id }}">
+                                                                {{ $listEstudio->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                             <button type="submit"
                                                 class="w-full mt-1 cursor-pointer px-3 py-2 text-xs font-medium text-center text-blue-700 rounded-lg bg-blue-800/20 hover:bg-blue-800 hover:text-stone-50 outline-1 outline-offset-2 ring-blue-300">
@@ -305,6 +324,7 @@
                             @endforeach
                         </div>
                     </div>
+                    {{-- el form para un nuevo exam y nuevo estudio con este mismo paciente --}}
                     <div
                         class="flex w-full p-4 max-w-md max-h-[90vh] flex-col rounded-lg bg-white shadow-sm border border-slate-200 my-6">
                         <div class="w-full bg-gray-100 p-4 sm:px-6">
@@ -340,7 +360,7 @@
                                 <select id="eps_sender_id_patient" wire:model="eps_sender_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
-                                    <option selected>Seleccione EPS</option>
+                                    <option value="" disabled selected>Seleccione EPS</option>
                                     @foreach ($epsSenders as $epsSender)
                                         <option value="{{ $epsSender->id }}">{{ $epsSender->name }}</option>
                                     @endforeach
@@ -354,7 +374,7 @@
                                 <select id="departure_place_id_patient" wire:model="departure_place_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
-                                    <option selected>Procedencia</option>
+                                    <option value="" disabled selected>Procedencia</option>
                                     @foreach ($departure_places as $departure_place)
                                         <option value="{{ $departure_place->id }}">{{ $departure_place->name }}
                                         </option>
@@ -362,12 +382,18 @@
                                 </select>
                             </div>
                             <div class="mb-5">
-                                <label for="procedure_patient" class="block mb-2 text-sm font-medium text-gray-900">
-                                    Nombre del estudio</label>
-                                <input type="text" wire:model="procedure" placeholder="Nombre del estudio"
-                                    id="procedure_patient"
-                                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"
-                                    autocomplete="off" required>
+                                <label for="procedure" class="block mb-2 text-sm font-medium text-gray-900">
+                                    * Nombre del estudio</label>
+                                <select id="procedure" wire:model="procedure"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    required>
+                                    <option value="" disabled selected>--Selecciona--
+                                    </option>
+                                    @foreach ($listEstudios as $listEstudio)
+                                        <option value="{{ $listEstudio->id }}">
+                                            {{ $listEstudio->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <button type="submit"
                                 class="w-full mt-3 cursor-pointer px-3 py-2 text-xs font-medium text-center text-blue-700 rounded-lg bg-blue-800/20 hover:bg-blue-800 hover:text-stone-50 outline-1 outline-offset-2 ring-blue-300">
@@ -378,6 +404,7 @@
                 </div>
             @endif
 
+            {{-- muestra el box cuando se llena el formulario de nuevo paciente muestra el box y dentro de este bloque también esta el if vara verificar si es tocnólogo u otro usario --}}
             <div>
                 @if ($patient_name && $examId && !$showBoxOldPatient && !$showBoxOldExam)
                     <div
@@ -401,6 +428,7 @@
                                     </p>
                                 </div>
                             </div>
+                            {{-- cuando se crea un nuevo WL con nuevo paciente y nuevo exam y el auth es Tecnólogo --}}
                             @if (auth()->user()->role === 'Tecnólogo')
                                 <div class="mt-6 text-stone-600">
                                     <div class="mb-4 w-full text-gray-600">
@@ -408,7 +436,7 @@
                                     </div>
                                     <ul>
                                         <li>
-                                            <b class="mr-2">Estudio: </b><span>{{ $procedure }}</span>
+                                            <b class="mr-2">Estudio: </b><span>{{ $estudioList->name }}</span>
                                         </li>
                                     </ul>
                                     <div
@@ -466,11 +494,12 @@
                                         @endif
                                     </div>
                                 </div>
+                                {{-- cuando se crea un nuevo WL con nuevo paciente y nuevo exam y el auth NO ES Tecnólogo --}}
                             @else
                                 <div class="flex flex-col items-center justify-between">
                                     <ul class="w-full rounded-xl border-1 p-2">
                                         <li>
-                                            <b class="mr-2">Estudio: </b><span>{{ $procedure }}</span>
+                                            <b class="mr-2">Estudio: </b><span>{{ $estudioList->name }}</span>
                                         </li>
                                     </ul>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960"
@@ -488,6 +517,8 @@
                     </div>
                 @endif
             </div>
+
+            {{-- muestra el box si en el bloque de arriba el usuario asigna un nuevo estudio a un exam que ya existe --}}
             @if ($showBoxOldExam)
                 <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400">
                     {{ session('success') }}
@@ -516,7 +547,7 @@
                                 </div>
                                 <ul>
                                     <li>
-                                        <b class="mr-2">Estudio: </b><span>{{ $procedure }}</span>
+                                        <b class="mr-2">Estudio: </b><span>{{ $estudioList->name }}</span>
                                     </li>
                                 </ul>
                                 <div
@@ -593,6 +624,8 @@
                     </div>
                 </div>
             @endif
+
+            {{-- muestra el box si en el bloque de arriba el usuario crea un nuevo exam con nuevo estudio paciente ya existe --}}
             @if ($showBoxOldPatient)
                 <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400">
                     {{ session('success') }}
@@ -621,7 +654,7 @@
                                 </div>
                                 <ul>
                                     <li>
-                                        <b class="mr-2">Estudio: </b><span>{{ $procedure }}</span>
+                                        <b class="mr-2">Estudio: </b><span>{{ $estudioList->name }}</span>
                                     </li>
                                 </ul>
                                 <div

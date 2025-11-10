@@ -57,8 +57,7 @@
                                 </a>
                             </div>
                             <div class="flex flex-col items-center justify-center w-full">
-                                <form wire:submit.prevent="store" class="w-80" enctype="multipart/form-data">
-                                    <input type="hidden" wire:model="examId">
+                                <form wire:submit.prevent="update" class="w-80" enctype="multipart/form-data">
                                     <label for="tech_description" class="block mb-2 text-sm font-medium text-gray-900">
                                         Comentar el estudio
                                     </label>

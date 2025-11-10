@@ -22,6 +22,7 @@ class DrawerStudyTech extends Component
     use HandlesOrthancStudy;
     use HandlesOrthancAuth;
 
+    public $estudioId = "";
     public $studyID;
     public $studyName;
     public $orthancID;
@@ -41,8 +42,9 @@ class DrawerStudyTech extends Component
     ];
 
 
-    public function mount($studyId, $examId, $patientId)
+    public function mount($studyId, $examId, $patientId, $estudioId)
     {
+        $this->estudioId = $estudioId;
         $this->orthancID = $studyId;
         $this->examId = $examId;
         $this->patientId = $patientId;
@@ -56,13 +58,14 @@ class DrawerStudyTech extends Component
         $this->dispatch('close-drawer-study-tech');
     }
 
-    public function store()
+    public function update()
     {
+        $estudio = PatientEstudio::find($this->estudioId);
         $this->validate();
 
         DB::beginTransaction();
         try {
-            $newStudy = PatientEstudio::create([
+            $estudio->update([
                 'tech_description' => $this->techDescription,
                 'study_id_orthanc' => $this->orthancID,
                 'study_state' => 'Realizado',
@@ -72,43 +75,43 @@ class DrawerStudyTech extends Component
             ]);
             if ($this->remision != null) {
                 $extensionFile = $this->remision->getClientOriginalExtension();
-                $this->studyID = $newStudy->id;
+                $this->studyID = $this->estudioId;
                 $nameFinalFile = $this->studyID . '.' . $extensionFile;
                 $routeSave = $this->remision->storeAs('remisiones', $nameFinalFile, 'public');
             }
 
             // hago la consulta a orthanc para ver si tiene estudios
-            $document = PatientEstudio::find($newStudy->id)?->patient?->document;
+            // $document = PatientEstudio::find($newStudy->id)?->patient?->document;
             // $document = strval($newStudy->patient->document);
-            $ch = curl_init();
-            $array = [
-                "Level" => "Study",
-                "Query" => [
-                    "PatientID" => $document
-                ]
-            ];
-            $array = json_encode($array);
-            curl_setopt($ch, CURLOPT_URL, 'http://localhost:8042/tools/find');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $array);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $curlResponse = curl_exec($ch);
-            if (curl_errno($ch)) {
-                echo curl_error($ch);
-            } else {
-                $curlResponse = json_decode($curlResponse);
-            }
-            curl_close($ch);
-            $this->estudiosBBDD = $newStudy->patient->patientEstudios()->pluck('study_id_orthanc')->toArray();
-            $curlResponse = is_array($curlResponse) ? $curlResponse : [];
-            $diffEstudios = array_filter($curlResponse, function ($study) {
-                return !in_array($study, $this->estudiosBBDD, true);
-            });
-            if (empty($diffEstudios)) {
-                $exam = Exam::find($this->examId);
-                $exam->update(['exam_state' => 'Realizado']);
-                $this->dispatch('actualizarTablaExams');
-            }
+            // $ch = curl_init();
+            // $array = [
+            //     "Level" => "Study",
+            //     "Query" => [
+            //         "PatientID" => $document
+            //     ]
+            // ];
+            // $array = json_encode($array);
+            // curl_setopt($ch, CURLOPT_URL, 'http://localhost:8042/tools/find');
+            // curl_setopt($ch, CURLOPT_POST, true);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $array);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // $curlResponse = curl_exec($ch);
+            // if (curl_errno($ch)) {
+            //     echo curl_error($ch);
+            // } else {
+            //     $curlResponse = json_decode($curlResponse);
+            // }
+            // curl_close($ch);
+            // $this->estudiosBBDD = $newStudy->patient->patientEstudios()->pluck('study_id_orthanc')->toArray();
+            // $curlResponse = is_array($curlResponse) ? $curlResponse : [];
+            // $diffEstudios = array_filter($curlResponse, function ($study) {
+            //     return !in_array($study, $this->estudiosBBDD, true);
+            // });
+            // if (empty($diffEstudios)) {
+            //     $exam = Exam::find($this->examId);
+            //     $exam->update(['exam_state' => 'Realizado']);
+            //     $this->dispatch('actualizarTablaExams');
+            // }
 
             $this->reset([
                 'techDescription',
@@ -125,7 +128,7 @@ class DrawerStudyTech extends Component
             $this->closeDrawer();
             $this->dispatch(
                 'notification-classic',
-                mensaje:'El estudio:<b>'.' '. $newStudy->study_name .' '.'</b>fue enviado al especialista. Gracias',
+                mensaje:'El estudio:<b>'.' '. $estudio->study_name .' '.'</b>fue enviado al especialista. Gracias',
                 tipo:'success'
             );
         } catch (\Exception $e) {
@@ -133,7 +136,7 @@ class DrawerStudyTech extends Component
             Log::error('Error al crear paciente y examen: ' . $e->getMessage());
             $this->dispatch(
                 'notification-classic',
-                mensaje:'<b>error</b>'.' '.'No se pudo enviar el estudio. Por favor, inténtelo de nuevo o contacte al soporte si el problema persiste.',
+                mensaje:'<b>danger</b>'.' '.'No se pudo enviar el estudio. Por favor, inténtelo de nuevo o contacte al soporte si el problema persiste.',
                 tipo: 'error'
             );
         };

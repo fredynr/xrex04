@@ -3,3 +3,4 @@ window.voiceRecorder = voiceRecorder;
 
 import Chart from 'chart.js/auto'; 
 window.Chart = Chart;
+

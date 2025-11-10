@@ -12,8 +12,8 @@
         x-transition:leave-start="opacity-100 transform translate-y-0"
         x-transition:leave-end="opacity-0 transform translate-y-full" 
         :class="{
-            'bg-green-100 border border-green-400 text-green-700': tipo === 'success',
-            'bg-red-500 text-white': tipo === 'error'
+            'bg-green-100 border-l-4 border-green-500 text-green-700 shadow-xl': tipo === 'success',
+            'bg-red-100 border-l-4 border-red-500 text-red-700 shadow-xl' : tipo === 'danger'
         }"
         class="fixed top-4 right-16 px-4 py-3 rounded">
         <span class="font-normal" x-html="mensaje"></span>
