@@ -23,7 +23,7 @@ trait HandlesWlFiles
      * @param string $exportPath Directorio temporal para la generación (ej: C:\worklist_temp).
      * @throws \Exception Si dump2dcm falla o el archivo no se puede mover.
      */
-    protected function generateAndMoveWorklist(int $patient_id, string $wlText, string $exportPath)
+    protected function HandlesWlFiles(int $patient_id, string $wlText, string $exportPath)
     {
         // Rutas de DCMTK y Orthanc leídas de la configuración
         $dump2dcmPath = config('worklist.dump2dcm_path');
@@ -36,11 +36,6 @@ trait HandlesWlFiles
         $tempTxtPath = $exportPath . DIRECTORY_SEPARATOR . $fileName . '.txt';
         $wlPath = $exportPath . DIRECTORY_SEPARATOR . $fileName . '.wl';
 
-        // 🔑 DIAGNÓSTICO CRÍTICO: Registra el valor de la ruta y si PHP la ve
-        Log::debug("DIAGNÓSTICO RUTA:");
-        Log::debug("Valor de \$exportPath: '{$exportPath}'");
-        Log::debug("Resultado de is_dir(\$exportPath): " . (is_dir($exportPath) ? 'true' : 'false'));
-
         // 1. REFUERZO DE LA VERIFICACIÓN DEL DIRECTORIO (Fix de Windows)
         if (!File::isDirectory($exportPath)) {
             Log::warning("Directorio de exportación no encontrado por Laravel: Intentando crear '{$exportPath}'");
@@ -50,9 +45,6 @@ trait HandlesWlFiles
             }
         }
         
-        // 1. **DEBUGGING CRÍTICO:** Registramos el contenido antes de escribirlo.
-        Log::debug("Contenido WL para depuración: \n" . $wlText);
-
         // 1.5. *CRÍTICO para Windows/DCMTK*: Forzar siempre Unix line endings (\n)
         $wlText = str_replace(["\r\n", "\r"], "\n", $wlText);
 
@@ -63,7 +55,8 @@ trait HandlesWlFiles
         }
 
         // 3. Ejecutar el comando DCMTK para convertir de TXT a DICOM Worklist (.wl)
-        $command = "\"{$dump2dcmPath}\" +w \"{$tempTxtPath}\" \"{$wlPath}\"";
+        // $command = "\"{$dump2dcmPath}\" +w \"{$tempTxtPath}\" \"{$wlPath}\"";
+        $command = "$dump2dcmPath $tempTxtPath $wlPath";
 
         exec($command, $output, $returnCode);
 
@@ -88,10 +81,7 @@ trait HandlesWlFiles
             File::delete($wlPath); // Limpiar el .wl que se generó si falla el movimiento
             throw new \Exception("Error al mover el archivo Worklist a destino final.");
         }
-
         // 5. Limpiar el archivo temporal de texto
         File::delete($tempTxtPath);
-
-        Log::info("Worklist DICOM generado y movido a: {$orthancFinalPath}");
     }
 }
