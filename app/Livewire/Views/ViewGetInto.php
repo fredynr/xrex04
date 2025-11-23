@@ -170,6 +170,7 @@ class ViewGetInto extends Component
     // crea nuevo examen, nuevo estudio nuevo worklist y lo asigna a paciente existente
     public function generateWlOldPatient()
     {
+        $this->accessionNumber = $this->getAccessionNumberProperty();
         try {
             $this->estudioList = ListEstudio::find($this->procedure);
             $this->patient_name = $this->patientData->first_surname . '^' . $this->patientData->name;
@@ -200,6 +201,53 @@ class ViewGetInto extends Component
             Log::error("Error en generateWlOldPatient: " . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             session()->flash('error', 'Ocurrió un error al intentar guardar el registro. Inténtalo de nuevo.');
             return false;
+        }
+    }
+
+    // crea nuevo estudio nuevo worklists para examen existente
+    public function generateWorklistOldExam($examId)
+    {
+        $this->accessionNumber = $this->getAccessionNumberProperty();
+        $exam = Exam::with(['patient', 'patientEstudios'])->find($examId);
+        $listEstudio = ListEstudio::find($this->procedure);
+        $patientID = $exam->patient->document;
+        $patientName = $exam->patient->name;
+
+        $aet = config('worklist.eat', 'MODALITY_AET'); // Lee de config, o usa fallback fijo
+        $exportPath = config('worklist.export_path');
+        $scheduledDate = Carbon::now()->format('Ymd');
+        $scheduledTime = Carbon::now()->format('His');
+        $procedureName = $listEstudio->name;
+        $accessionNumber = $this->accessionNumber;
+
+        try {
+            // 2. Generar el texto del Worklist (usa los valores fijos)
+            $wlText = $this->generateWlText(
+                $aet,
+                $patientID,
+                $patientName,
+                $scheduledDate,
+                $scheduledTime,
+                $procedureName,
+                $accessionNumber
+            );
+
+            // 3. Generar y guardar el archivo Worklist usando el Trait (exec()).
+            $this->HandlesWlFiles($patientID, $wlText, $exportPath);
+            $this->reset();
+            $this->dispatch(
+                'notification-classic',
+                mensaje: 'Worklist generada con éxito!',
+                tipo: 'success'
+            );
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error("Error CRÍTICO al generar Worklist de prueba: " . $e->getMessage());
+
+            $this->dispatch(
+                'notification-classic',
+                mensaje: 'Error CRÍTICO al generar Worklist: ' . $e->getMessage(),
+                tipo: 'danger'
+            );
         }
     }
 
@@ -334,9 +382,18 @@ class ViewGetInto extends Component
     protected function sanitizeDicomString(string $text): string
     {
         $unwanted_array = [
-            'á' => 'A', 'é' => 'E', 'í' => 'I', 'ó' => 'O', 'ú' => 'U',
-            'Á' => 'A', 'É' => 'E', 'Í' => 'I', 'Ó' => 'O', 'Ú' => 'U',
-            'ñ' => 'N', 'Ñ' => 'N',
+            'á' => 'A',
+            'é' => 'E',
+            'í' => 'I',
+            'ó' => 'O',
+            'ú' => 'U',
+            'Á' => 'A',
+            'É' => 'E',
+            'Í' => 'I',
+            'Ó' => 'O',
+            'Ú' => 'U',
+            'ñ' => 'N',
+            'Ñ' => 'N',
             ' ' => '^', // Reemplazamos espacios con ^ (opcional, pero útil para nombres)
         ];
         // Convertimos a mayúsculas y luego reemplazamos caracteres
@@ -357,23 +414,23 @@ class ViewGetInto extends Component
         $procedureSafe = $this->sanitizeDicomString($procedure);
 
         // 1. Construir el Sequence Item (SQ) para asegurar el formato (0040,0100)
-        $sequenceItem = 
+        $sequenceItem =
             "(fffe,e000) na (Item with explicit lenght #=19)" .
             "(0008,0060) CS [CT]" .
             "(0040,0001) AE [{$aet}]" .
             "(0040,0002) DA [{$scheduledDate}]" .
             "(0040,0003) TM [{$scheduledTime}]" .
-            "(0040,0006) PN [{$patientNameSafe}]" . 
+            "(0040,0006) PN [{$patientNameSafe}]" .
             "(0040,0009) SH [{$spsId}]" .
             "(0040,1001) SH [{$procedureId}]" .
-            "(0040,1002) LO [{$procedureSafe}]" . 
+            "(0040,1002) LO [{$procedureSafe}]" .
             "(0032,1060) SH [{$accessionNumber}]" .
             "(0040,1003) SH [Routine]" .
             "(fffe,e00d) na (ItemDelimitationItem for re-encoding)"; // Delimitador de Item
 
         // 2. Integrar el Sequence Item y el resto de la Worklist
         // Usamos concatenación simple en lugar de Heredoc para control total.
-        $wlText = 
+        $wlText =
             "(0008,0005) CS [ISO_IR 100]" .
             "(0008,0016) UI [1.2.840.10008.5.1.4.31]" .
             "(0008,0050) SH [{$accessionNumber}]" .
@@ -389,49 +446,6 @@ class ViewGetInto extends Component
         return trim($wlText);
     }
 
-    public function generateWorklistOldExam( $examId )
-    {
-        $exam = Exam::with(['patient', 'patientEstudios'])->find( $examId );
-        $listEstudio = ListEstudio::find($this->procedure);
-        $patientID = $exam->patient->document;
-        $patientName = $exam->patient->name;
-        
-        $aet = config('worklist.eat', 'MODALITY_AET'); // Lee de config, o usa fallback fijo
-        $exportPath = config('worklist.export_path');
-        $scheduledDate = Carbon::now()->format('Ymd');
-        $scheduledTime = Carbon::now()->format('His');
-        $procedureName = $listEstudio->name;
-        $accessionNumber = $this->accessionNumber;
-
-        try {
-            // 2. Generar el texto del Worklist (usa los valores fijos)
-            $wlText = $this->generateWlText(
-                $aet, 
-                $patientID,
-                $patientName,
-                $scheduledDate,
-                $scheduledTime,
-                $procedureName,
-                $accessionNumber
-            );
-            
-            // 3. Generar y guardar el archivo Worklist usando el Trait (exec()).
-            $this->HandlesWlFiles($patientID, $wlText, $exportPath); 
-            $this->reset();
-            $this->dispatch('notification-classic', 
-                mensaje: 'Worklist generada con éxito!', 
-                tipo: 'success'
-            );
-
-        } catch (\Throwable $e) {
-            \Illuminate\Support\Facades\Log::error("Error CRÍTICO al generar Worklist de prueba: " . $e->getMessage());
-            
-            $this->dispatch('notification-classic', 
-                mensaje: 'Error CRÍTICO al generar Worklist: ' . $e->getMessage(), 
-                tipo: 'danger'
-            );
-        }
-    }
 
 
     public function render()
