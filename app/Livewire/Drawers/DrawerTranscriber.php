@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Drawers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\URL;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PatientEstudio;
@@ -10,6 +12,7 @@ class DrawerTranscriber extends Component
 {
     public $transcription;
     public PatientEstudio $estudio;
+    public $pdfDataUrl = null;
 
     protected $rules = [
         'transcription' => 'required'
@@ -36,6 +39,18 @@ class DrawerTranscriber extends Component
         }
         $this->closeDrawer();
     }
+
+    public function redirectPdf()
+    {
+        $html = view('pdfPreview', [
+            'reading' => $this->transcription,
+            'estudio' => $this->estudio
+        ])->render();
+        $pdf = PDF::loadHtml($html)->setPaper('a4', 'portrait');
+        $pdfBinary = $pdf->output();
+        $this->pdfDataUrl = 'data:application/pdf;base64,' . base64_encode($pdfBinary);
+    }
+
     public function render()
     {
         return view('livewire.drawers.drawer-transcriber');

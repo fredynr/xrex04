@@ -22,6 +22,7 @@ Route::view('patient-dashboard', 'layouts/layout-patient')
 Route::middleware(['multiguard'])->group(function () {
     Route::get('pdfView/{estudioId}', [PatientEstudioController::class, 'pdfView'])->name('pdfView');
     Route::get('downloadPdf/{estudioId}', [PatientEstudioController::class, 'downloadPdf'])->name('downloadPdf');
+    Route::get('pdfPreview/{estudioId}', [PatientEstudioController::class, 'pdfPreview'])->name('pdfPreview');
     Route::get('/viewer/{studyId}', [OrthancViewerController::class, 'redirectToviewer'])->name('viewer.redirect');
 });
 

@@ -15,7 +15,7 @@ class PatientEstudioController extends Controller
     {
         $desdePdf = false;
         $estudio = PatientEstudio::with(['patient', 'specialistUser', 'exam.departurePlace'])
-        ->findOrFail($estudioId);
+            ->findOrFail($estudioId);
         return view('pdfView', [
             'estudio' => $estudio,
             'desdePdf' => $desdePdf
@@ -39,5 +39,18 @@ class PatientEstudioController extends Controller
         return $pdf->stream('studio_' . $estudioId . '.pdf');
     }
 
-   
+    public function pdfPreview($estudioId)
+    {
+        $reading = session('pdf_transcription');
+        $estudio = PatientEstudio::with(['patient', 'specialistUser', 'exam.epsSender', 'exam.departurePlace'])
+            ->find($estudioId);
+        $logoPath = public_path('images/logoIPS.png');
+        $logoBase64 = 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath));
+        $pdf = Pdf::setOptions([
+            'isHtml5ParserEnabled' => true,
+        ])
+            ->loadView('pdfPreview', compact('reading', 'logoBase64', 'estudio'))
+            ->setPaper('letter', 'portrait');
+            return $pdf->stream('studio_' . $estudioId . '.pdf');
+    }
 }
